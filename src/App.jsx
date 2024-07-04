@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Dashboard from "./userPages/Dashboard";
 import ClientPage from "./pages/ClientPage";
 import ClientProfile from "./pages/ClientProfile";
+import EventPage from "./pages/EventPage";
 
 const theme = createTheme({
   palette: {
@@ -27,8 +28,9 @@ function App() {
           </Route>
 
           <Route path="/client/*" element={<ClientAppLayout />}>
-            <Route path="" element={<ClientPage />} />
+            <Route path="*" element={<ClientPage />} />
             <Route path="profile" element={<ClientProfile />} />
+            <Route path="events" element={<EventPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
