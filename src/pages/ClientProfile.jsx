@@ -1,6 +1,27 @@
 import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import BookSlots from "../components/BookSlots";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const ClientProfile = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[300px] relative bottom-16 left-8">
@@ -75,7 +96,10 @@ const ClientProfile = () => {
             <label className="block text-gray-700">
               Availability for Events :
             </label>
-            <button className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-x">
+            <button
+              onClick={handleOpen}
+              className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-x"
+            >
               Book your slots here <span className="text-[#24c690]">→</span>
             </button>
           </div>
@@ -86,6 +110,16 @@ const ClientProfile = () => {
           Save
         </button>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <BookSlots close={handleClose} />
+        </Box>
+      </Modal>
     </div>
   );
 };

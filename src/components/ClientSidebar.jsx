@@ -47,7 +47,7 @@ const ClientSidebar = () => {
 
           <li>
             <NavLink
-              to="#"
+              to="/client/events"
               className={`flex items-center gap-6 text-gray-600 hover:text-gray-800 hover:bg-gray-300 rounded-md py-3 px-4 transition duration-300 ${
                 location.pathname === "#"
               }`}

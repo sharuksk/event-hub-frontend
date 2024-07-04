@@ -12,7 +12,7 @@ const CLientHeader = () => {
         <p className="text-2xl font-bold">Welcome to Client Dashboard</p>
         <NavLink to="/" className="flex items-center">
           <div className="flex gap-2 ">
-            <FaLocationDot className=" text-blue-500 text-xl" />
+            <FaLocationDot className="text-blue-500 text-xl" />
             <p className=" underline underline-offset-1">Michingam, US</p>
           </div>
         </NavLink>
