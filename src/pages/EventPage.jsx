@@ -13,13 +13,53 @@ const EventPage = () => {
       contact: "+ 123 567 879",
       Mail: "abc@gmail.com",
     },
+    {
+      image: EventImage,
+      date: "27 July, 24",
+      location: "Doha, Qatar",
+      booked: "Amith",
+      contact: "+ 123 567 879",
+      Mail: "abc@gmail.com",
+    },
+    {
+      image: EventImage,
+      date: "27 July, 24",
+      location: "Doha, Qatar",
+      booked: "Amith",
+      contact: "+ 123 567 879",
+      Mail: "abc@gmail.com",
+    },
+    {
+      image: EventImage,
+      date: "27 July, 24",
+      location: "Doha, Qatar",
+      booked: "Amith",
+      contact: "+ 123 567 879",
+      Mail: "abc@gmail.com",
+    },
+    {
+      image: EventImage,
+      date: "27 July, 24",
+      location: "Doha, Qatar",
+      booked: "Amith",
+      contact: "+ 123 567 879",
+      Mail: "abc@gmail.com",
+    },
+    {
+      image: EventImage,
+      date: "27 July, 24",
+      location: "Doha, Qatar",
+      booked: "Amith",
+      contact: "+ 123 567 879",
+      Mail: "abc@gmail.com",
+    },
   ];
 
   return (
     <div className="bg-gray-200 min-h-screen p-10">
-      <div className="bg-white rounded-lg shadow-md mb-6 h-dvh p-4">
+      <div className="bg-white rounded-lg shadow-md mb-6 h-auto p-4">
         <p className="font-bold">Upcoming Events :</p>
-        <div className="pl-8">
+        <div className="pl-8 gap-10 grid grid-cols-4 ">
           {EventData.map((data, index) => (
             <div
               key={index}

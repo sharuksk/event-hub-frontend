@@ -5,6 +5,7 @@ import Dashboard from "./userPages/Dashboard";
 import ClientPage from "./pages/ClientPage";
 import ClientProfile from "./pages/ClientProfile";
 import EventPage from "./pages/EventPage";
+import ClientDashboardPage from "./pages/ClientDashboardPage";
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ function App() {
             <Route path="*" element={<ClientPage />} />
             <Route path="profile" element={<ClientProfile />} />
             <Route path="events" element={<EventPage />} />
+            <Route path="dashboard" element={<ClientDashboardPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
