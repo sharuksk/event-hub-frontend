@@ -27,7 +27,7 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path="/user/*" element={<Layout />}>
+          <Route path="/user/" element={<Layout />}>
             <Route path="" element={<OpenDashboard />} />
             <Route path="events" element={<BookedEvents/>} />
             <Route path="settings" element={<Settings/>} />
