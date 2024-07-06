@@ -8,7 +8,7 @@ const ClientPage = () => {
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    navigate("/client/profile");
+    navigate("/client/register");
   };
 
   return (
