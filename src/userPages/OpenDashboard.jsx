@@ -85,42 +85,6 @@ const EventsContainer = () => {
         date="2024-07-12"
         place="Doha, Qatar"
       />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
       {/* Add more EventCard components as needed */}
     </Box>
   );
