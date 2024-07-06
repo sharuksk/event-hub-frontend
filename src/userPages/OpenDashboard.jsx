@@ -204,7 +204,7 @@ const CategoryEventCard = ({ eventImage, eventTitle, date, place, description })
       <Typography variant="body2">{place}</Typography>
       <Typography variant="body2" sx={{ mt: 1 }}>{description}</Typography>
     </Box>
-    <Button variant="text" sx={{ ml: 2, color: '#41B06E' , backgroundColor: 'white', fontWeight:'bold'}}>
+    <Button variant="text" sx={{ ml: 2, color: '#24c690' , backgroundColor: 'white', fontWeight:'bold'}}>
       Book Now
     </Button>
   </Paper>

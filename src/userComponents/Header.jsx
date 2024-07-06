@@ -25,7 +25,7 @@ import {
 } from "@mui/icons-material";
 
 const Header = () => (
-  <Box sx={{ mb: 0, py: 5, position: "relative" }} bgcolor={"#41B06E"}>
+  <Box sx={{ mb: 0, py: 5, position: "relative" }} bgcolor={"#24c690"}>
     <Box
       sx={{
         position: "absolute",

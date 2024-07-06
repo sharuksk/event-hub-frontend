@@ -13,13 +13,13 @@ const BackgroundContent = () => (
       mt: "0",
       ml: "0",
       py: 12,
-      backgroundColor: "#41B06E",
+      backgroundColor: "#24c690",
     }}
   ></Box>
 );
 
 const Layout = ({ children }) => (
-  <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+  <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" , backgroundColor:'whitesmoke'}}>
     <Box sx={{ display: "flex", flexGrow: 1 }}>
       <Sidebar />
       <Box component="main" sx={{ flexGrow: 1, p: 0 }}>

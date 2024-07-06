@@ -13,7 +13,7 @@ import Layout from "./userComponents/Layout";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#41B06E",
+      main: "#24c690",
     },
     secondary: {
       main: "#dc004e",
