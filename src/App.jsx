@@ -1,10 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ClientAppLayout from "./components/ClientAppLayout";
-import ClientDashboard from "./components/ClientDashboard";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Dashboard from "./userPages/Dashboard";
 import Signup from "./pages/auth/Signup";
 import Signin from "./pages/auth/Signin";
+import ClientPage from "./pages/ClientPage";
+import ClientProfile from "./pages/ClientProfile";
+import EventPage from "./pages/EventPage";
+import ClientDashboardPage from "./pages/ClientDashboardPage";
 
 const theme = createTheme({
     palette: {
@@ -31,8 +34,14 @@ function App() {
                         <Route path="" element={<Dashboard />} />
                     </Route>
 
-                    <Route path="/client" element={<ClientAppLayout />}>
-                        <Route path="dash" element={<ClientDashboard />} />
+                    <Route path="/client/*" element={<ClientAppLayout />}>
+                        <Route path="*" element={<ClientPage />} />
+                        <Route path="profile" element={<ClientProfile />} />
+                        <Route path="events" element={<EventPage />} />
+                        <Route
+                            path="dashboard"
+                            element={<ClientDashboardPage />}
+                        />
                     </Route>
                 </Routes>
             </BrowserRouter>

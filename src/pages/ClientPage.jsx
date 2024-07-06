@@ -2,10 +2,17 @@ import React from "react";
 import image from "../assets/image1.jpeg";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
-const ClientDashboard = () => {
+const ClientPage = () => {
+  const navigate = useNavigate();
+
+  const handleRegister = () => {
+    navigate("/client/profile");
+  };
+
   return (
-    <div className=" h-screen bg-[#f3f4f6] flex items-center justify-center flex-col gap-10">
+    <div className="h-screen bg-[#f3f4f6] flex items-center justify-center flex-col gap-10">
       <div className="bg-white h-auto w-[450px] rounded-3xl flex flex-col items-center justify-center gap-3 drop-shadow-2xl p-4">
         <img
           src={image}
@@ -32,11 +39,14 @@ const ClientDashboard = () => {
       <p className="font-semibold text-xl">
         Join with us to arrange events in all in one platform
       </p>
-      <button className="flex gap-4 text-center items-center bg-[#24c690] p-5 rounded-full text-white">
+      <button
+        className="flex gap-4 text-center items-center bg-[#24c690] p-5 rounded-full text-white"
+        onClick={handleRegister}
+      >
         Register here <FaArrowRightLong />
       </button>
     </div>
   );
 };
 
-export default ClientDashboard;
+export default ClientPage;
