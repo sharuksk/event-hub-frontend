@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
+
 const BackgroundContent = () => (
   <Box
     zIndex={1}
@@ -24,7 +25,7 @@ const Layout = ({ children }) => (
       <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
         <Header />
         <BackgroundContent />
-        <MainContent>{children}</MainContent>
+        <MainContent />
       </Box>
     </Box>
     <Footer />

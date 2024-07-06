@@ -46,12 +46,13 @@ const Dashboard = () => {
 
 export default Dashboard;*/
 
-import Layout from "../userComponents/Layout";
+import { BrowserRouter as Router } from 'react-router-dom';
+import Layout from '../userComponents/Layout';
 
 const Dashboard = () => (
-  // <Router>
-  <Layout />
-  // </Router>
+  <Router>
+    <Layout />
+  </Router>
 );
 
 export default Dashboard;
