@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
-import BookedEvents from '../pages/BookedEvents';
-import Settings from '../pages/Settings';
-import OpenDashboard from '../pages/OpenDashboard';
+import BookedEvents from '../userPages/BookedEvents';
+import Settings from '../userPages/Settings';
+import OpenDashboard from '../userPages/OpenDashboard';
 
 const MainContent = () => (
   <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh',position: 'relative', top: -200 }}>

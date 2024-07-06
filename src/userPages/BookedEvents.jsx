@@ -60,7 +60,7 @@ const BookedEvents = () => {
       <Box sx={{ mt: 3, textAlign: "center" }}>
         <Button
           component={Link}
-          to="/"
+          to="/user"
           variant="contained"
           color="primary"
           sx={{ mt: 2 }}
