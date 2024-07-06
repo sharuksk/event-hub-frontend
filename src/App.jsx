@@ -3,7 +3,7 @@ import ClientAppLayout from "./components/ClientAppLayout";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Dashboard from "./userPages/Dashboard";
 import ClientPage from "./pages/ClientPage";
-import ClientProfile from "./pages/ClientProfile";
+import ClientRegisterPage from "./pages/ClientRegisterPage";
 import EventPage from "./pages/EventPage";
 import ClientDashboardPage from "./pages/ClientDashboardPage";
 import BookedEvents from "./userPages/BookedEvents";
@@ -29,14 +29,13 @@ function App() {
         <Routes>
           <Route path="/user/" element={<Layout />}>
             <Route path="" element={<OpenDashboard />} />
-            <Route path="events" element={<BookedEvents/>} />
-            <Route path="settings" element={<Settings/>} />
-            
+            <Route path="events" element={<BookedEvents />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
 
           <Route path="/client/*" element={<ClientAppLayout />}>
             <Route path="*" element={<ClientPage />} />
-            <Route path="profile" element={<ClientProfile />} />
+            <Route path="register" element={<ClientRegisterPage />} />
             <Route path="events" element={<EventPage />} />
             <Route path="dashboard" element={<ClientDashboardPage />} />
           </Route>
