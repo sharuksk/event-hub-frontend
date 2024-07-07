@@ -23,9 +23,9 @@ const Signup = () => {
     const handleAuthWithFacebook = () => {};
 
     return (
-        <div className="bg-gradient-to-l from-gray-400 via-white to-white min-h-screen flex items-center justify-center">
-            <div className="flex w-[1000px] bg-gray-300 rounded-[25px]  overflow-hidden flex-col md:flex-row">
-                <div className="w-full md:w-1/2 p-10">
+        <div className="bg-gradient-to-l from-auth-bg via-background to-background min-h-screen flex items-center justify-center">
+            <div className="flex w-[1000px] bg-auth-bg rounded-[25px]  overflow-hidden flex-col md:flex-row">
+                <div className="w-full md:w-1/2 p-10 text-foreground">
                     <h2 className="text-xl font-bold">Sign up</h2>
                     <br />
                     <div className="space-y-3">

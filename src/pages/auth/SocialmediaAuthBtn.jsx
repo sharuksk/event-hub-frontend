@@ -4,7 +4,7 @@ const SocialmediaAuthBtn = ({ handleClick, img, text }) => {
     return (
         <button
             onClick={handleClick}
-            className="   mb-8 rounded-[25px]  w-full py-4  bg-white flex item-center justify-center relative max-w-[350px]"
+            className="   mb-8 rounded-[25px]  w-full py-4  bg-input flex item-center justify-center relative max-w-[350px]"
         >
             <img
                 src={img}

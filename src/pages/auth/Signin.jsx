@@ -20,16 +20,16 @@ const Signin = () => {
     const handleAuthWithFacebook = () => {};
 
     return (
-        <div className="bg-gradient-to-r from-gray-400 via-white to-white min-h-screen flex items-center justify-center">
-            <div className="flex w-[1000px] bg-gray-300 rounded-[25px]  overflow-hidden flex-col md:flex-row">
+        <div className="bg-gradient-to-l from-auth-bg via-background to-background min-h-screen flex items-center justify-center">
+            <div className="flex w-[1000px] bg-auth-bg  rounded-[25px]  overflow-hidden flex-col md:flex-row">
                 <div className="hidden md:flex w-1/2 overflow-hidden rounded-r-[25px]  ">
                     <img
                         src="https://previews.123rf.com/images/sentavio/sentavio1702/sentavio170200069/72686226-qatar-country-design-template-linear-flat-famous-historic-sight-cartoon-style-web-site-vector.jpg"
                         className="object-cover w-full h-full"
                     />
                 </div>
-                <div className="w-full md:w-1/2 p-10">
-                    <h2 className="text-xl font-bold">Sign in</h2>
+                <div className="w-full md:w-1/2 p-10 text-foreground bg-auth-bg">
+                    <h2 className="text-xl font-bold ">Sign in</h2>
                     <br />
                     <div>
                         <TextInputBox
@@ -64,6 +64,7 @@ const Signin = () => {
                         >
                             {"SIGN IN"}
                         </Button>
+
                         <p className="text-gray-600 mb-4">OR</p>
 
                         <SocialmediaAuthBtn
