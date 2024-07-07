@@ -4,7 +4,7 @@ const Button = ({ Icon, children, styles, handleClick }) => {
     return (
         <button
             onClick={handleClick}
-            className={`rounded-[25px] w-full py-3 bg-[#24c690] text-white font-bold ${styles}`}
+            className={`rounded-[25px] w-full py-3  bg-primary text-white font-bold   ${styles}`}
         >
             {children}
         </button>

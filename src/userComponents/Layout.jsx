@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import MainContent from "./MainContent";
+import { Outlet } from "react-router-dom";
 const BackgroundContent = () => (
   <Box
     zIndex={1}
@@ -24,7 +25,11 @@ const Layout = ({ children }) => (
       <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
         <Header />
         <BackgroundContent />
-        <MainContent>{children}</MainContent>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh',position: 'relative', top: -200 }}>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Outlet />
+          </Box>
+        </Box>
       </Box>
     </Box>
     <Footer />

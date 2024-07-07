@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
-// import BookedEvents from "../pages/BookedEvents";
-// import Settings from "../pages/Settings";
-// import OpenDashboard from "../pages/OpenDashboard";
+import BookedEvents from "../userPages/BookedEvents";
+import Settings from "../userPages/Settings";
+import OpenDashboard from "../userPages/OpenDashboard";
 
 const MainContent = () => (
     <Box
@@ -17,10 +17,9 @@ const MainContent = () => (
     >
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Routes>
-                {/* <Route path="/events" element={<BookedEvents />} /> */}
-                {/* <Route path="/settings" element={<Settings />} /> */}
-                {/* <Route path="/" element={<OpenDashboard />} /> */}
-                {/* Add more routes as needed */}
+                <Route path="/events" element={<BookedEvents />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/" element={<OpenDashboard />} />
             </Routes>
         </Box>
     </Box>

@@ -55,13 +55,13 @@ const Sidebar = () => (
           </ListItemIcon>
           <ListItemText primary="My Profile" />
         </ListItem>
-        <ListItem button component={Link} to="/events">
+        <ListItem button component={Link} to="/user/events">
           <ListItemIcon>
             <Event />
           </ListItemIcon>
           <ListItemText primary="Events" />
         </ListItem>
-        <ListItem button component={Link} to="/settings">
+        <ListItem button component={Link} to="/user/settings">
           <ListItemIcon>
             <Settings />
           </ListItemIcon>
