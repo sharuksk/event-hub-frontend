@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EventImage from "../assets/image1.jpeg";
+import { useNavigate } from "react-router-dom";
 
 const ClientDashboardPage = () => {
+    const [clientDetails, setClientDetails] = useState(null);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const storedDetails = localStorage.getItem("clientDetails");
+        if (storedDetails) {
+            const parsedData = JSON.parse(storedDetails);
+            setClientDetails(parsedData);
+
+            localStorage.removeItem("clientDetails");
+        }
+        console.log(clientDetails);
+    }, []);
+
     const EventData = [
         {
             value: 22,
@@ -34,9 +50,60 @@ const ClientDashboardPage = () => {
         },
     ];
 
+    if (!clientDetails) {
+        return (
+            <div className="flex items-center justify-center text-center p-[300px]">
+                Loading...
+            </div>
+        );
+    }
+
+    const handleUpdate = () => {
+        navigate("/client/register", { state: { clientDetails } });
+    };
+
     return (
         <div className="bg-gray-200 min-h-screen p-10">
             <div className="bg-white rounded-lg shadow-md mb-6 h-auto p-4">
+                <div className="p-8 flex flex-col gap-1">
+                    <p className="font-extrabold text-2xl">Client Details</p>
+                </div>
+
+                <div className="bg-white rounded-lg drop-shadow-md p-4 w-[300px] h-[230px] relative left-[400px]">
+                    <p className="text-lg">
+                        {" "}
+                        <span className="font-bold">Name: </span>
+                        {clientDetails.firstName} {clientDetails.lastName}
+                    </p>
+                    <p className="text-gray-700 mt-2">
+                        {" "}
+                        <span className="font-bold">Role: </span>{" "}
+                        {clientDetails.role}{" "}
+                    </p>
+                    <p className="text-gray-700 mt-2">
+                        {" "}
+                        <span className="font-bold">Work Experience: </span>
+                        {clientDetails.workExperiance}
+                    </p>
+                    <p className="text-gray-700 mt-2">
+                        {" "}
+                        <span className="font-bold">Location: </span>
+                        {clientDetails.location}
+                    </p>
+                    {/* <p className="text-gray-700 mt-2">Contact:</p>
+            <p className="text-gray-700 mt-2">Best Work:</p>
+            <p className="text-gray-700 mt-2">Description: </p>
+            <p className="text-gray-700 mt-2">Price Range / day: </p>
+            <p className="text-gray-700 mt-2">Slot: </p>
+            <p className="text-gray-700 mt-2">Selected Session: </p> */}
+                    <br />
+                    <button
+                        onClick={handleUpdate}
+                        className="flex bg-[#24c690] rounded-lg text-white p-2 pr-10 pl-10 absolute left-20"
+                    >
+                        Update
+                    </button>
+                </div>
                 <div className="p-8 flex flex-col gap-1">
                     <p className="font-extrabold text-2xl">
                         GM Organizing Events
