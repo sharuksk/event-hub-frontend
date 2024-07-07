@@ -102,6 +102,7 @@ const BookedEvents = () => {
                     value={selectedTab}
                     onChange={handleTabChange}
                     sx={{ ml: 2 }}
+                    className="shadow-2xl"
                 >
                     <StyledTab
                         label="Upcoming Events"
@@ -185,6 +186,7 @@ const EventCard = ({ eventImage, eventTitle, date, place }) => (
             justifyContent: "space-between",
             width: 300, // Fixed width for the event cards
         }}
+        className="bg-red-500"
         // onClick={handleCardClick}
     >
         <img
