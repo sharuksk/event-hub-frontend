@@ -24,7 +24,10 @@ const Settings = () => {
     }
 
     return (
-        <Box sx={{ p: 3, backgroundColor: "whitesmoke" }}>
+        <Box
+            sx={{ p: 3 }}
+            className="bg-accent   dark:border-gray-600 shadow-2xl"
+        >
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                 <Avatar
                     alt="User Name"
@@ -32,32 +35,57 @@ const Settings = () => {
                     sx={{ width: 56, height: 56, mr: 2 }}
                 />
                 <Box>
-                    <Typography variant="h6">User Name</Typography>
-                    <Typography variant="body2">user@example.com</Typography>
+                    <Typography variant="h6" className="text-foreground">
+                        User Name
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        className="text-muted-foreground"
+                    >
+                        user@example.com
+                    </Typography>
                 </Box>
             </Box>
             <List>
                 <ListItem>
-                    <ListItemText primary="Edit Profile" />
+                    <ListItemText
+                        primary="Edit Profile"
+                        className="text-foreground"
+                    />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary="Edit Password" />
+                    <ListItemText
+                        primary="Edit Password"
+                        className="text-foreground"
+                    />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary="Privacy" />
+                    <ListItemText
+                        primary="Privacy"
+                        className="text-foreground"
+                    />
                 </ListItem>
             </List>
             <Divider sx={{ my: 2 }} />
             <List>
                 <ListItem>
-                    <ListItemText primary="Language" />
+                    <ListItemText
+                        primary="Language"
+                        className="text-foreground"
+                    />
                 </ListItem>
                 <ListItem>
-                    <ListItemText primary="Region" />
+                    <ListItemText
+                        primary="Region"
+                        className="text-foreground"
+                    />
                 </ListItem>
 
                 <ListItem>
-                    <ListItemText primary="Dark Mode" />
+                    <ListItemText
+                        primary="Dark Mode"
+                        className="text-foreground"
+                    />
                     <Switch onChange={toggleTheme} />
                 </ListItem>
             </List>

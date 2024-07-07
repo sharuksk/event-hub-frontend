@@ -16,7 +16,7 @@ import { useEffect } from "react";
 const theme = createTheme({
     palette: {
         primary: {
-            main: "#24c690",
+            main: "#8A1538",
         },
         secondary: {
             main: "#dc004e",
