@@ -63,8 +63,8 @@ const ClientDashboardPage = () => {
     };
 
     return (
-        <div className="bg-gray-200 min-h-screen p-10 bg-secondary">
-            <div className="bg-white rounded-lg shadow-md mb-6 h-auto p-4 bg-accent">
+        <div className=" min-h-screen p-10 bg-secondary ">
+            <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
                 <div className="p-8 flex flex-col gap-1">
                     <p className="font-extrabold text-2xl text-foreground">
                         Client Details

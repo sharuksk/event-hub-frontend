@@ -178,33 +178,35 @@ const BookedEvents = () => {
 const EventCard = ({ eventImage, eventTitle, date, place }) => (
     <Paper
         sx={{
-            p: 2,
+            // p: 2,
             borderRadius: 3,
-            cursor: "pointer",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            width: 300, // Fixed width for the event cards
+            // cursor: "pointer",
+            // display: "flex",
+            // flexDirection: "column",
+            // justifyContent: "space-between",
+            // width: 300, // Fixed width for the event cards
         }}
-        className="bg-red-500"
+
         // onClick={handleCardClick}
     >
-        <img
-            src={eventImage}
-            alt={eventTitle}
-            style={{
-                width: "100%",
-                height: 120,
-                borderRadius: "8px",
-                marginBottom: "8px",
-                objectFit: "cover",
-            }}
-        />
-        <Box sx={{ textAlign: "left" }}>
-            <Typography variant="subtitle1">{eventTitle}</Typography>
-            <Typography variant="body2">{date}</Typography>
-            <Typography variant="body2">{place}</Typography>
-        </Box>
+        <div className="bg-background/85 text-foreground p-[20px] rounded-[11px] w-[300px] border">
+            <img
+                src={eventImage}
+                alt={eventTitle}
+                style={{
+                    width: "100%",
+                    height: 120,
+                    borderRadius: "8px",
+                    marginBottom: "8px",
+                    objectFit: "cover",
+                }}
+            />
+            <Box sx={{ textAlign: "left" }}>
+                <Typography variant="subtitle1">{eventTitle}</Typography>
+                <Typography variant="body2">{date}</Typography>
+                <Typography variant="body2">{place}</Typography>
+            </Box>
+        </div>
     </Paper>
 );
 

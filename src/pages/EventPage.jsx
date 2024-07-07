@@ -63,7 +63,7 @@ const EventPage = () => {
                     {EventData.map((data, index) => (
                         <div
                             key={index}
-                            className="bg-secondary text-foreground border h-auto w-[250px] rounded-3xl flex flex-col  gap-2 drop-shadow-2xl p-4 my-4 font-bold text-xs"
+                            className="bg-secondary text-foreground border-[] h-auto w-[250px] rounded-3xl flex flex-col  gap-2 drop-shadow-2xl p-4 my-4 font-bold text-xs"
                         >
                             <img
                                 src={data.image}
