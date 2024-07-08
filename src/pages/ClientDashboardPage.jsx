@@ -1,22 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import EventImage from "../assets/image1.jpeg";
 import { useNavigate } from "react-router-dom";
 
-const ClientDashboardPage = () => {
-  const [clientDetails, setClientDetails] = useState(null);
-
+const ClientDashboardPage = ({ clientDetail }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedDetails = localStorage.getItem("clientDetails");
-    if (storedDetails) {
-      const parsedData = JSON.parse(storedDetails);
-      setClientDetails(parsedData);
-
-      localStorage.removeItem("clientDetails");
-    }
-    console.log(clientDetails);
-  }, []);
 
   const EventData = [
     {
@@ -50,7 +37,7 @@ const ClientDashboardPage = () => {
     },
   ];
 
-  if (!clientDetails) {
+  if (!clientDetail) {
     return (
       <div className="flex items-center justify-center text-center p-[300px]">
         Loading...
@@ -59,7 +46,9 @@ const ClientDashboardPage = () => {
   }
 
   const handleUpdate = () => {
-    navigate("/client/register", { state: { clientDetails } });
+    const clientId = clientDetail._id;
+
+    navigate("/client/register", { state: { clientId } });
   };
 
   return (
@@ -73,34 +62,32 @@ const ClientDashboardPage = () => {
           <p className="text-lg">
             {" "}
             <span className="font-bold">Name: </span>
-            {clientDetails.firstName} {clientDetails.lastName}
+            {clientDetail
+              ? clientDetail.firstName + " " + clientDetail.lastName
+              : "Isabella Singh"}
           </p>
           <p className="text-gray-700 mt-2">
             {" "}
-            <span className="font-bold">Role: </span> {clientDetails.role}{" "}
+            <span className="font-bold">Role: </span>{" "}
+            {clientDetail ? clientDetail.role : ""}{" "}
           </p>
           <p className="text-gray-700 mt-2">
             {" "}
             <span className="font-bold">Work Experience: </span>
-            {clientDetails.workExperiance}
+            {clientDetail ? clientDetail.workExperience : ""}
           </p>
           <p className="text-gray-700 mt-2">
             {" "}
             <span className="font-bold">Location: </span>
-            {clientDetails.location}
+            {clientDetail ? clientDetail.location : ""}
           </p>
-          {/* <p className="text-gray-700 mt-2">Contact:</p>
-            <p className="text-gray-700 mt-2">Best Work:</p>
-            <p className="text-gray-700 mt-2">Description: </p>
-            <p className="text-gray-700 mt-2">Price Range / day: </p>
-            <p className="text-gray-700 mt-2">Slot: </p>
-            <p className="text-gray-700 mt-2">Selected Session: </p> */}
+
           <br />
           <button
             onClick={handleUpdate}
-            className="flex bg-[#24c690] rounded-lg text-white p-2 pr-10 pl-10 absolute left-20"
+            className="flex bg-[#24c690] rounded-lg text-white p-2 pr-10 pl-10 absolute left-16"
           >
-            Update
+            Update Profile
           </button>
         </div>
         <div className="p-8 flex flex-col gap-1">

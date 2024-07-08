@@ -7,10 +7,10 @@ import { CiSettings } from "react-icons/ci";
 import { TfiHelpAlt } from "react-icons/tfi";
 import { PiSignInBold } from "react-icons/pi";
 
-const ClientSidebar = () => {
+const ClientSidebar = ({ clientDetail }) => {
   const location = useLocation();
   return (
-    <aside className="px-2 pr-6 py-8 border-r border-gray-200 grid-row-span-full flex flex-col gap-8 font-semibold">
+    <aside className="px-2 pr-[91px] py-8 border-r border-gray-200 grid-row-span-full flex flex-col gap-8 font-semibold">
       <div className="flex gap-3">
         <img
           className="h-14 w-14 rounded-full border-[3px] border-blue-900"
@@ -18,13 +18,17 @@ const ClientSidebar = () => {
         />
         <nav>
           <ul className="text-sm ">
-            <li className="font-bold ">Isabella Singh</li>
+            <li className="font-bold ">
+              {clientDetail
+                ? clientDetail.firstName + " " + clientDetail.lastName
+                : "Isabella Singh"}
+            </li>
             <li>
               <Link
                 className="underline underline-offset-1 font-normal text-[#838383]"
                 to="/about"
               >
-                isabellasingh@gmail.com
+                {clientDetail ? clientDetail.email : "isabellasingh@gmail.com"}
               </Link>
             </li>
             <li className="font-normal text-[#838383]">Role - Client</li>

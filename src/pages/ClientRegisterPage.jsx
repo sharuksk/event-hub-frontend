@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import BookSlots from "../components/BookSlots";
@@ -6,6 +6,7 @@ import { FileInput, Label } from "flowbite-react";
 import { CiImageOn } from "react-icons/ci";
 import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -19,70 +20,106 @@ const style = {
   p: 4,
 };
 
-const ClientRegisterPage = () => {
+const ClientRegisterPage = ({
+  setClientLogin,
+  clientDetail,
+  setClientUpdate,
+}) => {
   const navigate = useNavigate();
   const Location = useLocation();
+
+  console.log(Location.state?.clientId);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [firstName, setFirstName] = useState(
-    Location.state?.clientDetails?.firstName || ""
+  const [firstName, setFirstName] = useState(clientDetail?.firstName || "");
+  const [lastName, setLastName] = useState(clientDetail?.lastName || "");
+  const [email, setEmail] = useState(clientDetail?.email || "");
+  const [role, setRole] = useState(clientDetail?.role || "");
+  const [workExperience, setWorkExperience] = useState(
+    clientDetail?.workExperience || ""
   );
-  const [lastName, setLastName] = useState(
-    Location.state?.clientDetails?.lastName || ""
-  );
-  const [role, setRole] = useState(Location.state?.clientDetails?.role || "");
-  const [workExperiance, setWorkExperiance] = useState(
-    Location.state?.clientDetails?.workExperiance || ""
-  );
-  const [location, setLocation] = useState(
-    Location.state?.clientDetails?.location || ""
-  );
-  const [contact, setContact] = useState(
-    Location.state?.clientDetails?.contact || ""
-  );
+  const [location, setLocation] = useState(clientDetail?.location || "");
+  const [contact, setContact] = useState(clientDetail?.contact || "");
   const [bestWork, setBestWork] = useState(null);
   const [description, setDescription] = useState(
-    Location.state?.clientDetails?.description || ""
+    clientDetail?.description || ""
   );
-  const [price, setPrice] = useState(
-    Location.state?.clientDetails?.price || ""
-  );
-  const [slot, setSlot] = useState(
-    dayjs(Location.state?.clientDetails?.slot || "")
-  );
+  const [price, setPrice] = useState(clientDetail?.price || "");
+  const [slot, setSlot] = useState(dayjs());
   const [selectedSession, setSelectedSession] = useState(
-    Location.state?.clientDetails?.selectedSession || ""
+    clientDetail?.selectedSession || ""
   );
 
   const handleFilechange = (e) => {
     setBestWork(e.target.files[0]);
   };
 
-  const handleSubmit = () => {
-    // e.PreventDefault();
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let bestWorkBase64 = "";
+    if (bestWork) {
+      bestWorkBase64 = await fileToBase64(bestWork);
+    }
 
     const clientDetails = {
       firstName: firstName,
       lastName: lastName,
+      email: email,
+      userId: "66853725b60689d846b327cd",
       role: role,
-      workExperiance: workExperiance,
+      workExperience: Number(workExperience),
       location: location,
       contact: contact,
-      bestWork: bestWork,
+      bestWork: bestWorkBase64,
       description: description,
-      price: price,
+      price: Number(price),
       slot: [slot.format("YYYY-MM-DD"), slot.format("dddd")],
       selectedSession: selectedSession,
     };
 
-    localStorage.setItem("clientDetails", JSON.stringify(clientDetails));
+    let id = Location.state?.clientId;
 
-    navigate("/client/dashboard");
+    try {
+      if (clientDetail) {
+        console.log("attempt to update");
+        await axios.put(
+          `http://localhost:8081/api/v1/client/${id}`,
+          clientDetails,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-    // console.log(clientDetails);
+        setClientUpdate((prev) => !prev);
+        navigate("/client/dashboard");
+      } else {
+        await axios.post("http://localhost:8081/api/v1/client", clientDetails, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        setClientLogin((prev) => !prev);
+        navigate("/client/dashboard");
+      }
+    } catch (error) {
+      console.error("There was an error posting the data!", error);
+    }
   };
 
   return (
@@ -93,7 +130,6 @@ const ClientRegisterPage = () => {
             <label className="block text-gray-700">First Name :</label>
             <input
               type="text"
-              placeholder="Mohammed"
               className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -103,10 +139,18 @@ const ClientRegisterPage = () => {
             <label className="block text-gray-700">Last Name :</label>
             <input
               type="text"
-              placeholder="Khan"
               className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700">Email :</label>
+            <input
+              type="email"
+              className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -116,19 +160,20 @@ const ClientRegisterPage = () => {
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
-              <option>Photographer</option>
-              <option>Venu</option>
-              <option>Catring</option>
+              <option>photography</option>
+              <option>decoration</option>
+              <option>venue</option>
+              <option>catering</option>
+              <option>organizing Team</option>
             </select>
           </div>
           <div>
             <label className="block text-gray-700">Work Experience :</label>
             <input
               type="text"
-              placeholder="15 years"
               className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
-              value={workExperiance}
-              onChange={(e) => setWorkExperiance(e.target.value)}
+              value={workExperience}
+              onChange={(e) => setWorkExperience(e.target.value)}
             />
           </div>
           <div>
@@ -142,6 +187,8 @@ const ClientRegisterPage = () => {
               <option>Chennai, India</option>
             </select>
           </div>
+        </div>
+        <div className="space-y-6">
           <div>
             <label className="block text-gray-700">Contact :</label>
             <input
@@ -151,8 +198,6 @@ const ClientRegisterPage = () => {
               onChange={(e) => setContact(e.target.value)}
             />
           </div>
-        </div>
-        <div className="space-y-6">
           <div>
             <label className="block text-gray-700">Show your best work :</label>
 
@@ -207,7 +252,7 @@ const ClientRegisterPage = () => {
           </div>
         </div>
       </div>
-      <div className="relative top-72 right-[500px]">
+      <div className="relative top-80 right-[500px]">
         <button
           onClick={handleSubmit}
           className="bg-[#24c690] text-white py-2 px-16 rounded-full shadow-lg "

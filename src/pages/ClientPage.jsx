@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import image from "../assets/image1.jpeg";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
