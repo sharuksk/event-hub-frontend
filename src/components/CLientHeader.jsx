@@ -4,11 +4,13 @@ import { FaLocationDot } from "react-icons/fa6";
 
 const CLientHeader = ({ clientDetail }) => {
   return (
-    <header className="border-gray-200 flex flex-row bg-[#24c690]">
-      <div className="basis-[19.05%] bg-white p-4">
-        <h1 className="text-2xl font-bold p-2">Qatar Event Hub</h1>
+    <header className="border-gray-200 flex flex-row bg-primary">
+      <div className=" bg-background p-4 min-w-[19rem] border-r border-muted-foreground">
+        <h1 className="text-2xl font-bold p-2 text-foreground ">
+          Qatar Event Hub
+        </h1>
       </div>
-      <div className="basis-[83%] flex flex-row p-6 gap-[700px] text-white">
+      <div className="  flex   p-6 gap-[740px] text-white">
         <p className="text-2xl font-bold">Welcome to Client Dashboard</p>
         <NavLink to="/" className="flex items-center">
           <div className="flex gap-2 ">

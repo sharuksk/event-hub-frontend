@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ClientAppLayout from "./components/ClientAppLayout";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Dashboard from "./userPages/Dashboard";
+import Signup from "./pages/auth/Signup";
+import Signin from "./pages/auth/Signin";
 import ClientPage from "./pages/ClientPage";
 import ClientRegisterPage from "./pages/ClientRegisterPage";
 import EventPage from "./pages/EventPage";
@@ -12,17 +14,17 @@ import OpenDashboard from "./userPages/OpenDashboard";
 import Layout from "./userComponents/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#41B06E",
+      main: "#8A1538",
     },
     secondary: {
       main: "#dc004e",
     },
   },
 });
-
 function App() {
   const [clientDetail, setClientDetail] = useState(null);
   const [clientLogin, setClientLogin] = useState(false);
@@ -43,11 +45,21 @@ function App() {
     }
   }, [clientLogin, clientUpdate]);
 
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme == "dark") {
+      document.body.classList = "dark";
+    }
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <Routes>
+          <Route path="/auth">
+            <Route path="signin" element={<Signin />} />
+            <Route path="signup" element={<Signup />} />
+          </Route>
           <Route path="/user/" element={<Layout />}>
             <Route path="" element={<OpenDashboard />} />
             <Route path="events" element={<BookedEvents />} />

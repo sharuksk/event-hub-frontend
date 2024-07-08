@@ -39,7 +39,7 @@ const ClientDashboardPage = ({ clientDetail }) => {
 
   if (!clientDetail) {
     return (
-      <div className="flex items-center justify-center text-center p-[300px]">
+      <div className="flex items-center justify-center text-center p-[300px]  bg-accent">
         Loading...
       </div>
     );
@@ -47,15 +47,16 @@ const ClientDashboardPage = ({ clientDetail }) => {
 
   const handleUpdate = () => {
     const clientId = clientDetail._id;
-
     navigate("/client/register", { state: { clientId } });
   };
 
   return (
-    <div className="bg-gray-200 min-h-screen p-10">
-      <div className="bg-white rounded-lg shadow-md mb-6 h-auto p-4">
+    <div className=" min-h-screen p-10 bg-secondary ">
+      <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
         <div className="p-8 flex flex-col gap-1">
-          <p className="font-extrabold text-2xl">Client Details</p>
+          <p className="font-extrabold text-2xl text-foreground">
+            Client Details
+          </p>
         </div>
 
         <div className="bg-white rounded-lg drop-shadow-md p-4 w-[300px] h-[230px] relative left-[400px]">
@@ -68,7 +69,7 @@ const ClientDashboardPage = ({ clientDetail }) => {
           </p>
           <p className="text-gray-700 mt-2">
             {" "}
-            <span className="font-bold">Role: </span>{" "}
+            <span className="font-bold">Role: </span>
             {clientDetail ? clientDetail.role : ""}{" "}
           </p>
           <p className="text-gray-700 mt-2">
@@ -85,14 +86,18 @@ const ClientDashboardPage = ({ clientDetail }) => {
           <br />
           <button
             onClick={handleUpdate}
-            className="flex bg-[#24c690] rounded-lg text-white p-2 pr-10 pl-10 absolute left-16"
+            className="flex bg-primary rounded-lg text-white p-2 pr-10 pl-10 absolute left-20"
           >
             Update Profile
           </button>
         </div>
         <div className="p-8 flex flex-col gap-1">
-          <p className="font-extrabold text-2xl">GM Organizing Events</p>
-          <p className="font-normal text-[#838383]">5 Tasks are pending</p>
+          <p className="font-extrabold text-2xl text-foreground">
+            GM Organizing Events
+          </p>
+          <p className="font-normal text-muted-foreground">
+            5 Tasks are pending
+          </p>
         </div>
 
         <div className="pl-8 gap-10 grid grid-cols-4">
@@ -108,13 +113,15 @@ const ClientDashboardPage = ({ clientDetail }) => {
           ))}
         </div>
         <div className="p-8 flex flex-col">
-          <p className="font-extrabold text-2xl">Current Event</p>
+          <p className="font-extrabold text-2xl text-foreground">
+            Current Event
+          </p>
         </div>
         <div className="pl-8 gap-10 grid grid-cols-2">
           {currentEventData.map((data, index) => (
             <div
               key={index}
-              className="bg-[#24c690] h-auto w-[400px] rounded-xl shadow-md p-4 text-white relative"
+              className="bg-primary h-auto w-[400px] rounded-xl shadow-md p-4 text-white relative"
             >
               <p className="font-bold">{data.eventName}</p>
               <p>{data.name}</p>
@@ -133,7 +140,7 @@ const ClientDashboardPage = ({ clientDetail }) => {
           ))}
         </div>
         <div className="flex items-center justify-center p-4 pt-28">
-          <button className="bg-[#24c690] rounded-lg text-white p-4 pr-20 pl-20">
+          <button className="bg-primary rounded-lg text-white p-4 pr-20 pl-20">
             View Tasks
           </button>
         </div>

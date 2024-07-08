@@ -68,7 +68,7 @@ const EventPage = () => {
     eventData.map((data, index) => (
       <div
         key={index}
-        className="bg-white h-auto w-[250px] rounded-3xl flex flex-col gap-2 drop-shadow-2xl p-4 my-4 font-bold text-xs"
+        className="bg-secondary text-foreground border-[] h-auto w-[250px] rounded-3xl flex flex-col gap-2 drop-shadow-2xl p-4 my-4 font-bold text-xs"
       >
         <img
           src={data.image}
@@ -96,8 +96,8 @@ const EventPage = () => {
     ));
 
   return (
-    <div className="bg-gray-200 min-h-screen p-10">
-      <div className="bg-white rounded-lg shadow-md mb-6 h-auto p-4">
+    <div className="bg-secondary min-h-screen p-10">
+      <div className="bg-accent rounded-lg shadow-md mb-6 h-auto p-4">
         <div className="text-end relative top-10">
           <label className="inline-flex items-center mb-5 cursor-pointer">
             <input
@@ -110,7 +110,7 @@ const EventPage = () => {
           </label>
         </div>
 
-        <p className="font-extrabold">
+        <p className="font-extrabold text-foreground">
           {showPastEvents ? "Past Events" : "Upcoming Events"}:
         </p>
         <div className="pl-8 gap-10 grid grid-cols-4">

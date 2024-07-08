@@ -85,42 +85,6 @@ const EventsContainer = () => {
         date="2024-07-12"
         place="Doha, Qatar"
       />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
-      <EventCard
-        eventImage={image2}
-        eventTitle="Event 3"
-        date="2024-07-12"
-        place="Doha, Qatar"
-      />
       {/* Add more EventCard components as needed */}
     </Box>
   );
@@ -296,15 +260,7 @@ const CategoryEventCard = ({
         {description}
       </Typography>
     </Box>
-    <Button
-      variant="text"
-      sx={{
-        ml: 2,
-        color: "#41B06E",
-        backgroundColor: "white",
-        fontWeight: "bold",
-      }}
-    >
+    <Button variant="text" sx={{ ml: 2, color: '#24c690' , backgroundColor: 'white', fontWeight:'bold'}}>
       Book Now
     </Button>
   </Paper>
