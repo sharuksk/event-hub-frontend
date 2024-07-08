@@ -26,8 +26,10 @@ const Settings = () => {
     return (
         <Box
             sx={{ p: 3 }}
-            className="bg-accent   dark:border-gray-600 shadow-2xl"
+            
         >
+            <Typography variant="h4" sx={{mb:5, fontWeight:'bold',py:8,color:'whitesmoke'}} >Settings</Typography>
+
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                 <Avatar
                     alt="User Name"
@@ -46,44 +48,47 @@ const Settings = () => {
                     </Typography>
                 </Box>
             </Box>
+            <Divider sx={{ my: 2,backgroundColor:'black' }} />
+        <Typography variant="body2" sx={{fontWeight:'bold', mb:1}} className="text-foreground">Account Settings</Typography>
             <List>
                 <ListItem>
                     <ListItemText
-                        primary="Edit Profile"
+                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Edit Profile"
                         className="text-foreground"
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        primary="Edit Password"
+                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Edit Password"
                         className="text-foreground"
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        primary="Privacy"
+                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89'}} secondary="Privacy"
                         className="text-foreground"
                     />
                 </ListItem>
             </List>
-            <Divider sx={{ my: 2 }} />
+            <Divider sx={{ my: 2, backgroundColor:'black' }} />
+            <Typography variant="body2" sx={{fontWeight:'bold', mb:1}} className="text-foreground">More</Typography>
             <List>
                 <ListItem>
                     <ListItemText
-                        primary="Language"
+                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Language"
                         className="text-foreground"
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        primary="Region"
+                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Region"
                         className="text-foreground"
                     />
                 </ListItem>
 
                 <ListItem>
                     <ListItemText
-                        primary="Dark Mode"
+                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Dark Mode"
                         className="text-foreground"
                     />
                     <Switch onChange={toggleTheme} />
