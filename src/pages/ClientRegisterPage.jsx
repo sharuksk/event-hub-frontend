@@ -127,44 +127,40 @@ const ClientRegisterPage = ({
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">
+        <div className="min-h-screen flex items-center justify-center bg-card p-5 text-foreground">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[300px] relative bottom-16 left-8">
                 <div className="space-y-6">
                     <div>
-                        <label className="block text-gray-700">
-                            First Name :
-                        </label>
+                        <label className="block ">First Name :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">
-                            Last Name :
-                        </label>
+                        <label className="block ">Last Name :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Email :</label>
+                        <label className="block ">Email :</label>
                         <input
                             type="email"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">Role :</label>
+                        <label className="block ">Role :</label>
                         <select
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
@@ -176,22 +172,18 @@ const ClientRegisterPage = ({
                         </select>
                     </div>
                     <div>
-                        <label className="block text-gray-700">
-                            Work Experience :
-                        </label>
+                        <label className="block ">Work Experience :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={workExperience}
                             onChange={(e) => setWorkExperience(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">
-                            Location :
-                        </label>
+                        <label className="block ">Location :</label>
                         <select
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                         >
@@ -202,23 +194,21 @@ const ClientRegisterPage = ({
                 </div>
                 <div className="space-y-6">
                     <div>
-                        <label className="block text-gray-700">Contact :</label>
+                        <label className="block ">Contact :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={contact}
                             onChange={(e) => setContact(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">
-                            Show your best work :
-                        </label>
+                        <label className="block ">Show your best work :</label>
 
                         <div className="flex w-full items-center justify-center">
                             <Label
                                 htmlFor="dropzone-file"
-                                className="flex h-34 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-green-300 bg-white"
+                                className="flex h-34 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary bg-input"
                             >
                                 <div className="flex flex-col items-center justify-center pb-6 pt-5 gap-2">
                                     <CiImageOn className="size-6 text-gray-400" />
@@ -235,35 +225,31 @@ const ClientRegisterPage = ({
                         </div>
                     </div>
                     <div>
-                        <label className="block text-gray-700">
-                            Description :
-                        </label>
+                        <label className="block ">Description :</label>
                         <textarea
-                            className="mt-1 p-3 w-full border rounded-2xl shadow-sm"
+                            className="mt-1 p-3 w-full border-none rounded-2xl shadow-sm bg-input"
                             rows="4"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
                     </div>
                     <div>
-                        <label className="block text-gray-700">
-                            Price Range / day :
-                        </label>
+                        <label className="block ">Price Range / day :</label>
                         <input
                             type="text"
                             placeholder="$850"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700">
+                        <label className="block ">
                             Availability for Events :
                         </label>
                         <button
                             onClick={handleOpen}
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-x"
+                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-x bg-input"
                         >
                             Book your slots here{" "}
                             <span className="text-[#24c690]">→</span>
