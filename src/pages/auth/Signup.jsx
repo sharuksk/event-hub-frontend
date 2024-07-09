@@ -3,7 +3,7 @@ import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import TextInputBox from "./TextInputBox";
 import PasswordInputBox from "./PasswordInputBox";
 import { Link } from "react-router-dom";
-import Switch from "@mui/material/Switch";
+
 import Button from "../../components/Button";
 import SocialmediaAuthBtn from "./SocialmediaAuthBtn";
 import googlelogo from "../../assets/googleLogo.webp";
@@ -11,6 +11,8 @@ import fbLogo from "../../assets/fb.png";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../features/userSlice";
 
 const Signup = () => {
     const [name, setName] = useState("");
@@ -18,6 +20,7 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     const label = { inputProps: { "aria-label": "Switch demo" } };
@@ -45,6 +48,9 @@ const Signup = () => {
                 email,
                 password: password,
             });
+            console.log(res.data);
+            console.log(res.data.data);
+            dispatch(setUser(res.data.data));
             navigate("/user");
         } catch (error) {
             console.log("Error occured");

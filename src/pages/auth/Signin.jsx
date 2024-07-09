@@ -37,8 +37,8 @@ const Signin = () => {
                 email,
                 password,
             });
-            console.log(res);
-            dispatch(setUser({ name: "subin", email: "email@gmail.com" }));
+            console.log(res.data.data);
+            dispatch(setUser(res.data.data));
             navigate("/user");
         } catch (error) {
             console.log("Error occured");
