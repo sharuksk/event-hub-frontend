@@ -5,6 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 const EventPage = () => {
   const [showPastEvents, setShowPastEvents] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const upcomingEventData = [
     {
@@ -62,6 +63,7 @@ const EventPage = () => {
 
   const handleToggle = () => {
     setShowPastEvents((prev) => !prev);
+    setChecked(!checked);
   };
 
   const renderEventCards = (eventData) =>
@@ -98,16 +100,41 @@ const EventPage = () => {
   return (
     <div className="bg-secondary min-h-screen p-10">
       <div className="bg-accent rounded-lg shadow-md mb-6 h-auto p-4">
-        <div className="text-end relative top-10">
-          <label className="inline-flex items-center mb-5 cursor-pointer">
+        <div>
+          <div className="relative w-56 h-10  shadow-lg rounded-3xl flex items-center justify-center bg-white left-[850px]">
             <input
               type="checkbox"
+              className="absolute w-full h-full opacity-0 cursor-pointer z-20"
               checked={showPastEvents}
               onChange={handleToggle}
-              className="sr-only peer"
             />
-            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-          </label>
+            <div className="absolute w-full h-full flex items-center rounded-xl justify-between px-3 z-10">
+              <span
+                className={`font-bold text-sm ${
+                  checked ? "text-black" : "text-white"
+                } `}
+              >
+                Current Event
+              </span>
+              <span
+                className={`font-bold text-sm ${
+                  checked ? "text-white" : "text-black"
+                } `}
+              >
+                Past Event
+              </span>
+            </div>
+            <div className="absolute top-1 right-1 bottom-1 left-1 rounded transition-all duration-500 ease-in-out"></div>
+            <div className="absolute w-full h-10 flex items-center justify-between px z-0">
+              <div
+                className={`bg-blue-500 ${
+                  checked ? "w-28" : "w-32"
+                } rounded-xl h-10 transition-all duration-500 ease-in-out ${
+                  checked ? "ml-28 " : ""
+                }`}
+              ></div>
+            </div>
+          </div>
         </div>
 
         <p className="font-extrabold text-foreground">

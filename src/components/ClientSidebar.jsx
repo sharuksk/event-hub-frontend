@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Image from "../assets/profile_image.avif";
 import { IoPersonOutline } from "react-icons/io5";
 import { CiCalendar } from "react-icons/ci";
@@ -7,10 +7,20 @@ import { CiSettings } from "react-icons/ci";
 import { TfiHelpAlt } from "react-icons/tfi";
 import { PiSignInBold } from "react-icons/pi";
 
-const ClientSidebar = ({ clientDetail }) => {
+const ClientSidebar = ({ clientDetail, setClientDetail }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handlesignOut = () => {
+    setClientDetail(null);
+    navigate("/client/");
+  };
+
   return (
-    <aside className="px-2 pr-[91px] py-8 border-r border-muted-foreground grid-row-span-full flex flex-col gap-8 font-semibold bg-background w-[19rem]">
+    <aside className="px-2 pr-[50px] py-4 border-r border-muted-foreground grid-row-span-full flex flex-col gap-8 font-semibold bg-background  h-full">
+      <div className="bg-background p-4 border-muted-foreground">
+        <h1 className="text-2xl font-bold text-foreground ">Qatar Event Hub</h1>
+      </div>
       <div className="flex gap-3">
         <img
           className="h-14 w-14 rounded-full border-[3px] border-blue-900"
@@ -85,7 +95,10 @@ const ClientSidebar = ({ clientDetail }) => {
         </ul>
       </nav>
 
-      <button className="flex gap-4 text-center items-center bg-primary p-3 rounded-lg mx-auto my-auto relative top-28 text-white">
+      <button
+        onClick={handlesignOut}
+        className="flex gap-4 text-center items-center bg-primary p-3 rounded-lg mx-auto my-auto relative top-28 text-white"
+      >
         <PiSignInBold /> Sign Out
       </button>
     </aside>

@@ -14,7 +14,7 @@ import OpenDashboard from "./userPages/OpenDashboard";
 import Layout from "./userComponents/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -25,6 +25,7 @@ const theme = createTheme({
     },
   },
 });
+
 function App() {
   const [clientDetail, setClientDetail] = useState(null);
   const [clientLogin, setClientLogin] = useState(false);
@@ -68,7 +69,12 @@ function App() {
 
           <Route
             path="/client/*"
-            element={<ClientAppLayout clientDetail={clientDetail} />}
+            element={
+              <ClientAppLayout
+                clientDetail={clientDetail}
+                setClientDetail={setClientDetail}
+              />
+            }
           >
             <Route path="*" element={<ClientPage />} />
             <Route

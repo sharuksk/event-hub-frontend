@@ -28,7 +28,7 @@ const ClientRegisterPage = ({
   const navigate = useNavigate();
   const Location = useLocation();
 
-  console.log(Location.state?.clientId);
+  // console.log(Location.state?.clientId);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -86,9 +86,10 @@ const ClientRegisterPage = ({
       bestWork: bestWorkBase64,
       description: description,
       price: Number(price),
-      slot: [slot.format("YYYY-MM-DD"), slot.format("dddd")],
+      availability: [{ date: slot.toDate(), isAvailable: true }],
       selectedSession: selectedSession,
     };
+    // console.log(clientDetails);
 
     let id = Location.state?.clientId;
 
@@ -113,6 +114,8 @@ const ClientRegisterPage = ({
             "Content-Type": "application/json",
           },
         });
+        // .then((res) => console.log(res))
+        // .catch((err) => console.log(err));
 
         setClientLogin((prev) => !prev);
         navigate("/client/dashboard");
@@ -257,7 +260,7 @@ const ClientRegisterPage = ({
           onClick={handleSubmit}
           className="bg-[#24c690] text-white py-2 px-16 rounded-full shadow-lg "
         >
-          Save
+          {clientDetail ? "Update" : "Save"}
         </button>
       </div>
       <Modal
