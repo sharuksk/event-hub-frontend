@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import {
     Box,
     Typography,
@@ -12,6 +14,10 @@ import {
 } from "@mui/material";
 
 const Settings = () => {
+    const user = useSelector((state) => {
+        return state.user.user;
+    });
+    console.log(user);
     function toggleTheme() {
         const theme = document.body.classList[0];
         if (theme == "light") {
@@ -24,11 +30,13 @@ const Settings = () => {
     }
 
     return (
-        <Box
-            sx={{ p: 3 }}
-            
-        >
-            <Typography variant="h4" sx={{mb:5, fontWeight:'bold',py:8,color:'whitesmoke'}} >Settings</Typography>
+        <Box sx={{ p: 3 }}>
+            <Typography
+                variant="h4"
+                sx={{ mb: 5, fontWeight: "bold", py: 8, color: "whitesmoke" }}
+            >
+                Settings
+            </Typography>
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                 <Avatar
@@ -48,47 +56,88 @@ const Settings = () => {
                     </Typography>
                 </Box>
             </Box>
-            <Divider sx={{ my: 2,backgroundColor:'black' }} />
-        <Typography variant="body2" sx={{fontWeight:'bold', mb:1}} className="text-foreground">Account Settings</Typography>
+            <Divider sx={{ my: 2, backgroundColor: "black" }} />
+            <Typography
+                variant="body2"
+                sx={{ fontWeight: "bold", mb: 1 }}
+                className="text-foreground"
+            >
+                Account Settings
+            </Typography>
             <List>
                 <ListItem>
                     <ListItemText
-                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Edit Profile"
+                        secondaryTypographyProps={{
+                            fontWeight: "bold",
+                            color: "#8b8c89",
+                            mb: 1,
+                        }}
+                        secondary="Edit Profile"
                         className="text-foreground"
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Edit Password"
+                        secondaryTypographyProps={{
+                            fontWeight: "bold",
+                            color: "#8b8c89",
+                            mb: 1,
+                        }}
+                        secondary="Edit Password"
                         className="text-foreground"
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89'}} secondary="Privacy"
+                        secondaryTypographyProps={{
+                            fontWeight: "bold",
+                            color: "#8b8c89",
+                        }}
+                        secondary="Privacy"
                         className="text-foreground"
                     />
                 </ListItem>
             </List>
-            <Divider sx={{ my: 2, backgroundColor:'black' }} />
-            <Typography variant="body2" sx={{fontWeight:'bold', mb:1}} className="text-foreground">More</Typography>
+            <Divider sx={{ my: 2, backgroundColor: "black" }} />
+            <Typography
+                variant="body2"
+                sx={{ fontWeight: "bold", mb: 1 }}
+                className="text-foreground"
+            >
+                More
+            </Typography>
             <List>
                 <ListItem>
                     <ListItemText
-                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Language"
+                        secondaryTypographyProps={{
+                            fontWeight: "bold",
+                            color: "#8b8c89",
+                            mb: 1,
+                        }}
+                        secondary="Language"
                         className="text-foreground"
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Region"
+                        secondaryTypographyProps={{
+                            fontWeight: "bold",
+                            color: "#8b8c89",
+                            mb: 1,
+                        }}
+                        secondary="Region"
                         className="text-foreground"
                     />
                 </ListItem>
 
                 <ListItem>
                     <ListItemText
-                        secondaryTypographyProps={{fontWeight:'bold', color:'#8b8c89', mb:1}} secondary="Dark Mode"
+                        secondaryTypographyProps={{
+                            fontWeight: "bold",
+                            color: "#8b8c89",
+                            mb: 1,
+                        }}
+                        secondary="Dark Mode"
                         className="text-foreground"
                     />
                     <Switch onChange={toggleTheme} />

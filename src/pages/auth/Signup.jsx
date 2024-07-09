@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import TextInputBox from "./TextInputBox";
 import PasswordInputBox from "./PasswordInputBox";
@@ -9,16 +9,48 @@ import SocialmediaAuthBtn from "./SocialmediaAuthBtn";
 import googlelogo from "../../assets/googleLogo.webp";
 import fbLogo from "../../assets/fb.png";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-    const [fullName, setFullName] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     const label = { inputProps: { "aria-label": "Switch demo" } };
 
-    const handleSignup = () => {};
+    const handleSignup = async () => {
+        try {
+            if (
+                name.trim().length === 0 ||
+                email.trim().length === 0 ||
+                password.trim().length === 0
+            ) {
+                alert("Enter valid credentials");
+                return;
+            }
+            if (password.trim().length < 8) {
+                alert("Password length must be greater than 8");
+                return;
+            }
+            if (password !== confirmPassword) {
+                alert("Password dosen't match");
+                return;
+            }
+            const res = await axios.post(BASE_URL + "/user", {
+                name: name,
+                email,
+                password: password,
+            });
+            navigate("/user");
+        } catch (error) {
+            console.log("Error occured");
+            console.log(error);
+        }
+    };
     const handleAuthWithGoogle = () => {};
     const handleAuthWithFacebook = () => {};
 
@@ -33,8 +65,8 @@ const Signup = () => {
                             type="text"
                             placeholder="Full name"
                             Icon={Person2OutlinedIcon}
-                            value={fullName}
-                            setValue={setFullName}
+                            value={name}
+                            setValue={setName}
                         />
 
                         <TextInputBox

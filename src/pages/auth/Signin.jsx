@@ -8,14 +8,43 @@ import Button from "../../components/Button";
 import SocialmediaAuthBtn from "./SocialmediaAuthBtn";
 import googlelogo from "../../assets/googleLogo.webp";
 import fbLogo from "../../assets/fb.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../features/userSlice";
 
 const Signin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     const label = { inputProps: { "aria-label": "Switch demo" } };
 
-    const handleSignin = () => {};
+    const handleSignin = async () => {
+        try {
+            if (email.trim().length === 0 || password.trim().length === 0) {
+                alert("Enter valid credentials");
+                return;
+            }
+            if (password.trim().length < 8) {
+                alert("Password length must be greater than 8");
+                return;
+            }
+
+            const res = await axios.post(BASE_URL + "/login", {
+                email,
+                password,
+            });
+            console.log(res);
+            dispatch(setUser({ name: "subin", email: "email@gmail.com" }));
+            navigate("/user");
+        } catch (error) {
+            console.log("Error occured");
+            console.log(error);
+        }
+    };
     const handleAuthWithGoogle = () => {};
     const handleAuthWithFacebook = () => {};
 

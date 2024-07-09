@@ -114,8 +114,6 @@ const ClientRegisterPage = ({
             "Content-Type": "application/json",
           },
         });
-        // .then((res) => console.log(res))
-        // .catch((err) => console.log(err));
 
         setClientLogin((prev) => !prev);
         navigate("/client/dashboard");
@@ -258,7 +256,7 @@ const ClientRegisterPage = ({
       <div className="relative top-80 right-[500px]">
         <button
           onClick={handleSubmit}
-          className="bg-[#24c690] text-white py-2 px-16 rounded-full shadow-lg "
+          className="bg-primary text-white py-2 px-16 rounded-full shadow-lg "
         >
           {clientDetail ? "Update" : "Save"}
         </button>
