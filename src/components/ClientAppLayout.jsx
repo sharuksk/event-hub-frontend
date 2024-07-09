@@ -3,17 +3,14 @@ import CLientHeader from "./CLientHeader";
 import ClientSidebar from "./ClientSidebar";
 import Footer from "./Footer";
 
-function ClientAppLayout({ clientDetail, setClientDetail }) {
+function ClientAppLayout() {
   return (
     <>
       <div className="flex flex-col h-screen">
         <div className="flex flex-1 overflow-auto">
-          <ClientSidebar
-            clientDetail={clientDetail}
-            setClientDetail={setClientDetail}
-          />
+          <ClientSidebar />
           <main className="flex-1 bg-[#F5F5F5 ] overflow-scroll">
-            <CLientHeader clientDetail={clientDetail} />
+            <CLientHeader />
             <div className="">
               <Outlet />
             </div>

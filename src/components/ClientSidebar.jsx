@@ -6,13 +6,19 @@ import { CiCalendar } from "react-icons/ci";
 import { CiSettings } from "react-icons/ci";
 import { TfiHelpAlt } from "react-icons/tfi";
 import { PiSignInBold } from "react-icons/pi";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setClient } from "../features/clientSlice";
 
-const ClientSidebar = ({ clientDetail, setClientDetail }) => {
+const ClientSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { client } = useSelector((state) => state.client);
 
   const handlesignOut = () => {
-    setClientDetail(null);
+    dispatch(setClient({}));
     navigate("/client/");
   };
 
@@ -29,8 +35,8 @@ const ClientSidebar = ({ clientDetail, setClientDetail }) => {
         <nav>
           <ul className="text-sm ">
             <li className="font-bold text-foreground">
-              {clientDetail
-                ? clientDetail.firstName + " " + clientDetail.lastName
+              {Object.keys(client).length > 0
+                ? client.firstName + " " + client.lastName
                 : "Isabella Singh"}
             </li>
             <li>
@@ -38,7 +44,9 @@ const ClientSidebar = ({ clientDetail, setClientDetail }) => {
                 className="underline underline-offset-1 font-normal text-muted-foreground"
                 to="/about"
               >
-                {clientDetail ? clientDetail.email : "isabellasingh@gmail.com"}
+                {Object.keys(client).length > 0
+                  ? client.email
+                  : "isabellasingh@gmail.com"}
               </Link>
             </li>
             <li className="font-normal text-muted-foreground">Role - Client</li>
