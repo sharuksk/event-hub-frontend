@@ -274,7 +274,7 @@ const ClientRegisterPage = ({
             <div className="relative top-80 right-[500px]">
                 <button
                     onClick={handleSubmit}
-                    className="bg-[#24c690] text-white py-2 px-16 rounded-full shadow-lg "
+                    className="bg-primary text-white py-2 px-16 rounded-full shadow-lg "
                 >
                     Save
                 </button>
