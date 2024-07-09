@@ -68,6 +68,7 @@ const ClientRegisterPage = ({
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("working fine");
 
         let bestWorkBase64 = "";
         if (bestWork) {
