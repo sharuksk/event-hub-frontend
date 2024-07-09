@@ -13,6 +13,7 @@ import Settings from "./userPages/Settings";
 import OpenDashboard from "./userPages/OpenDashboard";
 import Layout from "./userComponents/Layout";
 import { useEffect } from "react";
+
 const theme = createTheme({
     palette: {
         primary: {

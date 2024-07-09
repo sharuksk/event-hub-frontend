@@ -18,7 +18,7 @@ const PasswordInputBox = ({ placeholder, value, setValue }) => {
             <button
                 onClick={() =>
                     setType((prev) =>
-                        prev === "password" ? "text" : "password"
+                        prev === "password" ? "text" : "password",
                     )
                 }
             >
