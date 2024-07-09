@@ -52,6 +52,7 @@ function App() {
       document.body.classList = "dark";
     }
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

@@ -7,283 +7,276 @@ import { CiImageOn } from "react-icons/ci";
 import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 800,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
 };
 
 const ClientRegisterPage = ({
-    setClientLogin,
-    clientDetail,
-    setClientUpdate,
+  setClientLogin,
+  clientDetail,
+  setClientUpdate,
 }) => {
-    const navigate = useNavigate();
-    const Location = useLocation();
+  const { user } = useSelector((state) => state.user);
 
-    // console.log(Location.state?.clientId);
+  const navigate = useNavigate();
+  const Location = useLocation();
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-    const [firstName, setFirstName] = useState(clientDetail?.firstName || "");
-    const [lastName, setLastName] = useState(clientDetail?.lastName || "");
-    const [email, setEmail] = useState(clientDetail?.email || "");
-    const [role, setRole] = useState(clientDetail?.role || "");
-    const [workExperience, setWorkExperience] = useState(
-        clientDetail?.workExperience || ""
-    );
-    const [location, setLocation] = useState(clientDetail?.location || "");
-    const [contact, setContact] = useState(clientDetail?.contact || "");
-    const [bestWork, setBestWork] = useState(null);
-    const [description, setDescription] = useState(
-        clientDetail?.description || ""
-    );
-    const [price, setPrice] = useState(clientDetail?.price || "");
-    const [slot, setSlot] = useState(dayjs());
-    const [selectedSession, setSelectedSession] = useState(
-        clientDetail?.selectedSession || ""
-    );
+  const [firstName, setFirstName] = useState(clientDetail?.firstName || "");
+  const [lastName, setLastName] = useState(clientDetail?.lastName || "");
+  const [email, setEmail] = useState(clientDetail?.email || "");
+  const [role, setRole] = useState(clientDetail?.role || "");
+  const [workExperience, setWorkExperience] = useState(
+    clientDetail?.workExperience || ""
+  );
+  const [location, setLocation] = useState(clientDetail?.location || "");
+  const [contact, setContact] = useState(clientDetail?.contact || "");
+  const [bestWork, setBestWork] = useState(null);
+  const [description, setDescription] = useState(
+    clientDetail?.description || ""
+  );
+  const [price, setPrice] = useState(clientDetail?.price || "");
+  const [slot, setSlot] = useState(dayjs());
+  const [selectedSession, setSelectedSession] = useState(
+    clientDetail?.selectedSession || ""
+  );
 
-    const handleFilechange = (e) => {
-        setBestWork(e.target.files[0]);
+  const handleFilechange = (e) => {
+    setBestWork(e.target.files[0]);
+  };
+
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let bestWorkBase64 = "";
+    if (bestWork) {
+      bestWorkBase64 = await fileToBase64(bestWork);
+    }
+
+    const clientDetails = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      userId: user.id,
+      role: role,
+      workExperience: Number(workExperience),
+      location: location,
+      contact: contact,
+      bestWork: bestWorkBase64,
+      description: description,
+      price: Number(price),
+      availability: [{ date: slot.toDate(), isAvailable: true }],
+      selectedSession: selectedSession,
     };
 
-    const fileToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
+    let id = Location.state?.clientId;
+
+    try {
+      if (clientDetail) {
+        console.log("attempt to update");
+        await axios.put(
+          `http://localhost:8081/api/v1/client/${id}`,
+          clientDetails,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setClientUpdate((prev) => !prev);
+        navigate("/client/dashboard");
+      } else {
+        await axios.post("http://localhost:8081/api/v1/client", clientDetails, {
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
-    };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+        setClientLogin((prev) => !prev);
+        navigate("/client/dashboard");
+      }
+    } catch (error) {
+      console.error("There was an error posting the data!", error);
+    }
+  };
 
-        let bestWorkBase64 = "";
-        if (bestWork) {
-            bestWorkBase64 = await fileToBase64(bestWork);
-        }
-
-        const clientDetails = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            userId: "66853725b60689d846b327cd",
-            role: role,
-            workExperience: Number(workExperience),
-            location: location,
-            contact: contact,
-            bestWork: bestWorkBase64,
-            description: description,
-            price: Number(price),
-            availability: [{ date: slot.toDate(), isAvailable: true }],
-            selectedSession: selectedSession,
-        };
-        // console.log(clientDetails);
-
-        let id = Location.state?.clientId;
-
-        try {
-            if (clientDetail) {
-                console.log("attempt to update");
-                await axios.put(
-                    `http://localhost:8081/api/v1/client/${id}`,
-                    clientDetails,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-
-                setClientUpdate((prev) => !prev);
-                navigate("/client/dashboard");
-            } else {
-                await axios.post(
-                    "http://localhost:8081/api/v1/client",
-                    clientDetails,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-
-                setClientLogin((prev) => !prev);
-                navigate("/client/dashboard");
-            }
-        } catch (error) {
-            console.error("There was an error posting the data!", error);
-        }
-    };
-
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-card p-5 text-foreground">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-[300px] relative bottom-16 left-8">
-                <div className="space-y-6">
-                    <div>
-                        <label className="block ">First Name :</label>
-                        <input
-                            type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block ">Last Name :</label>
-                        <input
-                            type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block ">Email :</label>
-                        <input
-                            type="email"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block ">Role :</label>
-                        <select
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                        >
-                            <option>photography</option>
-                            <option>decoration</option>
-                            <option>venue</option>
-                            <option>catering</option>
-                            <option>organizing Team</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block ">Work Experience :</label>
-                        <input
-                            type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={workExperience}
-                            onChange={(e) => setWorkExperience(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block ">Location :</label>
-                        <select
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
-                        >
-                            <option>Doha, Qatar</option>
-                            <option>Chennai, India</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="space-y-6">
-                    <div>
-                        <label className="block ">Contact :</label>
-                        <input
-                            type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={contact}
-                            onChange={(e) => setContact(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block ">Show your best work :</label>
-
-                        <div className="flex w-full items-center justify-center">
-                            <Label
-                                htmlFor="dropzone-file"
-                                className="flex h-34 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary bg-input"
-                            >
-                                <div className="flex flex-col items-center justify-center pb-6 pt-5 gap-2">
-                                    <CiImageOn className="size-6 text-gray-400" />
-                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                        Select file
-                                    </p>
-                                </div>
-                                <FileInput
-                                    id="dropzone-file"
-                                    className="hidden"
-                                    onChange={handleFilechange}
-                                />
-                            </Label>
-                        </div>
-                    </div>
-                    <div>
-                        <label className="block ">Description :</label>
-                        <textarea
-                            className="mt-1 p-3 w-full border rounded-2xl shadow-sm bg-input"
-                            rows="4"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        ></textarea>
-                    </div>
-                    <div>
-                        <label className="block ">Price Range / day :</label>
-                        <input
-                            type="text"
-                            placeholder="$850"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block ">
-                            Availability for Events :
-                        </label>
-                        <button
-                            onClick={handleOpen}
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-x bg-input"
-                        >
-                            Book your slots here{" "}
-                            <span className="text-[#24c690]">→</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div className="relative top-80 right-[500px]">
-                <button
-                    onClick={handleSubmit}
-                    className="bg-primary text-white py-2 px-16 rounded-full shadow-lg bg-input"
-                >
-                    {clientDetail ? "Update" : "Save"}
-                </button>
-            </div>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-card p-5 text-foreground">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-[300px] relative bottom-16 left-8">
+        <div className="space-y-6">
+          <div>
+            <label className="block ">First Name :</label>
+            <input
+              type="text"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block ">Last Name :</label>
+            <input
+              type="text"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block ">Email :</label>
+            <input
+              type="email"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block ">Role :</label>
+            <select
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
             >
-                <Box sx={style}>
-                    <BookSlots
-                        close={handleClose}
-                        slot={slot}
-                        setSlot={setSlot}
-                        selectedSession={selectedSession}
-                        setSelectedSession={setSelectedSession}
-                    />
-                </Box>
-            </Modal>
+              <option>photography</option>
+              <option>decoration</option>
+              <option>venue</option>
+              <option>catering</option>
+              <option>organizing Team</option>
+            </select>
+          </div>
+          <div>
+            <label className="block ">Work Experience :</label>
+            <input
+              type="text"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={workExperience}
+              onChange={(e) => setWorkExperience(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block ">Location :</label>
+            <select
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            >
+              <option>Doha, Qatar</option>
+              <option>Chennai, India</option>
+            </select>
+          </div>
         </div>
-    );
+        <div className="space-y-6">
+          <div>
+            <label className="block ">Contact :</label>
+            <input
+              type="text"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block ">Show your best work :</label>
+
+            <div className="flex w-full items-center justify-center">
+              <Label
+                htmlFor="dropzone-file"
+                className="flex h-34 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary bg-input"
+              >
+                <div className="flex flex-col items-center justify-center pb-6 pt-5 gap-2">
+                  <CiImageOn className="size-6 text-gray-400" />
+                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    Select file
+                  </p>
+                </div>
+                <FileInput
+                  id="dropzone-file"
+                  className="hidden"
+                  onChange={handleFilechange}
+                />
+              </Label>
+            </div>
+          </div>
+          <div>
+            <label className="block ">Description :</label>
+            <textarea
+              className="mt-1 p-3 w-full border border-r-2 shadow-lg rounded-2xl bg-input"
+              rows="4"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </div>
+          <div>
+            <label className="block ">Price Range / day :</label>
+            <input
+              type="text"
+              placeholder="$850"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block ">Availability for Events :</label>
+            <button
+              onClick={handleOpen}
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+            >
+              Book your slots here <span className="text-[#24c690]">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="relative top-80 right-[500px]">
+        <button
+          onClick={handleSubmit}
+          className="bg-primary text-white py-2 px-16 rounded-full shadow-lg"
+        >
+          {clientDetail ? "Update" : "Save"}
+        </button>
+      </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <BookSlots
+            close={handleClose}
+            slot={slot}
+            setSlot={setSlot}
+            selectedSession={selectedSession}
+            setSelectedSession={setSelectedSession}
+          />
+        </Box>
+      </Modal>
+    </div>
+  );
 };
 
 export default ClientRegisterPage;
