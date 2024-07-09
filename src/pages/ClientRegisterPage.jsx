@@ -28,7 +28,7 @@ const ClientRegisterPage = ({
     const navigate = useNavigate();
     const Location = useLocation();
 
-    console.log(Location.state?.clientId);
+    // console.log(Location.state?.clientId);
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -86,9 +86,10 @@ const ClientRegisterPage = ({
             bestWork: bestWorkBase64,
             description: description,
             price: Number(price),
-            slot: [slot.format("YYYY-MM-DD"), slot.format("dddd")],
+            availability: [{ date: slot.toDate(), isAvailable: true }],
             selectedSession: selectedSession,
         };
+        // console.log(clientDetails);
 
         let id = Location.state?.clientId;
 
@@ -227,7 +228,7 @@ const ClientRegisterPage = ({
                     <div>
                         <label className="block ">Description :</label>
                         <textarea
-                            className="mt-1 p-3 w-full border-none rounded-2xl shadow-sm bg-input"
+                            className="mt-1 p-3 w-full border rounded-2xl shadow-sm bg-input"
                             rows="4"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -260,9 +261,9 @@ const ClientRegisterPage = ({
             <div className="relative top-80 right-[500px]">
                 <button
                     onClick={handleSubmit}
-                    className="bg-primary text-white py-2 px-16 rounded-full shadow-lg "
+                    className="bg-primary text-white py-2 px-16 rounded-full shadow-lg bg-input"
                 >
-                    Save
+                    {clientDetail ? "Update" : "Save"}
                 </button>
             </div>
             <Modal
