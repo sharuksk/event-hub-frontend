@@ -7,6 +7,7 @@ import { CiImageOn } from "react-icons/ci";
 import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const style = {
     position: "absolute",
@@ -25,10 +26,10 @@ const ClientRegisterPage = ({
     clientDetail,
     setClientUpdate,
 }) => {
+    const { user } = useSelector((state) => state.user);
+
     const navigate = useNavigate();
     const Location = useLocation();
-
-    // console.log(Location.state?.clientId);
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -68,7 +69,6 @@ const ClientRegisterPage = ({
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("working fine");
 
         let bestWorkBase64 = "";
         if (bestWork) {
@@ -79,7 +79,7 @@ const ClientRegisterPage = ({
             firstName: firstName,
             lastName: lastName,
             email: email,
-            userId: "66853725b60689d846b327cd",
+            userId: user.id,
             role: role,
             workExperience: Number(workExperience),
             location: location,
@@ -90,7 +90,6 @@ const ClientRegisterPage = ({
             availability: [{ date: slot.toDate(), isAvailable: true }],
             selectedSession: selectedSession,
         };
-        // console.log(clientDetails);
 
         let id = Location.state?.clientId;
 
@@ -136,7 +135,7 @@ const ClientRegisterPage = ({
                         <label className="block ">First Name :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
@@ -145,7 +144,7 @@ const ClientRegisterPage = ({
                         <label className="block ">Last Name :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
                         />
@@ -154,7 +153,7 @@ const ClientRegisterPage = ({
                         <label className="block ">Email :</label>
                         <input
                             type="email"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -162,7 +161,7 @@ const ClientRegisterPage = ({
                     <div>
                         <label className="block ">Role :</label>
                         <select
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                         >
@@ -177,7 +176,7 @@ const ClientRegisterPage = ({
                         <label className="block ">Work Experience :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={workExperience}
                             onChange={(e) => setWorkExperience(e.target.value)}
                         />
@@ -185,7 +184,7 @@ const ClientRegisterPage = ({
                     <div>
                         <label className="block ">Location :</label>
                         <select
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                         >
@@ -199,7 +198,7 @@ const ClientRegisterPage = ({
                         <label className="block ">Contact :</label>
                         <input
                             type="text"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={contact}
                             onChange={(e) => setContact(e.target.value)}
                         />
@@ -229,7 +228,7 @@ const ClientRegisterPage = ({
                     <div>
                         <label className="block ">Description :</label>
                         <textarea
-                            className="mt-1 p-3 w-full border rounded-2xl shadow-sm bg-input"
+                            className="mt-1 p-3 w-full border border-r-2 shadow-lg rounded-2xl bg-input"
                             rows="4"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -240,7 +239,7 @@ const ClientRegisterPage = ({
                         <input
                             type="text"
                             placeholder="$850"
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-xl bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
@@ -251,7 +250,7 @@ const ClientRegisterPage = ({
                         </label>
                         <button
                             onClick={handleOpen}
-                            className="mt-1 p-3 w-[270px] border rounded-full drop-shadow-x bg-input"
+                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                         >
                             Book your slots here{" "}
                             <span className="text-[#24c690]">→</span>
@@ -262,7 +261,7 @@ const ClientRegisterPage = ({
             <div className="relative top-80 right-[500px]">
                 <button
                     onClick={handleSubmit}
-                    className="bg-primary text-white py-2 px-16 rounded-full shadow-lg bg-input"
+                    className="bg-primary text-white py-2 px-16 rounded-full shadow-lg"
                 >
                     {clientDetail ? "Update" : "Save"}
                 </button>
