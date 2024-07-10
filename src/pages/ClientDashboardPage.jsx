@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EventImage from "../assets/image1.jpeg";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const ClientDashboardPage = () => {
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const { client } = useSelector((state) => state.client);
   console.log(client);
@@ -53,6 +55,15 @@ const ClientDashboardPage = () => {
     const clientId = client._id;
     navigate("/client/register", { state: { clientId } });
   };
+  useEffect(() => {
+    const getBookings = async () => {
+      const res = await axios.get(
+        BASE_URL + "/bookings/6686693fe17d48339a123db9"
+      );
+      console.log(res);
+    };
+    getBookings();
+  }, []);
 
   return (
     <div className=" min-h-screen p-10 bg-secondary ">

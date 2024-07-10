@@ -63,7 +63,7 @@ const BookSlots = ({
                     <div className="flex justify-center">
                         <button
                             onClick={handleButton}
-                            className="bg-[#24c690] text-white py-2 px-6 rounded-lg shadow-lg hover:bg-green-600"
+                            className="bg-primary text-white py-2 px-6 rounded-lg shadow-lg hover:bg-green-600"
                         >
                             Save
                         </button>

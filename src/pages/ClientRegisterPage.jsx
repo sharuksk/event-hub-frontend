@@ -90,7 +90,7 @@ const ClientRegisterPage = () => {
     let id = Location.state?.clientId;
 
     try {
-      if (Object.keys(client).length > 0) {
+      if (client && Object.keys(client).length > 0) {
         console.log("attempt to update");
         const res = await axios.put(
           `http://localhost:8081/api/v1/client/${id}`,
@@ -104,6 +104,9 @@ const ClientRegisterPage = () => {
         dispatch(setClient(res.data.data.client));
         navigate("/client/dashboard");
       } else {
+        console.log("working fine");
+
+        console.log("create client calle");
         const res = await axios.post(
           "http://localhost:8081/api/v1/client",
           clientDetails,
@@ -245,7 +248,7 @@ const ClientRegisterPage = () => {
           onClick={handleSubmit}
           className="bg-primary text-white py-2 px-16 rounded-full shadow-lg"
         >
-          {Object.keys(client).length > 0 ? "Update" : "Save"}
+          {client && Object.keys(client).length > 0 ? "Update" : "Save"}
         </button>
       </div>
       <Modal
