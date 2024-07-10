@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import EventImage from "../assets/image1.jpeg";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
-const ClientDashboardPage = ({ clientDetail }) => {
+const ClientDashboardPage = () => {
     const navigate = useNavigate();
     const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+    const { client } = useSelector((state) => state.client);
 
     const EventData = [
         {
@@ -39,7 +42,7 @@ const ClientDashboardPage = ({ clientDetail }) => {
         },
     ];
 
-    if (clientDetail) {
+    if (!client) {
         return (
             <div className="flex items-center justify-center text-center p-[300px]  bg-accent">
                 Loading...
@@ -48,10 +51,9 @@ const ClientDashboardPage = ({ clientDetail }) => {
     }
 
     const handleUpdate = () => {
-        const clientId = clientDetail._id;
+        const clientId = client._id;
         navigate("/client/register", { state: { clientId } });
     };
-
     useEffect(() => {
         const getBookings = async () => {
             const res = await axios.get(
@@ -75,26 +77,24 @@ const ClientDashboardPage = ({ clientDetail }) => {
                     <p className="text-lg">
                         {" "}
                         <span className="font-bold">Name: </span>
-                        {clientDetail
-                            ? clientDetail.firstName +
-                              " " +
-                              clientDetail.lastName
+                        {client
+                            ? client.firstName + " " + client.lastName
                             : "Isabella Singh"}
                     </p>
                     <p className="text-gray-700 mt-2">
                         {" "}
                         <span className="font-bold">Role: </span>
-                        {clientDetail ? clientDetail.role : ""}{" "}
+                        {client ? client.role : ""}{" "}
                     </p>
                     <p className="text-gray-700 mt-2">
                         {" "}
                         <span className="font-bold">Work Experience: </span>
-                        {clientDetail ? clientDetail.workExperience : ""}
+                        {client ? client.workExperience : ""}
                     </p>
                     <p className="text-gray-700 mt-2">
                         {" "}
                         <span className="font-bold">Location: </span>
-                        {clientDetail ? clientDetail.location : ""}
+                        {client ? client.location : ""}
                     </p>
 
                     <br />

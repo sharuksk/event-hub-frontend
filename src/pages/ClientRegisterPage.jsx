@@ -8,6 +8,8 @@ import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setClient } from "../features/clientSlice";
 
 const style = {
     position: "absolute",
@@ -21,37 +23,33 @@ const style = {
     p: 4,
 };
 
-const ClientRegisterPage = ({
-    setClientLogin,
-    clientDetail,
-    setClientUpdate,
-}) => {
+const ClientRegisterPage = () => {
     const { user } = useSelector((state) => state.user);
+    const { client } = useSelector((state) => state.client);
 
     const navigate = useNavigate();
     const Location = useLocation();
+    const dispatch = useDispatch();
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [firstName, setFirstName] = useState(clientDetail?.firstName || "");
-    const [lastName, setLastName] = useState(clientDetail?.lastName || "");
-    const [email, setEmail] = useState(clientDetail?.email || "");
-    const [role, setRole] = useState(clientDetail?.role || "");
+    const [firstName, setFirstName] = useState(client?.firstName || "");
+    const [lastName, setLastName] = useState(client?.lastName || "");
+    const [email, setEmail] = useState(client?.email || "");
+    const [role, setRole] = useState(client?.role || "");
     const [workExperience, setWorkExperience] = useState(
-        clientDetail?.workExperience || ""
+        client?.workExperience || ""
     );
-    const [location, setLocation] = useState(clientDetail?.location || "");
-    const [contact, setContact] = useState(clientDetail?.contact || "");
+    const [location, setLocation] = useState(client?.location || "");
+    const [contact, setContact] = useState(client?.contact || "");
     const [bestWork, setBestWork] = useState(null);
-    const [description, setDescription] = useState(
-        clientDetail?.description || ""
-    );
-    const [price, setPrice] = useState(clientDetail?.price || "");
+    const [description, setDescription] = useState(client?.description || "");
+    const [price, setPrice] = useState(client?.price || "");
     const [slot, setSlot] = useState(dayjs());
     const [selectedSession, setSelectedSession] = useState(
-        clientDetail?.selectedSession || ""
+        client?.selectedSession || ""
     );
 
     const handleFilechange = (e) => {
@@ -94,9 +92,9 @@ const ClientRegisterPage = ({
         let id = Location.state?.clientId;
 
         try {
-            if (clientDetail) {
+            if (client && Object.keys(client).length > 0) {
                 console.log("attempt to update");
-                await axios.put(
+                const res = await axios.put(
                     `http://localhost:8081/api/v1/client/${id}`,
                     clientDetails,
                     {
@@ -105,11 +103,14 @@ const ClientRegisterPage = ({
                         },
                     }
                 );
-
-                setClientUpdate((prev) => !prev);
+                dispatch(setClient(res.data.data.client));
+                // setClientUpdate((prev) => !prev);
                 navigate("/client/dashboard");
             } else {
-                await axios.post(
+                console.log("working fine");
+
+                console.log("create client calle");
+                const res = await axios.post(
                     "http://localhost:8081/api/v1/client",
                     clientDetails,
                     {
@@ -118,8 +119,9 @@ const ClientRegisterPage = ({
                         },
                     }
                 );
-
-                setClientLogin((prev) => !prev);
+                console.log(res.data);
+                dispatch(setClient(res.data.data.newClient));
+                // setClientLogin((prev) => !prev);
                 navigate("/client/dashboard");
             }
         } catch (error) {
@@ -263,7 +265,9 @@ const ClientRegisterPage = ({
                     onClick={handleSubmit}
                     className="bg-primary text-white py-2 px-16 rounded-full shadow-lg"
                 >
-                    {clientDetail ? "Update" : "Save"}
+                    {client && Object.keys(client).length > 0
+                        ? "Update"
+                        : "Save"}
                 </button>
             </div>
             <Modal
