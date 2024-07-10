@@ -7,6 +7,7 @@ const ClientDashboardPage = () => {
   const navigate = useNavigate();
 
   const { client } = useSelector((state) => state.client);
+  console.log(client);
 
   const EventData = [
     {
@@ -40,7 +41,7 @@ const ClientDashboardPage = () => {
     },
   ];
 
-  if (!client) {
+  if (!Object.keys(client).length > 0) {
     return (
       <div className="flex items-center justify-center text-center p-[300px]  bg-accent">
         Loading...
@@ -66,7 +67,7 @@ const ClientDashboardPage = () => {
           <p className="text-lg">
             {" "}
             <span className="font-bold">Name: </span>
-            {client
+            {client.firstName
               ? client.firstName + " " + client.lastName
               : "Isabella Singh"}
           </p>

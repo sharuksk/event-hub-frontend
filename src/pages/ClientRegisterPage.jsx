@@ -46,7 +46,6 @@ const ClientRegisterPage = () => {
   const [contact, setContact] = useState(client?.contact || "");
   const [bestWork, setBestWork] = useState(null);
   const [description, setDescription] = useState(client?.description || "");
-  const [price, setPrice] = useState(client?.price || "");
   const [slot, setSlot] = useState(dayjs());
   const [selectedSession, setSelectedSession] = useState(
     client?.selectedSession || ""
@@ -84,7 +83,6 @@ const ClientRegisterPage = () => {
       contact: contact,
       bestWork: bestWorkBase64,
       description: description,
-      price: Number(price),
       availability: [{ date: slot.toDate(), isAvailable: true }],
       selectedSession: selectedSession,
     };
@@ -104,7 +102,6 @@ const ClientRegisterPage = () => {
           }
         );
         dispatch(setClient(res.data.data.client));
-        // setClientUpdate((prev) => !prev);
         navigate("/client/dashboard");
       } else {
         const res = await axios.post(
@@ -118,7 +115,6 @@ const ClientRegisterPage = () => {
         );
         console.log(res.data);
         dispatch(setClient(res.data.data.newClient));
-        // setClientLogin((prev) => !prev);
         navigate("/client/dashboard");
       }
     } catch (error) {
@@ -232,16 +228,6 @@ const ClientRegisterPage = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-          </div>
-          <div>
-            <label className="block ">Price Range / day :</label>
-            <input
-              type="text"
-              placeholder="$850"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
           </div>
           <div>
             <label className="block ">Availability for Events :</label>
