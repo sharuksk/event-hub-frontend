@@ -2,7 +2,7 @@ import React from "react";
 
 const TextInputBox = ({ type, Icon, placeholder, value, setValue }) => {
     return (
-        <div className="w-full rounded-[25px]  bg-input px-4 flex items-center justify-center gap-2">
+        <div className="w-full overflow-hidden rounded-[25px]  bg-input px-4 flex items-center justify-center gap-2">
             <Icon className="text-gray-400" />
             <input
                 type={type}

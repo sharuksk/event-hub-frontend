@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Switch from "@mui/material/Switch";
 import Button from "../../components/Button";
 import SocialmediaAuthBtn from "./SocialmediaAuthBtn";
+import SelectInputBox from "./SelectInputBox";
 import googlelogo from "../../assets/googleLogo.webp";
 import fbLogo from "../../assets/fb.png";
 import axios from "axios";
@@ -16,6 +17,7 @@ import { setUser } from "../../features/userSlice";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -36,10 +38,12 @@ const Signin = () => {
       const res = await axios.post(BASE_URL + "/login", {
         email,
         password,
+        role,
       });
-      console.log(res.data.data);
+
       dispatch(setUser(res.data.data));
-      navigate("/user");
+      if (role == "user") navigate("/user");
+      else navigate("/client");
     } catch (error) {
       console.log("Error occured");
       console.log(error);
@@ -74,6 +78,13 @@ const Signin = () => {
               Icon={MailOutlinedIcon}
               value={password}
               setValue={setPassword}
+            />
+            <br />
+            <SelectInputBox
+              placeholder="Select role"
+              Icon={MailOutlinedIcon}
+              value={role}
+              setValue={setRole}
             />
           </div>
           <br />

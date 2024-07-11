@@ -34,17 +34,9 @@ const ClientServices = () => {
     const { client } = useSelector((state) => state.client);
     const { user } = useSelector((state) => state.user);
 
-    // if (client?.role?.type == "Catring") createCatringService();
-    // else if (client?.role?.type == "Photograph") createPhotographService();
-    // else if (client?.role?.type == "Venue") createVenuService();
-    // else if (client?.role?.type == "Decoration") decorationService();
     const handleSubmit = async () => {
-        // if (client?.role?.type == "Catring") createCatringService();
-        // else if (client?.role?.type == "Photograph") createPhotographService();
-        // else if (client?.role?.type == "Venue") createVenuService();
-        // else if (client?.role?.type == "Decoration") decorationService();
         const data = new FormData();
-        // image.forEach((image) => data.append("images", image[0]));
+
         data.append("images", image[0]);
 
         data.append("typeId", client?.role?._id);
@@ -62,7 +54,7 @@ const ClientServices = () => {
             data.append("portfolio", JSON.stringify(portfolio));
         } else if (client?.role?.type === "Decoration") {
             decorationImages.forEach((image) =>
-                data.append("decorationImages", image)
+                data.append("decorationImages", image),
             );
         }
         console.log(data);
