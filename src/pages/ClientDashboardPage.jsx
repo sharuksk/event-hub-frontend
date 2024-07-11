@@ -10,7 +10,6 @@ const ClientDashboardPage = () => {
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
     const { client } = useSelector((state) => state.client);
-    console.log(client);
 
     const EventData = [
         {
@@ -44,7 +43,7 @@ const ClientDashboardPage = () => {
         },
     ];
 
-    if (!Object.keys(client).length > 0) {
+    if (!client) {
         return (
             <div className="flex items-center justify-center text-center p-[300px]  bg-accent">
                 Loading...
@@ -59,7 +58,7 @@ const ClientDashboardPage = () => {
     useEffect(() => {
         const getBookings = async () => {
             const res = await axios.get(
-                BASE_URL + "/bookings/6686693fe17d48339a123db9"
+                BASE_URL + "/bookings/6686693fe17d48339a123db9",
             );
             console.log(res);
         };
@@ -69,24 +68,29 @@ const ClientDashboardPage = () => {
     return (
         <div className=" min-h-screen p-10 bg-secondary ">
             <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
-                <div className="p-8 flex flex-col gap-1">
+                <div className="p-8 flex  gap-1 justify-between items-center">
                     <p className="font-extrabold text-2xl text-foreground">
                         Client Details
                     </p>
+                    <Link to="/client/create">
+                        <Button styles="w-fit px-5 py-2 text-sm">
+                            Add Services
+                        </Button>
+                    </Link>
                 </div>
 
                 <div className="bg-white rounded-lg drop-shadow-md p-4 w-[300px] h-[230px] relative left-[400px]">
                     <p className="text-lg">
                         {" "}
                         <span className="font-bold">Name: </span>
-                        {client.firstName
+                        {client
                             ? client.firstName + " " + client.lastName
                             : "Isabella Singh"}
                     </p>
                     <p className="text-gray-700 mt-2">
                         {" "}
                         <span className="font-bold">Role: </span>
-                        {client ? client.role : ""}{" "}
+                        {client ? client?.role?.type : ""}{" "}
                     </p>
                     <p className="text-gray-700 mt-2">
                         {" "}
