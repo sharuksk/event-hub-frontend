@@ -46,12 +46,10 @@ const ClientRegisterPage = () => {
     const [contact, setContact] = useState(client?.contact || "");
     const [bestWork, setBestWork] = useState(null);
     const [description, setDescription] = useState(client?.description || "");
-    const [price, setPrice] = useState(client?.price || "");
     const [slot, setSlot] = useState(dayjs());
     const [selectedSession, setSelectedSession] = useState(
         client?.selectedSession || ""
     );
-
     const [options, setOptions] = useState([]);
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -87,7 +85,6 @@ const ClientRegisterPage = () => {
             contact: contact,
             bestWork: bestWorkBase64,
             description: description,
-            price: Number(price),
             availability: [{ date: slot.toDate(), isAvailable: true }],
             selectedSession: selectedSession,
         };
@@ -107,9 +104,11 @@ const ClientRegisterPage = () => {
                     }
                 );
                 dispatch(setClient(res.data.data.client));
-                // setClientUpdate((prev) => !prev);
                 navigate("/client/dashboard");
             } else {
+                console.log("working fine");
+
+                console.log("create client calle");
                 const res = await axios.post(
                     "http://localhost:8081/api/v1/client",
                     clientDetails,
@@ -121,14 +120,12 @@ const ClientRegisterPage = () => {
                 );
                 console.log(res.data);
                 dispatch(setClient(res.data.data.newClient));
-                // setClientLogin((prev) => !prev);
                 navigate("/client/dashboard");
             }
         } catch (error) {
             console.error("There was an error posting the data!", error);
         }
     };
-
     useEffect(() => {
         const getTypes = async () => {
             const res = await axios.get(BASE_URL + "/types");
@@ -174,20 +171,13 @@ const ClientRegisterPage = () => {
                         <select
                             className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={role}
-                            onChange={(e) => {
-                                return setRole(e.target.value);
-                            }}
+                            onChange={(e) => setRole(e.target.value)}
                         >
                             {options.map((option) => (
                                 <option key={option._id} value={option._id}>
                                     {option.type}
                                 </option>
                             ))}
-                            {/* <option>photography</option>
-                            <option>decoration</option>
-                            <option>venue</option>
-                            <option>catering</option>
-                            <option>organizing Team</option> */}
                         </select>
                     </div>
                     <div>
@@ -251,16 +241,6 @@ const ClientRegisterPage = () => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         ></textarea>
-                    </div>
-                    <div>
-                        <label className="block ">Price Range / day :</label>
-                        <input
-                            type="text"
-                            placeholder="$850"
-                            className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                        />
                     </div>
                     <div>
                         <label className="block ">

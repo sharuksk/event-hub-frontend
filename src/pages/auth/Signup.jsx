@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import TextInputBox from "./TextInputBox";
+import SelectInputBox from "./SelectInputBox";
 import PasswordInputBox from "./PasswordInputBox";
 import { Link } from "react-router-dom";
 
@@ -53,7 +54,7 @@ const Signup = () => {
       console.log(res.data);
       console.log(res.data.data);
       dispatch(setUser(res.data.data));
-      if (role === "user") navigate("/user");
+      if (role.toLowerCase() === "user") navigate("/user");
       else navigate("/client");
     } catch (error) {
       console.log("Error occured");

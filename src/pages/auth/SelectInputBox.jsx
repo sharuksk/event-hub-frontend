@@ -13,7 +13,7 @@ const PasswordInputBox = ({ placeholder, value, setValue }) => {
                 className="w-full border-none outline-none py-4 bg-input"
             >
                 <option className="bg-input">User</option>
-                <option>Admin</option>
+                <option>Client</option>
             </select>
         </div>
     );

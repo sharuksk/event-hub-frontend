@@ -42,7 +42,7 @@ const Signin = () => {
       });
 
       dispatch(setUser(res.data.data));
-      if (role == "user") navigate("/user");
+      if (role.toLowerCase() == "user") navigate("/user");
       else navigate("/client");
     } catch (error) {
       console.log("Error occured");
