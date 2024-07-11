@@ -52,6 +52,9 @@ const ClientRegisterPage = () => {
         client?.selectedSession || ""
     );
 
+    const [options, setOptions] = useState([]);
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+
     const handleFilechange = (e) => {
         setBestWork(e.target.files[0]);
     };
@@ -107,9 +110,6 @@ const ClientRegisterPage = () => {
                 // setClientUpdate((prev) => !prev);
                 navigate("/client/dashboard");
             } else {
-                console.log("working fine");
-
-                console.log("create client calle");
                 const res = await axios.post(
                     "http://localhost:8081/api/v1/client",
                     clientDetails,
@@ -128,6 +128,15 @@ const ClientRegisterPage = () => {
             console.error("There was an error posting the data!", error);
         }
     };
+
+    useEffect(() => {
+        const getTypes = async () => {
+            const res = await axios.get(BASE_URL + "/types");
+            console.log(res.data.types);
+            setOptions(res.data.types);
+        };
+        getTypes();
+    }, []);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-card p-5 text-foreground">
@@ -165,13 +174,20 @@ const ClientRegisterPage = () => {
                         <select
                             className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
                             value={role}
-                            onChange={(e) => setRole(e.target.value)}
+                            onChange={(e) => {
+                                return setRole(e.target.value);
+                            }}
                         >
-                            <option>photography</option>
+                            {options.map((option) => (
+                                <option key={option._id} value={option._id}>
+                                    {option.type}
+                                </option>
+                            ))}
+                            {/* <option>photography</option>
                             <option>decoration</option>
                             <option>venue</option>
                             <option>catering</option>
-                            <option>organizing Team</option>
+                            <option>organizing Team</option> */}
                         </select>
                     </div>
                     <div>

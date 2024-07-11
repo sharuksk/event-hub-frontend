@@ -8,6 +8,7 @@ import ClientPage from "./pages/ClientPage";
 import ClientRegisterPage from "./pages/ClientRegisterPage";
 import EventPage from "./pages/EventPage";
 import ClientDashboardPage from "./pages/ClientDashboardPage";
+import ClientServices from "./pages/ClientServices";
 import BookedEvents from "./userPages/BookedEvents";
 import Settings from "./userPages/Settings";
 import OpenDashboard from "./userPages/OpenDashboard";
@@ -48,8 +49,9 @@ function App() {
                         <Route path="settings" element={<Settings />} />
                     </Route>
 
-                    <Route path="/client/*" element={<ClientAppLayout />}>
-                        <Route path="*" element={<ClientPage />} />
+                    <Route path="/client" element={<ClientAppLayout />}>
+                        <Route path="/client" element={<ClientPage />} />
+                        <Route path="create" element={<ClientServices />} />
                         <Route
                             path="register"
                             element={<ClientRegisterPage />}
