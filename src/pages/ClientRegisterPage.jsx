@@ -27,6 +27,8 @@ const ClientRegisterPage = () => {
   const { user } = useSelector((state) => state.user);
   const { client } = useSelector((state) => state.client);
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const navigate = useNavigate();
   const Location = useLocation();
   const dispatch = useDispatch();
@@ -44,15 +46,29 @@ const ClientRegisterPage = () => {
   );
   const [location, setLocation] = useState(client?.location || "");
   const [contact, setContact] = useState(client?.contact || "");
-  const [bestWork, setBestWork] = useState(null);
+  const [bestWork, setBestWork] = useState(client?.bestWork || null);
   const [description, setDescription] = useState(client?.description || "");
   const [slot, setSlot] = useState(dayjs());
   const [selectedSession, setSelectedSession] = useState(
     client?.selectedSession || ""
   );
+  const [imageUploadSuccess, setImageUploadSuccess] = useState(false);
+  const [imageExist, setImageExist] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(client).length > 0) {
+      setImageExist(true);
+    }
+  }, [setImageExist]);
 
   const handleFilechange = (e) => {
     setBestWork(e.target.files[0]);
+    setImageUploadSuccess(true);
+  };
+
+  const handleClick = () => {
+    setImageExist(false);
+    setImageUploadSuccess(false);
   };
 
   const fileToBase64 = (file) => {
@@ -66,10 +82,12 @@ const ClientRegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(bestWork);
     let bestWorkBase64 = "";
-    if (bestWork) {
+    if (bestWork.name) {
       bestWorkBase64 = await fileToBase64(bestWork);
+    } else {
+      bestWorkBase64 = bestWork;
     }
 
     const clientDetails = {
@@ -81,7 +99,7 @@ const ClientRegisterPage = () => {
       workExperience: Number(workExperience),
       location: location,
       contact: contact,
-      bestWork: bestWorkBase64,
+      bestWork: bestWorkBase64 || bestWork,
       description: description,
       availability: [{ date: slot.toDate(), isAvailable: true }],
       selectedSession: selectedSession,
@@ -92,30 +110,22 @@ const ClientRegisterPage = () => {
     try {
       if (client && Object.keys(client).length > 0) {
         console.log("attempt to update");
-        const res = await axios.put(
-          `http://localhost:8081/api/v1/client/${id}`,
-          clientDetails,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await axios.put(`${BASE_URL}/client/${id}`, clientDetails, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         dispatch(setClient(res.data.data.client));
         navigate("/client/dashboard");
       } else {
         console.log("working fine");
 
         console.log("create client calle");
-        const res = await axios.post(
-          "http://localhost:8081/api/v1/client",
-          clientDetails,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await axios.post(`${BASE_URL}/client`, clientDetails, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         console.log(res.data);
         dispatch(setClient(res.data.data.newClient));
         navigate("/client/dashboard");
@@ -127,7 +137,7 @@ const ClientRegisterPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-card p-5 text-foreground">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-[300px] relative bottom-16 left-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-[300px] relative bottom-16 left-8">
         <div className="space-y-6">
           <div>
             <label className="block ">First Name :</label>
@@ -207,18 +217,40 @@ const ClientRegisterPage = () => {
             <div className="flex w-full items-center justify-center">
               <Label
                 htmlFor="dropzone-file"
-                className="flex h-34 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary bg-input"
+                className="flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-primary bg-input"
               >
-                <div className="flex flex-col items-center justify-center pb-6 pt-5 gap-2">
-                  <CiImageOn className="size-6 text-gray-400" />
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    Select file
-                  </p>
-                </div>
+                {imageExist ? (
+                  <img
+                    onClick={handleClick}
+                    src={bestWork}
+                    className="w-full h-full rounded-xl object-cover"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center pb-6 pt-5 gap-2">
+                    {imageUploadSuccess ? (
+                      <>
+                        <CiImageOn className="size-6 text-gray-400" />
+
+                        <p className="mt-2 text-green-700">
+                          Image selected successfully
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <CiImageOn className="size-6 text-gray-400" />
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          Select file
+                        </p>
+                      </>
+                    )}
+                  </div>
+                )}
+
                 <FileInput
                   id="dropzone-file"
                   className="hidden"
                   onChange={handleFilechange}
+                  onClick={handleClick}
                 />
               </Label>
             </div>
@@ -238,7 +270,7 @@ const ClientRegisterPage = () => {
               onClick={handleOpen}
               className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
             >
-              Book your slots here <span className="text-[#24c690]">→</span>
+              Update your visibility <span className="text-[#24c690]">→</span>
             </button>
           </div>
         </div>

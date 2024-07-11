@@ -9,7 +9,7 @@ const ClientDashboardPage = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const { client } = useSelector((state) => state.client);
-  console.log(client);
+  // console.log(client);
 
   const EventData = [
     {
@@ -45,7 +45,7 @@ const ClientDashboardPage = () => {
 
   if (!Object.keys(client).length > 0) {
     return (
-      <div className="flex items-center justify-center text-center p-[300px]  bg-accent">
+      <div className="flex items-center justify-center text-center p-[300px]  bg-accent text-2xl">
         Loading...
       </div>
     );
@@ -57,54 +57,57 @@ const ClientDashboardPage = () => {
   };
   useEffect(() => {
     const getBookings = async () => {
-      const res = await axios.get(
-        BASE_URL + "/bookings/6686693fe17d48339a123db9"
-      );
-      console.log(res);
+      await axios
+        .get(BASE_URL + "/bookings/" + client._id)
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     };
     getBookings();
   }, []);
 
   return (
     <div className=" min-h-screen p-10 bg-secondary ">
-      <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
+      <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent">
         <div className="p-8 flex flex-col gap-1">
           <p className="font-extrabold text-2xl text-foreground">
             Client Details
           </p>
         </div>
 
-        <div className="bg-white rounded-lg drop-shadow-md p-4 w-[300px] h-[230px] relative left-[400px]">
-          <p className="text-lg">
-            {" "}
-            <span className="font-bold">Name: </span>
-            {client.firstName
-              ? client.firstName + " " + client.lastName
-              : "Isabella Singh"}
-          </p>
-          <p className="text-gray-700 mt-2">
-            {" "}
-            <span className="font-bold">Role: </span>
-            {client ? client.role : ""}{" "}
-          </p>
-          <p className="text-gray-700 mt-2">
-            {" "}
-            <span className="font-bold">Work Experience: </span>
-            {client ? client.workExperience : ""}
-          </p>
-          <p className="text-gray-700 mt-2">
-            {" "}
-            <span className="font-bold">Location: </span>
-            {client ? client.location : ""}
-          </p>
-
+        <div className="bg-white rounded-lg drop-shadow-md p-4 w-1/2 h-full flex gap-20 relative left-1/4">
+          <div className="flex flex-col gap-2">
+            <p className="text-lg">
+              {" "}
+              <span className="font-bold">Name: </span>
+              {client.firstName
+                ? client.firstName + " " + client.lastName
+                : "Isabella Singh"}
+            </p>
+            <p className="text-gray-700 mt-2">
+              {" "}
+              <span className="font-bold">Role: </span>
+              {client ? client.role : ""}{" "}
+            </p>
+            <p className="text-gray-700 mt-2">
+              {" "}
+              <span className="font-bold">Work Experience: </span>
+              {client ? client.workExperience : ""}
+            </p>
+            <p className="text-gray-700 mt-2">
+              {" "}
+              <span className="font-bold">Location: </span>
+              {client ? client.location : ""}
+            </p>
+          </div>
           <br />
-          <button
-            onClick={handleUpdate}
-            className="flex bg-primary rounded-lg text-white p-2 pr-10 pl-10 absolute left-20"
-          >
-            Update Profile
-          </button>
+          <div className="">
+            <button
+              onClick={handleUpdate}
+              className="bg-primary rounded-lg text-white p-4"
+            >
+              Update Profile
+            </button>
+          </div>
         </div>
         <div className="p-8 flex flex-col gap-1">
           <p className="font-extrabold text-2xl text-foreground">
