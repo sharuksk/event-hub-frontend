@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import EventImage from "../assets/image1.jpeg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Button from "../components/Button";
 
 const ClientDashboardPage = () => {
   const navigate = useNavigate();
@@ -43,9 +44,9 @@ const ClientDashboardPage = () => {
     },
   ];
 
-  if (!Object.keys(client).length > 0) {
+  if (!client) {
     return (
-      <div className="flex items-center justify-center text-center p-[300px]  bg-accent text-2xl">
+      <div className="flex items-center justify-center text-center p-[300px]  bg-accent">
         Loading...
       </div>
     );
@@ -67,11 +68,14 @@ const ClientDashboardPage = () => {
 
   return (
     <div className=" min-h-screen p-10 bg-secondary ">
-      <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent">
-        <div className="p-8 flex flex-col gap-1">
+      <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
+        <div className="p-8 flex  gap-1 justify-between items-center">
           <p className="font-extrabold text-2xl text-foreground">
             Client Details
           </p>
+          <Link to="/client/create">
+            <Button styles="w-fit px-5 py-2 text-sm">Add Services</Button>
+          </Link>
         </div>
 
         <div className="bg-white rounded-lg drop-shadow-md p-4 w-1/2 h-full flex gap-20 relative left-1/4">
@@ -79,14 +83,14 @@ const ClientDashboardPage = () => {
             <p className="text-lg">
               {" "}
               <span className="font-bold">Name: </span>
-              {client.firstName
+              {client
                 ? client.firstName + " " + client.lastName
                 : "Isabella Singh"}
             </p>
             <p className="text-gray-700 mt-2">
               {" "}
               <span className="font-bold">Role: </span>
-              {client ? client.role : ""}{" "}
+              {client ? client?.role?.type : ""}{" "}
             </p>
             <p className="text-gray-700 mt-2">
               {" "}

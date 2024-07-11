@@ -6,7 +6,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 const PasswordInputBox = ({ placeholder, value, setValue }) => {
     const [type, setType] = useState("password");
     return (
-        <div className="w-full rounded-[25px]  bg-input px-4 flex items-center justify-center gap-2">
+        <div className="w-full rounded-[25px]  bg-input px-4 flex items-center justify-center gap-2 overflow-hidden">
             <LockOutlinedIcon className="text-gray-400" />
             <input
                 type={type}

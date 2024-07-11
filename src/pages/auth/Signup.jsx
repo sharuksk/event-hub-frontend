@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import TextInputBox from "./TextInputBox";
+import SelectInputBox from "./SelectInputBox";
 import PasswordInputBox from "./PasswordInputBox";
 import { Link } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("user");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -47,11 +49,13 @@ const Signup = () => {
         name: name,
         email,
         password: password,
+        role,
       });
       console.log(res.data);
       console.log(res.data.data);
       dispatch(setUser(res.data.data));
-      navigate("/user");
+      if (role.toLowerCase() === "user") navigate("/user");
+      else navigate("/client");
     } catch (error) {
       console.log("Error occured");
       console.log(error);
@@ -85,18 +89,22 @@ const Signup = () => {
 
             <PasswordInputBox
               placeholder="password"
-              Icon={MailOutlinedIcon}
               value={password}
               setValue={setPassword}
             />
 
             <PasswordInputBox
               placeholder="Confirm password"
-              Icon={MailOutlinedIcon}
               value={confirmPassword}
               setValue={setConfirmPassword}
             />
+            <SelectInputBox
+              placeholder="Select role"
+              value={role}
+              setValue={setRole}
+            />
           </div>
+
           <br />
 
           <div className="flex items-center flex-col">

@@ -60,6 +60,7 @@ const ClientRegisterPage = () => {
       setImageExist(true);
     }
   }, [setImageExist]);
+  const [options, setOptions] = useState([]);
 
   const handleFilechange = (e) => {
     setBestWork(e.target.files[0]);
@@ -135,6 +136,15 @@ const ClientRegisterPage = () => {
     }
   };
 
+  useEffect(() => {
+    const getTypes = async () => {
+      const res = await axios.get(BASE_URL + "/types");
+      console.log(res.data.types);
+      setOptions(res.data.types);
+    };
+    getTypes();
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-card p-5 text-foreground">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-[300px] relative bottom-16 left-8">
@@ -173,11 +183,11 @@ const ClientRegisterPage = () => {
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
-              <option>photography</option>
-              <option>decoration</option>
-              <option>venue</option>
-              <option>catering</option>
-              <option>organizing Team</option>
+              {options.map((option) => (
+                <option key={option._id} value={option._id}>
+                  {option.type}
+                </option>
+              ))}
             </select>
           </div>
           <div>
