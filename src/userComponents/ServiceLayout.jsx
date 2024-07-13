@@ -16,11 +16,11 @@ const ServiceLayout = ({ children }) => (
     >
         <Box sx={{ display: "flex", flexGrow: 1 }}>
             <Sidebar />
-                <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
-                    <ServiceHeader />
-                    <ServiceSelector/>
-                    <ServiceMainContent />
-                </Box>
+            <Box component="main" sx={{ flexGrow: 1, p: 0 }}>
+                <ServiceHeader />
+                <ServiceSelector />
+                <ServiceMainContent />
+            </Box>
         </Box>
         <Footer />
     </Box>

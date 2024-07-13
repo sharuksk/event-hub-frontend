@@ -48,7 +48,7 @@ const StyledTab = styled((props) => <Tab {...props} />)(
         "&.Mui-focusVisible": {
             backgroundColor: "rgba(100, 95, 228, 0.32)",
         },
-    }),
+    })
 );
 
 const BookedEvents = () => {
@@ -89,16 +89,15 @@ const BookedEvents = () => {
     ];
 
     const upcomingEvents = bookedEvents.filter(
-        (event) => new Date(event.date) >= new Date(),
+        (event) => new Date(event.date) >= new Date()
     );
     const pastEvents = bookedEvents.filter(
-        (event) => new Date(event.date) < new Date(),
+        (event) => new Date(event.date) < new Date()
     );
 
     const eventsToDisplay = selectedTab === 0 ? upcomingEvents : pastEvents;
 
     useEffect(() => {}, []);
-
     return (
         <Box
             sx={{

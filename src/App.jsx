@@ -17,6 +17,10 @@ import ServiceLayout from "./userComponents/ServiceLayout";
 import VenueSelection from "./userPages/VenueSelection";
 import Layout from "./userComponents/Layout";
 import { useEffect } from "react";
+import ServiceLayout from "./userComponents/ServiceLayout";
+import VenueSelection from "./userPages/VenueSelection";
+import CateringSelection from "./userPages/CateringSelection";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 const theme = createTheme({
     palette: {
@@ -64,16 +68,18 @@ function App() {
 
                     <Route path="/client" element={<ClientAppLayout />}>
                         <Route path="/client" element={<ClientPage />} />
-                        <Route path="create" element={<ClientServices />} />
                         <Route
                             path="register"
                             element={<ClientRegisterPage />}
                         />
-                        <Route path="events" element={<EventPage />} />
-                        <Route
-                            path="dashboard"
-                            element={<ClientDashboardPage />}
-                        />
+                        <Route element={<PrivateRoute />}>
+                            <Route path="create" element={<ClientServices />} />
+                            <Route path="events" element={<EventPage />} />
+                            <Route
+                                path="dashboard"
+                                element={<ClientDashboardPage />}
+                            />
+                        </Route>
                     </Route>
                 </Routes>
             </BrowserRouter>

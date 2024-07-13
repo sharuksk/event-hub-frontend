@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import { PickersDay } from '@mui/x-date-pickers/PickersDay';
-import { Link, useNavigate } from 'react-router-dom';
-import dayjs from 'dayjs';
+import React, { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+import { PickersDay } from "@mui/x-date-pickers/PickersDay";
+import { Link, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 const ServiceBookSlots = ({ close }) => {
     const [selectedDates, setSelectedDates] = useState([]);
     const navigate = useNavigate();
 
     const handleDateChange = (date) => {
-        const formattedDate = dayjs(date).format('YYYY-MM-DD');
+        const formattedDate = dayjs(date).format("YYYY-MM-DD");
         if (selectedDates.includes(formattedDate)) {
             setSelectedDates(selectedDates.filter((d) => d !== formattedDate));
         } else {
@@ -21,11 +21,11 @@ const ServiceBookSlots = ({ close }) => {
     };
 
     const handleSave = () => {
-        navigate('/service', { state: { selectedDates } });
+        navigate("/service", { state: { selectedDates } });
     };
 
     const isDateDisabled = (date) => {
-        return dayjs(date).isBefore(dayjs().startOf('day'));
+        return dayjs(date).isBefore(dayjs().startOf("day"));
     };
 
     return (
@@ -47,8 +47,10 @@ const ServiceBookSlots = ({ close }) => {
                                 value={null}
                                 onChange={handleDateChange}
                                 renderDay={(day, _value, DayComponentProps) => {
-                                    const formattedDate = dayjs(day).format('YYYY-MM-DD');
-                                    const isSelected = selectedDates.includes(formattedDate);
+                                    const formattedDate =
+                                        dayjs(day).format("YYYY-MM-DD");
+                                    const isSelected =
+                                        selectedDates.includes(formattedDate);
                                     const isDisabled = isDateDisabled(day);
                                     return (
                                         <PickersDay
@@ -57,7 +59,11 @@ const ServiceBookSlots = ({ close }) => {
                                             selected={isSelected}
                                             disabled={isDisabled}
                                             onDaySelect={handleDateChange}
-                                            className={isSelected ? 'bg-primary text-white' : ''}
+                                            className={
+                                                isSelected
+                                                    ? "bg-primary text-white"
+                                                    : ""
+                                            }
                                         />
                                     );
                                 }}
