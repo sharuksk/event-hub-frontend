@@ -113,6 +113,7 @@ const ClientDashboardPage = () => {
             </button>
           </div>
         </div>
+
         <div className="p-8 flex flex-col gap-1">
           <p className="font-extrabold text-2xl text-foreground">
             GM Organizing Events

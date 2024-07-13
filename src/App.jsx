@@ -14,6 +14,9 @@ import Settings from "./userPages/Settings";
 import OpenDashboard from "./userPages/OpenDashboard";
 import Layout from "./userComponents/Layout";
 import { useEffect } from "react";
+import ServiceLayout from "./userComponents/ServiceLayout";
+import VenueSelection from "./userPages/VenueSelection";
+import CateringSelection from "./userPages/CateringSelection";
 
 const theme = createTheme({
   palette: {
@@ -47,6 +50,10 @@ function App() {
             <Route path="" element={<OpenDashboard />} />
             <Route path="events" element={<BookedEvents />} />
             <Route path="settings" element={<Settings />} />
+          </Route>
+          <Route path="/service/" element={<ServiceLayout />}>
+            <Route path="venueSelection" element={<VenueSelection />} />
+            <Route path="cateringSelection" element={<CateringSelection />} />
           </Route>
 
           <Route path="/client" element={<ClientAppLayout />}>

@@ -49,9 +49,9 @@ const ClientRegisterPage = () => {
   const [bestWork, setBestWork] = useState(client?.bestWork || null);
   const [description, setDescription] = useState(client?.description || "");
   const [slot, setSlot] = useState(dayjs());
-  const [selectedSession, setSelectedSession] = useState(
-    client?.selectedSession || ""
-  );
+  // const [selectedSession, setSelectedSession] = useState(
+  //   client?.selectedSession || ""
+  // );
   const [imageUploadSuccess, setImageUploadSuccess] = useState(false);
   const [imageExist, setImageExist] = useState(false);
 
@@ -100,10 +100,10 @@ const ClientRegisterPage = () => {
       workExperience: Number(workExperience),
       location: location,
       contact: contact,
-      bestWork: bestWorkBase64 || bestWork,
+      bestWork: bestWorkBase64,
       description: description,
-      availability: [{ date: slot.toDate(), isAvailable: true }],
-      selectedSession: selectedSession,
+      availability: [{ date: slot.format("YYYY-MM-DD"), isAvailable: true }],
+      // selectedSession: selectedSession,
     };
 
     let id = Location.state?.clientId;
@@ -304,8 +304,8 @@ const ClientRegisterPage = () => {
             close={handleClose}
             slot={slot}
             setSlot={setSlot}
-            selectedSession={selectedSession}
-            setSelectedSession={setSelectedSession}
+            // selectedSession={selectedSession}
+            // setSelectedSession={setSelectedSession}
           />
         </Box>
       </Modal>
