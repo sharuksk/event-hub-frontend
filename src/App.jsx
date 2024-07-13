@@ -17,9 +17,7 @@ import ServiceLayout from "./userComponents/ServiceLayout";
 import VenueSelection from "./userPages/VenueSelection";
 import Layout from "./userComponents/Layout";
 import { useEffect } from "react";
-import ServiceLayout from "./userComponents/ServiceLayout";
-import VenueSelection from "./userPages/VenueSelection";
-import CateringSelection from "./userPages/CateringSelection";
+
 import { PrivateRoute } from "./components/PrivateRoute";
 
 const theme = createTheme({
