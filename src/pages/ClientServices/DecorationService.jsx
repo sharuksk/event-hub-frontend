@@ -7,7 +7,6 @@ const DecorationService = ({ images, setImages }) => {
     const [img3, setImg3] = useState(null);
     const [img4, setImg4] = useState(null);
 
-    console.log(images);
     return (
         <div className="mt-5">
             &nbsp;&nbsp;<label>Decoration images : </label>

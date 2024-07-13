@@ -1,12 +1,34 @@
-import React, { useState } from "react";
-import { Box, Typography, Button, Grid, Paper, Tabs, Tab } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+    Box,
+    Typography,
+    Button,
+    Grid,
+    Paper,
+    Tabs,
+    Tab,
+    Modal,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
+import ServiceBookSlots from "../userComponents/ServiceBookSlots";
 
 const StyledTabs = styled(Tabs)({
     backgroundColor: "#8A1538",
     borderRadius: 30, // Rounded corners
 });
+
+const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 800,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+};
 
 const StyledTab = styled((props) => <Tab {...props} />)(
     ({ theme, selected }) => ({
@@ -26,11 +48,14 @@ const StyledTab = styled((props) => <Tab {...props} />)(
         "&.Mui-focusVisible": {
             backgroundColor: "rgba(100, 95, 228, 0.32)",
         },
-    })
+    }),
 );
 
 const BookedEvents = () => {
     const [selectedTab, setSelectedTab] = useState(0);
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const handleTabChange = (event, newValue) => {
         setSelectedTab(newValue);
     };
@@ -64,13 +89,15 @@ const BookedEvents = () => {
     ];
 
     const upcomingEvents = bookedEvents.filter(
-        (event) => new Date(event.date) >= new Date()
+        (event) => new Date(event.date) >= new Date(),
     );
     const pastEvents = bookedEvents.filter(
-        (event) => new Date(event.date) < new Date()
+        (event) => new Date(event.date) < new Date(),
     );
 
     const eventsToDisplay = selectedTab === 0 ? upcomingEvents : pastEvents;
+
+    useEffect(() => {}, []);
 
     return (
         <Box
@@ -162,8 +189,7 @@ const BookedEvents = () => {
 
             <Box sx={{ mt: 3, textAlign: "center" }}>
                 <Button
-                    component={Link}
-                    to="/user"
+                    onClick={handleOpen}
                     variant="contained"
                     color="primary"
                     sx={{ mt: 2, mb: 10, color: "white" }}
@@ -171,6 +197,16 @@ const BookedEvents = () => {
                     Add Events
                 </Button>
             </Box>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <ServiceBookSlots close={handleClose} />
+                </Box>
+            </Modal>
         </Box>
     );
 };

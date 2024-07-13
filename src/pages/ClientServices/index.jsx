@@ -9,6 +9,7 @@ import PhotographyService from "./PhotographyService";
 import VenueService from "./VenueService";
 import DecorationService from "./DecorationService";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ClientServices = () => {
     const [name, setName] = useState("");
@@ -28,6 +29,8 @@ const ClientServices = () => {
 
     //decoration
     const [decorationImages, setDecorationImages] = useState([]);
+
+    const navigate = useNavigate();
 
     const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -65,6 +68,7 @@ const ClientServices = () => {
                 },
             });
             console.log(res);
+            navigate("/client/dashboard");
         } catch (error) {
             console.error(error);
         }

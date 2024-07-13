@@ -11,7 +11,10 @@ import ClientDashboardPage from "./pages/ClientDashboardPage";
 import ClientServices from "./pages/ClientServices";
 import BookedEvents from "./userPages/BookedEvents";
 import Settings from "./userPages/Settings";
+import CateringSelection from "./userPages/CateringSelection";
 import OpenDashboard from "./userPages/OpenDashboard";
+import ServiceLayout from "./userComponents/ServiceLayout";
+import VenueSelection from "./userPages/VenueSelection";
 import Layout from "./userComponents/Layout";
 import { useEffect } from "react";
 
@@ -47,6 +50,16 @@ function App() {
                         <Route path="" element={<OpenDashboard />} />
                         <Route path="events" element={<BookedEvents />} />
                         <Route path="settings" element={<Settings />} />
+                    </Route>
+                    <Route path="/service/" element={<ServiceLayout />}>
+                        <Route
+                            path="venueSelection"
+                            element={<VenueSelection />}
+                        />
+                        <Route
+                            path="cateringSelection"
+                            element={<CateringSelection />}
+                        />
                     </Route>
 
                     <Route path="/client" element={<ClientAppLayout />}>
