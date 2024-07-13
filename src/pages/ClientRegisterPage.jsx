@@ -116,6 +116,7 @@ const ClientRegisterPage = () => {
             "Content-Type": "application/json",
           },
         });
+        console.log(res.data);
         dispatch(setClient(res.data.data.client));
         navigate("/client/dashboard");
       } else {
