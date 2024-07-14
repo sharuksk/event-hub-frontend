@@ -16,8 +16,11 @@ const itemSlice = createSlice({
     clearItems: (state) => {
       state.items = [];
     },
+    deleteItem: (state, action) => {
+      state.items = state.items.filter((item) => item._id !== action.payload);
+    },
   },
 });
 
-export const { setitem, addItem, clearItems } = itemSlice.actions;
+export const { setitem, addItem, clearItems, deleteItem } = itemSlice.actions;
 export default itemSlice.reducer;

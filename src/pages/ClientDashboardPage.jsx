@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import EventImage from "../assets/image1.jpeg";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Button from "../components/Button";
+import { deleteItem } from "../features/itemSlice";
 
 const ClientDashboardPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const { client } = useSelector((state) => state.client);
   const { items } = useSelector((state) => state.item);
-  console.log(items);
 
   const EventData = [
     {
@@ -67,6 +68,17 @@ const ClientDashboardPage = () => {
   //   getBookings();
   // }, []);
 
+  const handleDelete = async (id) => {
+    // console.log(id);
+    await axios
+      .delete(`${BASE_URL}/items/delete/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(deleteItem(id));
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className=" min-h-screen p-10 bg-secondary ">
       <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
@@ -113,14 +125,26 @@ const ClientDashboardPage = () => {
           {items.map((item, index) => (
             <div
               key={index}
-              className="bg-white border-2 border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+              className="bg-white border-2 border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 flex justify-between"
             >
-              <p className="text-lg font-semibold mb-2">Name: {item.name}</p>
-              <p className="text-gray-600 mb-2">
-                Description: {item.description}
-              </p>
-              <p className="text-gray-600 mb-2">Contact: {item.contactInfo}</p>
-              <p className="text-gray-600">Location: {item.location}</p>
+              <div>
+                <p className="text-lg font-semibold mb-2">Name: {item.name}</p>
+                <p className="text-gray-600 mb-2">
+                  Description: {item.description}
+                </p>
+                <p className="text-gray-600 mb-2">
+                  Contact: {item.contactInfo}
+                </p>
+                <p className="text-gray-600">Location: {item.location}</p>
+              </div>
+              <div>
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="bg-primary text-white p-2 rounded-lg"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
