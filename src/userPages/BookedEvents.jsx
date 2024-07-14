@@ -169,6 +169,7 @@ const BookedEvents = () => {
                             item
                             xs={12}
                             sm={6}
+                            md={4}
                             key={index}
                             sx={{
                                 py: 3,

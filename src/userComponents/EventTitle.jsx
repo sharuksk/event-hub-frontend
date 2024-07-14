@@ -10,7 +10,7 @@ const EventTitle = ({ isOpen, setIsOpen, title, setTitle }) => {
 
 	return (
 		<div
-			className={`bg-opacity-1 backdrop-blur-sm bg-white/30 inset-0 absolute z-10 flex justify-center items-center text-foreground duration-100 ${isOpen ? "opacity-100" : "opacity-0 hidden"}`}
+			className={`bg-opacity-1 backdrop-blur-sm bg-white/30 inset-0 fixed z-10 flex justify-center items-center text-foreground duration-100 ${isOpen ? "opacity-100" : "opacity-0 hidden"}`}
 		>
 			<div
 				className={`bg-background p-5 shadow-lg rounded-[25px] w-[500px] transition-transform transform ${isOpen ? "scale-100" : "scale-95"}`}
