@@ -34,6 +34,7 @@ const ClientServices = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const { client } = useSelector((state) => state.client);
+  console.log(client.role.type);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();

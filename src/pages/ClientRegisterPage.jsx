@@ -40,7 +40,7 @@ const ClientRegisterPage = () => {
   const [firstName, setFirstName] = useState(client?.firstName || "");
   const [lastName, setLastName] = useState(client?.lastName || "");
   const [email, setEmail] = useState(client?.email || "");
-  const [role, setRole] = useState(client?.role || "");
+  const [role, setRole] = useState(client?.role?._id || "");
   const [workExperience, setWorkExperience] = useState(
     client?.workExperience || ""
   );
