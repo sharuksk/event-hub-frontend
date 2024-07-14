@@ -10,7 +10,8 @@ const ClientDashboardPage = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const { client } = useSelector((state) => state.client);
-  // console.log(client);
+  const { items } = useSelector((state) => state.item);
+  console.log(items);
 
   const EventData = [
     {
@@ -56,62 +57,72 @@ const ClientDashboardPage = () => {
     const clientId = client._id;
     navigate("/client/register", { state: { clientId } });
   };
-  useEffect(() => {
-    const getBookings = async () => {
-      await axios
-        .get(BASE_URL + "/bookings/" + client._id)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    };
-    getBookings();
-  }, []);
+  // useEffect(() => {
+  //   const getBookings = async () => {
+  //     await axios
+  //       .get(BASE_URL + "/bookings/" + client._id)
+  //       .then((res) => console.log(res))
+  //       .catch((err) => console.log(err));
+  //   };
+  //   getBookings();
+  // }, []);
 
   return (
     <div className=" min-h-screen p-10 bg-secondary ">
       <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
-        <div className="p-8 flex  gap-1 justify-between items-center">
-          <p className="font-extrabold text-2xl text-foreground">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-semibold  text-foreground">
             Client Details
-          </p>
+          </h2>
           <Link to="/client/create">
-            <Button styles="w-fit px-5 py-2 text-sm">Add Services</Button>
+            <button className="bg-primary text-white px-4 py-2 rounded-[25px]">
+              Add Services
+            </button>
           </Link>
         </div>
-
-        <div className="bg-white rounded-lg drop-shadow-md p-4 w-1/2 h-full flex gap-20 relative left-1/4">
-          <div className="flex flex-col gap-2">
-            <p className="text-lg">
-              {" "}
-              <span className="font-bold">Name: </span>
+        <div className="bg-purple-100 p-4 rounded-lg mb-6 flex justify-between items-center">
+          <div>
+            <p className="text-xl font-semibold">
               {client
                 ? client.firstName + " " + client.lastName
                 : "Isabella Singh"}
             </p>
-            <p className="text-gray-700 mt-2">
-              {" "}
-              <span className="font-bold">Role: </span>
-              {client ? client?.role?.type : ""}{" "}
+            <p className="text-gray-700">
+              Role: {client ? client?.role?.type : ""}
             </p>
-            <p className="text-gray-700 mt-2">
-              {" "}
-              <span className="font-bold">Work Experience: </span>
-              {client ? client.workExperience : ""}
+            <p className="text-gray-700">
+              Work Experience: {client ? client.workExperience : ""} years
             </p>
-            <p className="text-gray-700 mt-2">
-              {" "}
-              <span className="font-bold">Location: </span>
-              {client ? client.location : ""}
+            <p className="text-gray-700">
+              Location: {client ? client.location : ""}
             </p>
           </div>
-          <br />
-          <div className="">
-            <button
-              onClick={handleUpdate}
-              className="bg-primary rounded-lg text-white p-4"
+          <button
+            onClick={handleUpdate}
+            className="bg-primary text-white px-4 py-2 rounded-lg"
+          >
+            Update Profile
+          </button>
+        </div>
+
+        {items.length > 0 && (
+          <h2 className="text-2xl font-semibold mb-4">Service Details</h2>
+        )}
+
+        <div className="space-y-4">
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white border-2 border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
             >
-              Update Profile
-            </button>
-          </div>
+              <p className="text-lg font-semibold mb-2">Name: {item.name}</p>
+              <p className="text-gray-600 mb-2">
+                Description: {item.description}
+              </p>
+              <p className="text-gray-600 mb-2">Contact: {item.contactInfo}</p>
+              <p className="text-gray-600">Location: {item.location}</p>
+            </div>
+          ))}
         </div>
 
         <div className="p-8 flex flex-col gap-1">

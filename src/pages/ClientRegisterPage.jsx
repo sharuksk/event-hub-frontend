@@ -56,7 +56,7 @@ const ClientRegisterPage = () => {
   const [imageExist, setImageExist] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(client).length > 0) {
+    if (client && Object.keys(client).length > 0) {
       setImageExist(true);
     }
   }, [setImageExist]);
