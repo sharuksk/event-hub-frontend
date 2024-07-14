@@ -55,7 +55,7 @@ const Sidebar = () => (
         </Box>
       </Box>
       <List sx={{ mt: 5 , ml: 3}}>
-        <ListItem button component={Link} to="/profile" sx={{mb:2}}>
+        <ListItem button component={Link} to="/user/profile" sx={{mb:2}}>
           <ListItemIcon> 
             <PersonOutlineRounded />
           </ListItemIcon>
