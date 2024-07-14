@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
 import ServiceBookSlots from "../userComponents/ServiceBookSlots";
+import axios from "axios";
 
 const StyledTabs = styled(Tabs)({
     backgroundColor: "#8A1538",
@@ -48,19 +49,22 @@ const StyledTab = styled((props) => <Tab {...props} />)(
         "&.Mui-focusVisible": {
             backgroundColor: "rgba(100, 95, 228, 0.32)",
         },
-    })
+    }),
 );
 
 const BookedEvents = () => {
     const [selectedTab, setSelectedTab] = useState(0);
     const [open, setOpen] = React.useState(false);
+    const [bookedEvents, setBookedEvents] = useState([]);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+
     const handleTabChange = (event, newValue) => {
         setSelectedTab(newValue);
     };
 
-    const bookedEvents = [
+    const bookedEventss = [
         // Add your booked events data here
         {
             eventImage: "/images/download.jpg",
@@ -89,15 +93,28 @@ const BookedEvents = () => {
     ];
 
     const upcomingEvents = bookedEvents.filter(
-        (event) => new Date(event.date) >= new Date()
+        (event) => new Date(event.bookings[0].date[0]) >= new Date(),
     );
     const pastEvents = bookedEvents.filter(
-        (event) => new Date(event.date) < new Date()
+        (event) => new Date(event.bookings[0].date[0]) < new Date(),
     );
 
     const eventsToDisplay = selectedTab === 0 ? upcomingEvents : pastEvents;
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const data = await axios.get(BASE_URL + "/events");
+                console.log(
+                    data.data.events[0].bookings[0].itemDetails.images[0],
+                );
+                setBookedEvents(data.data.events);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getData();
+    }, []);
     return (
         <Box
             sx={{
@@ -152,6 +169,7 @@ const BookedEvents = () => {
                             item
                             xs={12}
                             sm={6}
+                            md={4}
                             key={index}
                             sx={{
                                 py: 3,
@@ -210,7 +228,7 @@ const BookedEvents = () => {
     );
 };
 
-const EventCard = ({ eventImage, eventTitle, date, place }) => (
+const EventCard = ({ eventImage, eventTitle, date, place, bookings }) => (
     <Paper
         sx={{
             // p: 2,
@@ -226,8 +244,8 @@ const EventCard = ({ eventImage, eventTitle, date, place }) => (
     >
         <div className="bg-background/85 text-foreground p-[20px] rounded-[11px] w-[300px] border">
             <img
-                src={eventImage}
-                alt={eventTitle}
+                src={`data:image/jpeg;base64,${bookings[0].itemDetails.images[0].data}`}
+                alt={bookings[0]?.title}
                 style={{
                     width: "100%",
                     height: 120,
@@ -237,9 +255,11 @@ const EventCard = ({ eventImage, eventTitle, date, place }) => (
                 }}
             />
             <Box sx={{ textAlign: "left" }}>
-                <Typography variant="subtitle1">{eventTitle}</Typography>
-                <Typography variant="body2">{date}</Typography>
-                <Typography variant="body2">{place}</Typography>
+                <Typography variant="subtitle1">
+                    {bookings[0]?.title}
+                </Typography>
+                <Typography variant="body2">{bookings[0]?.date[0]}</Typography>
+                <Typography variant="body2">{bookings[0]?.location}</Typography>
             </Box>
         </div>
     </Paper>
