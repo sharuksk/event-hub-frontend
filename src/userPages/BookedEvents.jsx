@@ -105,9 +105,7 @@ const BookedEvents = () => {
         const getData = async () => {
             try {
                 const data = await axios.get(BASE_URL + "/events");
-                console.log(
-                    data.data.events[0].bookings[0].itemDetails.images[0],
-                );
+                console.log(data.data.events[0]);
                 setBookedEvents(data.data.events);
             } catch (error) {
                 console.log(error);
@@ -228,7 +226,7 @@ const BookedEvents = () => {
     );
 };
 
-const EventCard = ({ eventImage, eventTitle, date, place, bookings }) => (
+const EventCard = ({ groupId, bookings }) => (
     <Paper
         sx={{
             // p: 2,
@@ -242,26 +240,32 @@ const EventCard = ({ eventImage, eventTitle, date, place, bookings }) => (
 
         // onClick={handleCardClick}
     >
-        <div className="bg-background/85 text-foreground p-[20px] rounded-[11px] w-[300px] border">
-            <img
-                src={`data:image/jpeg;base64,${bookings[0].itemDetails.images[0].data}`}
-                alt={bookings[0]?.title}
-                style={{
-                    width: "100%",
-                    height: 120,
-                    borderRadius: "8px",
-                    marginBottom: "8px",
-                    objectFit: "cover",
-                }}
-            />
-            <Box sx={{ textAlign: "left" }}>
-                <Typography variant="subtitle1">
-                    {bookings[0]?.title}
-                </Typography>
-                <Typography variant="body2">{bookings[0]?.date[0]}</Typography>
-                <Typography variant="body2">{bookings[0]?.location}</Typography>
-            </Box>
-        </div>
+        <Link to={`/user/event-details/${groupId}`}>
+            <div className="bg-background/85 text-foreground p-[20px] rounded-[11px] w-[300px] border">
+                <img
+                    src={`data:image/jpeg;base64,${bookings[0].itemDetails.images[0].data}`}
+                    alt={bookings[0]?.title}
+                    style={{
+                        width: "100%",
+                        height: 120,
+                        borderRadius: "8px",
+                        marginBottom: "8px",
+                        objectFit: "cover",
+                    }}
+                />
+                <Box sx={{ textAlign: "left" }}>
+                    <Typography variant="subtitle1">
+                        {bookings[0]?.title}
+                    </Typography>
+                    <Typography variant="body2">
+                        {bookings[0]?.date[0]}
+                    </Typography>
+                    <Typography variant="body2">
+                        {bookings[0]?.location}
+                    </Typography>
+                </Box>
+            </div>
+        </Link>
     </Paper>
 );
 

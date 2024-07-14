@@ -17,6 +17,8 @@ import ServiceLayout from "./userComponents/ServiceLayout";
 import VenueSelection from "./userPages/VenueSelection";
 import Layout from "./userComponents/Layout";
 import { useEffect } from "react";
+import EventDetails from "./userPages/EventDetails";
+import UserProfile from "./userPages/UserProfile";
 
 import { PrivateRoute } from "./components/PrivateRoute";
 
@@ -52,6 +54,8 @@ function App() {
             <Route path="" element={<OpenDashboard />} />
             <Route path="events" element={<BookedEvents />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="event-details/:bookedId" element={<EventDetails />} />
+            <Route path="profile" element={<UserProfile/>} />
           </Route>
           <Route path="/service/" element={<ServiceLayout />}>
             <Route path="venueSelection" element={<VenueSelection />} />
