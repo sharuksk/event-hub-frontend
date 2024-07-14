@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ClientInput from "../../components/ClientInput";
 import ClientTextArea from "../../components/ClientTextArea";
@@ -18,6 +18,7 @@ const ClientServices = () => {
   const [contactInfo, setContactInfo] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState(null);
+  const [role, setRole] = useState("");
   //catring
   const [menuOptions, setMenuOptions] = useState([]);
 
@@ -34,30 +35,30 @@ const ClientServices = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const { client } = useSelector((state) => state.client);
-  console.log(client.role.type);
+
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const data = new FormData();
-
+    console.log(client?.role);
     data.append("images", image[0]);
 
-    data.append("typeId", client?.role?._id);
+    data.append("typeId", client?.role);
     data.append("clientId", user.id);
     data.append("name", name);
     data.append("description", description);
     data.append("contactInfo", contactInfo);
     data.append("price", price);
-    if (client?.role?.type === "Catring") {
+    if (role === "Catring") {
       data.append("menuOptions", JSON.stringify(menuOptions));
-    } else if (client?.role?.type === "Venue") {
+    } else if (role === "Venue") {
       data.append("location", location);
       data.append("capacity", capacity);
-    } else if (client?.role?.type === "Photograph") {
+    } else if (role === "Photograph") {
       data.append("portfolio", JSON.stringify(portfolio));
-    } else if (client?.role?.type === "Decoration") {
+    } else if (role === "Decoration") {
       decorationImages.forEach((image) =>
         data.append("decorationImages", image)
       );
@@ -80,6 +81,18 @@ const ClientServices = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const getTypes = async () => {
+      const res = await axios.get(BASE_URL + "/types");
+      const roleArray = res.data.types.filter(
+        (type) => type._id === client.role
+      );
+      setRole(roleArray[0].type);
+    };
+    getTypes();
+  }, []);
+
   return (
     <div className="  bg-card text-foreground p-20 flex flex-col justify-center items-center ">
       <div className="flex w-full max-w-[1200px] gap-10">
@@ -113,11 +126,11 @@ const ClientServices = () => {
           <ClientInputImage title={"Image"} value={image} setValue={setImage} />
         </div>
         <div className="space-y-5 flex-1">
-          {client?.role?.type == "Catring" && (
+          {role == "Catring" && (
             <CatringService options={menuOptions} setOptions={setMenuOptions} />
           )}
 
-          {client?.role?.type == "Venue" && (
+          {role == "Venue" && (
             <VenueService
               location={location}
               setLocation={setLocation}
@@ -126,11 +139,11 @@ const ClientServices = () => {
             />
           )}
 
-          {client?.role?.type == "Photograph" && (
+          {role == "Photograph" && (
             <PhotographyService options={portfolio} setOptions={setPortfolio} />
           )}
 
-          {client?.role?.type == "Decoration" && (
+          {role == "Decoration" && (
             <DecorationService
               images={decorationImages}
               setImages={setDecorationImages}

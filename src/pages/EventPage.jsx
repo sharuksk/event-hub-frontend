@@ -1,59 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventImage from "../assets/image1.jpeg";
 import { CiCalendar } from "react-icons/ci";
 import { FaLocationDot } from "react-icons/fa6";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import dayjs from "dayjs";
 
 const EventPage = () => {
   const [showPastEvents, setShowPastEvents] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [upcomingEventData, setUpcomingEventData] = useState([]);
+  const [confirmationStatus, setConfirmationStatus] = useState({});
+  const { client } = useSelector((state) => state.client);
 
-  const upcomingEventData = [
-    {
-      image: EventImage,
-      date: "27 July, 24",
-      location: "Doha, Qatar",
-      booked: "Amith",
-      contact: "+ 123 567 879",
-      mail: "abc@gmail.com",
-    },
-  ];
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+  const formatDate = (dateString) => {
+    return dayjs(dateString).format("D MMMM, YY");
+  };
+
+  useEffect(() => {
+    const getBookings = async () => {
+      try {
+        // Get bookings
+        const bookingsResponse = await axios.get(
+          BASE_URL + "/bookings/" + client._id
+        );
+        const bookings = bookingsResponse.data.bookings;
+
+        const eventData = await Promise.all(
+          bookings.map(async (booking) => {
+            const userResponse = await axios.get(
+              BASE_URL + "/user/" + booking.user
+            );
+            const userData = userResponse.data.users;
+
+            const dates = booking.date.map((d) => formatDate(d));
+
+            return {
+              id: booking._id,
+              image: EventImage,
+              date: dates,
+              location: "Doha, Qatar",
+              booked: userData.name,
+              contact: userData.phoneNumber,
+              mail: userData.email,
+              status: booking.status,
+              isConfirmed: booking.isConfirmed,
+            };
+          })
+        );
+
+        setUpcomingEventData(eventData);
+
+        const initialConfirmationStatus = eventData.reduce((acc, event) => {
+          acc[event.id] = event.isConfirmed;
+          return acc;
+        }, {});
+        setConfirmationStatus(initialConfirmationStatus);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getBookings();
+  }, [client._id]);
 
   const pastEventData = [
     {
       image: EventImage,
-      date: "27 June, 24",
-      location: "Dubai, UAE",
-      booked: "John",
-      contact: "+ 987 654 321",
-      mail: "xyz@gmail.com",
-    },
-    {
-      image: EventImage,
-      date: "27 June, 24",
-      location: "Dubai, UAE",
-      booked: "John",
-      contact: "+ 987 654 321",
-      mail: "xyz@gmail.com",
-    },
-    {
-      image: EventImage,
-      date: "27 June, 24",
-      location: "Dubai, UAE",
-      booked: "John",
-      contact: "+ 987 654 321",
-      mail: "xyz@gmail.com",
-    },
-    {
-      image: EventImage,
-      date: "27 June, 24",
-      location: "Dubai, UAE",
-      booked: "John",
-      contact: "+ 987 654 321",
-      mail: "xyz@gmail.com",
-    },
-    {
-      image: EventImage,
-      date: "27 June, 24",
+      date: ["27 June, 24"],
       location: "Dubai, UAE",
       booked: "John",
       contact: "+ 987 654 321",
@@ -66,23 +82,52 @@ const EventPage = () => {
     setChecked(!checked);
   };
 
+  const handleCheckboxChange = (id) => {
+    setConfirmationStatus((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
+  const handleSave = async (id) => {
+    // console.log(
+    //   `Event ID: ${id}, Confirmation Status: ${confirmationStatus[id]}`
+    // );
+
+    const data = {
+      isConfirmed: confirmationStatus[id],
+    };
+
+    await axios
+      .put(BASE_URL + "/bookings/" + id, data)
+      .then((res) => {
+        // console.log(res);
+        alert(`event accepted for ${id}`);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const renderEventCards = (eventData) =>
     eventData.map((data, index) => (
       <div
         key={index}
-        className="bg-secondary text-foreground border-[] h-auto w-[250px] rounded-3xl flex flex-col gap-2 drop-shadow-2xl p-4 my-4 font-bold text-xs"
+        className="bg-secondary text-foreground h-auto w-[300px] rounded-3xl flex flex-col gap-2 drop-shadow-2xl p-4 my-4 font-bold text-xs"
       >
         <img
           src={data.image}
           alt="Event"
           className="rounded-3xl h-[150px] w-full object-cover"
         />
-        <div className="flex gap-10">
-          <p className="flex gap-2 text-center">
+        <div className="flex gap-16">
+          <p className="flex gap-2 text-center pl-2">
             <span>
               <CiCalendar className="size-4 text-blue-500" />
             </span>
-            {data.date}
+            <div className="flex flex-col gap-1">
+              {data.date.map((d) => (
+                <p>{d}</p>
+              ))}
+            </div>
           </p>
           <p className="flex gap-1">
             <span>
@@ -91,9 +136,29 @@ const EventPage = () => {
             {data.location}
           </p>
         </div>
-        <p>Booked By: {data.booked}</p>
-        <p>Contact: {data.contact}</p>
-        <p>Mail: {data.mail}</p>
+        <div className="flex flex-col gap-1 pl-4">
+          <p>Booked By: {data.booked}</p>
+          <p>Contact: {data.contact}</p>
+          <p>Mail: {data.mail}</p>
+          <p>status: {data.status}</p>
+          <div className="flex gap-2 items-center text-[14px]">
+            <input
+              type="checkbox"
+              checked={confirmationStatus[data.id] || false}
+              onChange={() => handleCheckboxChange(data.id)}
+              className="size-5"
+            />
+            <p>confirm</p>
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <button
+            onClick={() => handleSave(data.id)}
+            className="p-3 pr-8 pl-8 bg-primary rounded-xl text-[14px] text-white"
+          >
+            save
+          </button>
+        </div>
       </div>
     ));
 
@@ -101,7 +166,7 @@ const EventPage = () => {
     <div className="bg-secondary min-h-screen p-10">
       <div className="bg-accent rounded-lg shadow-md mb-6 h-auto p-4">
         <div>
-          <div className="relative w-56 h-10  shadow-lg rounded-3xl flex items-center justify-center bg-white left-[850px]">
+          <div className="relative w-56 h-10 shadow-lg rounded-3xl flex items-center justify-center bg-white left-[850px]">
             <input
               type="checkbox"
               className="absolute w-full h-full opacity-0 cursor-pointer z-20"
@@ -140,7 +205,7 @@ const EventPage = () => {
         <p className="font-extrabold text-foreground">
           {showPastEvents ? "Past Events" : "Upcoming Events"}:
         </p>
-        <div className="pl-8 gap-10 grid grid-cols-4">
+        <div className="pl-8 gap-[300px] grid grid-cols-4">
           {showPastEvents
             ? renderEventCards(pastEventData)
             : renderEventCards(upcomingEventData)}

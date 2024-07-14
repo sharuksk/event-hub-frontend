@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EventImage from "../assets/image1.jpeg";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,7 @@ const ClientDashboardPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const [role, setRole] = useState("");
 
   const { client } = useSelector((state) => state.client);
   const { items } = useSelector((state) => state.item);
@@ -46,6 +47,17 @@ const ClientDashboardPage = () => {
     },
   ];
 
+  useEffect(() => {
+    const getTypes = async () => {
+      const res = await axios.get(BASE_URL + "/types");
+      const roleArray = res.data.types.filter(
+        (type) => type._id === client.role
+      );
+      setRole(roleArray[0].type);
+    };
+    getTypes();
+  }, []);
+
   if (!client) {
     return (
       <div className="flex items-center justify-center text-center p-[300px]  bg-accent">
@@ -58,15 +70,6 @@ const ClientDashboardPage = () => {
     const clientId = client._id;
     navigate("/client/register", { state: { clientId } });
   };
-  // useEffect(() => {
-  //   const getBookings = async () => {
-  //     await axios
-  //       .get(BASE_URL + "/bookings/" + client._id)
-  //       .then((res) => console.log(res))
-  //       .catch((err) => console.log(err));
-  //   };
-  //   getBookings();
-  // }, []);
 
   const handleDelete = async (id) => {
     // console.log(id);
@@ -99,9 +102,7 @@ const ClientDashboardPage = () => {
                 ? client.firstName + " " + client.lastName
                 : "Isabella Singh"}
             </p>
-            <p className="text-gray-700">
-              Role: {client ? client?.role?.type : ""}
-            </p>
+            <p className="text-gray-700">Role: {client ? role : ""}</p>
             <p className="text-gray-700">
               Work Experience: {client ? client.workExperience : ""} years
             </p>
