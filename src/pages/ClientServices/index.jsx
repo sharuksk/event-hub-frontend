@@ -60,7 +60,7 @@ const ClientServices = () => {
       data.append("portfolio", JSON.stringify(portfolio));
     } else if (role === "Decoration") {
       decorationImages.forEach((image) =>
-        data.append("decorationImages", image)
+        data.append("decorationImages", image),
       );
     }
     console.log(data);
@@ -84,11 +84,20 @@ const ClientServices = () => {
 
   useEffect(() => {
     const getTypes = async () => {
-      const res = await axios.get(BASE_URL + "/types");
-      const roleArray = res.data.types.filter(
-        (type) => type._id === client.role
-      );
-      setRole(roleArray[0].type);
+      try {
+        const res = await axios.get(BASE_URL + "/types");
+        console.log(
+          res.data.types[0].type.toLowerCase == client.role.toLowerCase,
+        );
+        console.log(client.role);
+        const roleArray = res.data.types.filter(
+          (type) => type.toLowerCase === client.role.toLowerCase,
+        );
+        console.log(roleArray);
+        setRole(roleArray[0].type);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getTypes();
   }, []);

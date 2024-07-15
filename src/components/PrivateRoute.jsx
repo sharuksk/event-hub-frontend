@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export const PrivateRoute = () => {
   const { client } = useSelector((state) => state.client);
-  if (!client?.id) return <Navigate to="/client/" />;
+  if (!client?._id) return <Navigate to="/client/" />;
   return Object.keys(client).length > 0 ? (
     <Outlet />
   ) : (
