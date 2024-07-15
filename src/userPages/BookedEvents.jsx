@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
 import ServiceBookSlots from "../userComponents/ServiceBookSlots";
 import axios from "axios";
+import moment from "moment";
 
 const StyledTabs = styled(Tabs)({
     backgroundColor: "#8A1538",
@@ -255,13 +256,16 @@ const EventCard = ({ groupId, bookings }) => (
                 />
                 <Box sx={{ textAlign: "left" }}>
                     <Typography variant="subtitle1">
-                        {bookings[0]?.title}
+                        Title : {bookings[0]?.title}
                     </Typography>
                     <Typography variant="body2">
-                        {bookings[0]?.date[0]}
+                        {/*{bookings[0]?.date[0]}*/}
+                        Date:{" "}
+                        {moment(bookings[0]?.date[0]).format("YYYY-MM-DD")}
                     </Typography>
                     <Typography variant="body2">
                         {bookings[0]?.location}
+                        {console.log(bookings[0])}
                     </Typography>
                 </Box>
             </div>
