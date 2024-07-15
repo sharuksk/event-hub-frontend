@@ -13,7 +13,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../features/userSlice";
-import { setClient } from "../../features/clientSlice";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +21,6 @@ const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const { user } = useSelector((state) => state.user);
 
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -47,16 +45,7 @@ const Signin = () => {
       if (role.toLowerCase() == "user") {
         navigate("/user");
       } else {
-        await axios
-          .get(BASE_URL + "/client")
-          .then((res) => {
-            const clientUser = res.data.data.client.filter(
-              (d) => d.userId === user.id
-            );
-            dispatch(setClient(clientUser[clientUser.length - 1]));
-            navigate("/client/dashboard");
-          })
-          .catch((err) => console.log(err));
+        navigate("/client/");
       }
     } catch (error) {
       console.log("Error occured");

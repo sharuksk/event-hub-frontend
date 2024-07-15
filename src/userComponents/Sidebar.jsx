@@ -1,99 +1,118 @@
-import {
-  Box,
-  Paper,
-  Typography,
-  Avatar,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Button,
-} from "@mui/material";
-import {
-  Search,
-  FilterList,
-  ViewList,
-  LocationOn,
-  Event,
-  SettingsOutlined,
-  HelpOutlineOutlined,
-  Person,
-  ExitToAppOutlined,
-  CalendarTodayRounded,
-  PersonOutlineRounded
-} from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import Image from "../assets/profile_image.avif";
+import { IoPersonOutline } from "react-icons/io5";
+import { CiCalendar } from "react-icons/ci";
+import { CiSettings } from "react-icons/ci";
+import { TfiHelpAlt } from "react-icons/tfi";
+import { PiSignInBold } from "react-icons/pi";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+// import { setClient } from "../features/clientSlice";
+import { setUser } from "../features/userSlice";
+import { clearItems } from "../features/itemSlice";
 
-const Sidebar = () => (
-  <Box sx={{ width: 300, flexShrink: 0 }} zIndex={1} bgcolor={"white"}>
-    <Paper
-      sx={{
-        width: 300,
-        height: "100vh",
-        position: "fixed",
-        p: 2,
-        backgroundColor: "white",
-      }}
-    >
-      <Typography
-        variant="h5"
-        sx={{ mb: 2, textAlign: "center", color: "black", fontWeight: "bold" }}
-      >
-        Qatar Event Hub
-      </Typography>
-      <Box sx={{mt: 5, ml: 3,display: 'flex', alignItems: 'center' }}>
-        <Avatar
-          alt="User Name"
-          src="/path-to-image.jpg"
-          sx={{ width: 70, height: 70, mb: 1 }}
+const ClientSidebar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
+
+  const handlesignOut = () => {
+    dispatch(setUser({}));
+    dispatch(clearItems());
+    navigate("/auth/signin");
+  };
+
+  return (
+    <aside className="px-2 pr-[50px] py-4 border-r border-muted-foreground grid-row-span-full flex flex-col gap-8 font-semibold bg-background  h-min-screen">
+      <div className="bg-background p-4 border-muted-foreground">
+        <h1 className="text-2xl font-bold text-foreground ">Qatar Event Hub</h1>
+      </div>
+      <div className="flex gap-3">
+        <img
+          className="h-14 w-14 rounded-full border-[3px] border-blue-900"
+          src={Image}
         />
-        <Box sx={{ ml: 2 }}>
-          <Typography variant="h6" fontSize={'12'} fontWeight={'bold'}>User Name</Typography>
-          <Typography variant="body2" color="textSecondary">
-            user@example.com
-          </Typography>
-        </Box>
-      </Box>
-      <List sx={{ mt: 5 , ml: 3}}>
-        <ListItem button component={Link} to="/user/profile" sx={{mb:2}}>
-          <ListItemIcon> 
-            <PersonOutlineRounded />
-          </ListItemIcon>
-          <ListItemText primary="My Profile" />
-        </ListItem>
-        <ListItem button component={Link} to="/user/events" sx={{mb:2}}>
-          <ListItemIcon>
-            <CalendarTodayRounded />
-          </ListItemIcon>
-          <ListItemText primary="Events" />
-        </ListItem>
-        <ListItem button component={Link} to="/user/settings" sx={{mb:2}}>
-          <ListItemIcon>
-            <SettingsOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Settings" />
-        </ListItem>
-        <ListItem button component={Link} to="/help" sx={{mb:2}}>
-          <ListItemIcon>
-            <HelpOutlineOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Help and FAQs" />
-        </ListItem>
-      </List>
-      <center>
-      <Box sx={{ p: 2, mt:40}}>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<ExitToAppOutlined />}
-        sx={{ width: '55%', color: 'white',borderRadius:2, textTransform: 'none'}}
-      >
-        Sign Out
-      </Button>
-    </Box>
-      </center>
-    </Paper>  
-  </Box>
-);
+        <nav>
+          <ul className="text-sm ">
+            <li className="font-bold text-foreground">
+              {user ? user.name : "Isabella Singh"}
+            </li>
+            <li>
+              <Link
+                className="underline underline-offset-1 font-normal text-muted-foreground"
+                to="/about"
+              >
+                {user ? user.email : "isabellasingh@gmail.com"}
+              </Link>
+            </li>
+            <li className="font-normal text-muted-foreground">
+              Role - {user ? user.role : ""}
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <nav>
+        <ul className="flex flex-col gap-2 font-normal text-muted-foreground">
+          <li>
+            <NavLink
+              to="/user/profile"
+              className={`flex items-center gap-6    hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
+                location.pathname === "#"
+              }`}
+            >
+              <IoPersonOutline className="size-7" />
+              <span>My Profile</span>
+            </NavLink>
+          </li>
 
-export default Sidebar;
+          <li>
+            <NavLink
+              to="/user/events"
+              className={`flex items-center gap-6   hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
+                location.pathname === "#"
+              }`}
+            >
+              <CiCalendar className="size-7" />
+              <span>Events</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/user/settings"
+              className={`flex items-center gap-6  hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
+                location.pathname === "#"
+              }`}
+            >
+              <CiSettings className="size-7" />
+              <span>Settings</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/help"
+              className={`flex items-center gap-6 hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
+                location.pathname === "#"
+              }`}
+            >
+              <TfiHelpAlt className="size-7" />
+              <span>Help & FAQs</span>
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
+      <button
+        onClick={handlesignOut}
+        className="flex gap-4 text-center items-center bg-primary p-3 rounded-lg mx-auto my-auto relative bottom-[210px] text-white"
+      >
+        <PiSignInBold /> Sign Out
+      </button>
+    </aside>
+  );
+};
+
+export default ClientSidebar;

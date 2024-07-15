@@ -8,7 +8,7 @@ import { TfiHelpAlt } from "react-icons/tfi";
 import { PiSignInBold } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setClient } from "../features/clientSlice";
+import { setUser } from "../features/userSlice";
 import { clearItems } from "../features/itemSlice";
 
 const ClientSidebar = () => {
@@ -16,12 +16,13 @@ const ClientSidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { client } = useSelector((state) => state?.client);
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
 
   const handlesignOut = () => {
-    dispatch(setClient({}));
+    dispatch(setUser({}));
     dispatch(clearItems());
-    navigate("/client/");
+    navigate("/auth/signin");
   };
 
   return (
@@ -37,21 +38,19 @@ const ClientSidebar = () => {
         <nav>
           <ul className="text-sm ">
             <li className="font-bold text-foreground">
-              {client && Object.keys(client).length > 0
-                ? client.firstName + " " + client.lastName
-                : "Isabella Singh"}
+              {user ? user.name : "Isabella Singh"}
             </li>
             <li>
               <Link
                 className="underline underline-offset-1 font-normal text-muted-foreground"
                 to="/about"
               >
-                {client && Object.keys(client).length > 0
-                  ? client.email
-                  : "isabellasingh@gmail.com"}
+                {user ? user.email : "isabellasingh@gmail.com"}
               </Link>
             </li>
-            <li className="font-normal text-muted-foreground">Role - Client</li>
+            <li className="font-normal text-muted-foreground">
+              Role - {user ? user.role : ""}
+            </li>
           </ul>
         </nav>
       </div>
