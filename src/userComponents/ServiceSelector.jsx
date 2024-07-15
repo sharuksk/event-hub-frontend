@@ -120,7 +120,7 @@ const ServiceSelector = () => {
         try {
             const data = await axios.post(BASE_URL + "/bookings", {
                 user: user.id,
-                clientId: client._id,
+                // clientId: client._id,
                 itemIds,
                 date: selectedDates,
                 title: eventTitle,
