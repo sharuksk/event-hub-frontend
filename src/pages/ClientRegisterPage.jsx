@@ -26,6 +26,7 @@ const style = {
 const ClientRegisterPage = () => {
   const { user } = useSelector((state) => state.user);
   const { client } = useSelector((state) => state.client);
+  console.log(client?.role);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -42,7 +43,7 @@ const ClientRegisterPage = () => {
   const [email, setEmail] = useState(client?.email || "");
   const [role, setRole] = useState(client?.role?._id || "");
   const [workExperience, setWorkExperience] = useState(
-    client?.workExperience || ""
+    client?.workExperience || "",
   );
   const [location, setLocation] = useState(client?.location || "");
   const [contact, setContact] = useState(client?.contact || "");
@@ -83,6 +84,9 @@ const ClientRegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(role);
+    console.log(user);
+
     console.log(bestWork);
     let bestWorkBase64 = "";
     if (bestWork.name) {
@@ -116,7 +120,7 @@ const ClientRegisterPage = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(res.data);
+
         dispatch(setClient(res.data.data.client));
         navigate("/client/dashboard");
       } else {
@@ -128,7 +132,7 @@ const ClientRegisterPage = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(res.data);
+        console.log(res.data.data.newClient);
         dispatch(setClient(res.data.data.newClient));
         navigate("/client/dashboard");
       }

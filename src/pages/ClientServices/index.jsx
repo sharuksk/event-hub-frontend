@@ -45,7 +45,7 @@ const ClientServices = () => {
     console.log(client?.role);
     data.append("images", image[0]);
 
-    data.append("typeId", client?.role);
+    data.append("typeId", client?.role?._id);
     data.append("clientId", user.id);
     data.append("name", name);
     data.append("description", description);
@@ -83,23 +83,26 @@ const ClientServices = () => {
   };
 
   useEffect(() => {
-    const getTypes = async () => {
-      try {
-        const res = await axios.get(BASE_URL + "/types");
-        console.log(
-          res.data.types[0].type.toLowerCase == client.role.toLowerCase,
-        );
-        console.log(client.role);
-        const roleArray = res.data.types.filter(
-          (type) => type.toLowerCase === client.role.toLowerCase,
-        );
-        console.log(roleArray);
-        setRole(roleArray[0].type);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getTypes();
+    console.log(client?.role?.type);
+    setRole(client?.role?.type);
+    // const getTypes = async () => {
+    //   try {
+    //     const res = await axios.get(BASE_URL + "/types");
+    //     // console.log(res.data.types[0]);
+
+    //     // console.log(client.role);
+    //     const   = res.data.types.filter((type) => {
+    //       console.log(type.type);
+    //       console.log(client.role.type);
+    //       return type.type.toLowerCase === client.role.type.toLowerCase;
+    //     });
+    //     console.log( );
+    //     setRole( [0].type);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // getTypes();
   }, []);
 
   return (
@@ -114,28 +117,36 @@ const ClientServices = () => {
             value={name}
             setValue={setName}
           />
+          <br />
+          <br />
+
           <ClientTextArea
             title={"Description"}
             value={description}
             setValue={setDescription}
           />
+          <br />
+          <br />
           <ClientInput
             title={"Contact info"}
             type={"text"}
             value={contactInfo}
             setValue={setContactInfo}
           />
+          <br />
+          <br />
           <ClientInput
             title={"Price"}
             type={"number"}
             value={price}
             setValue={setPrice}
           />
-
+          <br />
+          <br />
           <ClientInputImage title={"Image"} value={image} setValue={setImage} />
         </div>
-        <div className="space-y-5 flex-1">
-          {role == "Catring" && (
+        <div className="space-y-5 flex-1 ">
+          {role == "Catering" && (
             <CatringService options={menuOptions} setOptions={setMenuOptions} />
           )}
 
@@ -148,7 +159,7 @@ const ClientServices = () => {
             />
           )}
 
-          {role == "Photograph" && (
+          {role == "Photography" && (
             <PhotographyService options={portfolio} setOptions={setPortfolio} />
           )}
 

@@ -3,6 +3,8 @@ import image from "../assets/image1.jpeg";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const ClientPage = () => {
     const navigate = useNavigate();
@@ -10,6 +12,22 @@ const ClientPage = () => {
     const handleRegister = () => {
         navigate("/client/register");
     };
+    const { user } = useSelector((state) => state.user);
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+    useEffect(() => {
+        const getClientData = async () => {
+            try {
+                console.log(user);
+                const res = await axios.get(BASE_URL + "/client/" + user.id);
+                console.log(res.data);
+                dispatch(setClient(res.data.data.client));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getClientData();
+    }, []);
 
     return (
         <div className="h-screen bg-secondary flex items-center justify-center flex-col gap-10">
