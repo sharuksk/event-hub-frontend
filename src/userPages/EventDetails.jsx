@@ -77,7 +77,7 @@ const EventDetails = () => {
 				</Typography>
 			</Box>
 
-			<div className="mt-20 max-w-[1200px] mr-20">
+			<div className="mt-20 max-w-[1200px] mr-20 text-foreground">
 				<div className="flex gap-10">
 					<button
 						onClick={() => setDetails("venue")}
@@ -121,7 +121,7 @@ const EventDetails = () => {
 								className="object-fit w-full h-full rounded-[15px]"
 							/>
 						</div>
-						<div className="bg-green-300 rounded-[25px] p-3 capitalize">
+						<div className="bg-green-300 rounded-[25px] p-3 capitalize text-black">
 							{event[0]?.status}
 						</div>
 					</div>
