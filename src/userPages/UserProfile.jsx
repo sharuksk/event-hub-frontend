@@ -1,55 +1,64 @@
 // src/userPages/UserProfile.jsx
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from "react";
 import {
-  Container, Typography, Box, TextField, Button, Paper, IconButton, Avatar, Modal,
-} from '@mui/material';
-import { styled } from '@mui/system';
-import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
-import EmailIcon from '@mui/icons-material/Email';
-import PersonIcon from '@mui/icons-material/Person';
-import PhoneIcon from '@mui/icons-material/Phone';
-import WorkIcon from '@mui/icons-material/Work';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { mockUser } from './MockUserData';
-import Cropper from 'react-easy-crop';
-import { getCroppedImg } from './cropImageUtils'; // You need to implement this utility function
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Button,
+  Paper,
+  IconButton,
+  Avatar,
+  Modal,
+} from "@mui/material";
+import { styled } from "@mui/system";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
+import EmailIcon from "@mui/icons-material/Email";
+import PersonIcon from "@mui/icons-material/Person";
+import PhoneIcon from "@mui/icons-material/Phone";
+import WorkIcon from "@mui/icons-material/Work";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import { mockUser } from "./MockUserData";
+import Cropper from "react-easy-crop";
+import { getCroppedImg } from "./cropImageUtils"; // You need to implement this utility function
+import { useSelector } from "react-redux";
 
 const ContainerStyled = styled(Container)(({ theme }) => ({
   marginTop: theme.spacing(4),
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 }));
 
 const PaperStyled = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   marginTop: theme.spacing(4),
-  width: '100%',
-  maxWidth: '600px',
+  width: "100%",
+  maxWidth: "600px",
 }));
 
 const FormFieldStyled = styled(TextField)(({ theme }) => ({
   marginBottom: theme.spacing(2),
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
 }));
 
-const IconStyled = styled('span')(({ theme }) => ({
+const IconStyled = styled("span")(({ theme }) => ({
   marginRight: theme.spacing(1),
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
 }));
 
 const AvatarContainer = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  display: 'flex',
-  justifyContent: 'center',
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
   marginBottom: theme.spacing(2),
 }));
 
 const EditIconButton = styled(IconButton)(({ theme }) => ({
-  position: 'absolute',
+  position: "absolute",
   bottom: 0,
   right: 0,
   backgroundColor: theme.palette.background.paper,
@@ -58,13 +67,14 @@ const EditIconButton = styled(IconButton)(({ theme }) => ({
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState(mockUser);
-  const [profilePic, setProfilePic] = useState(mockUser.profilePic || '');
+  const [profilePic, setProfilePic] = useState(mockUser.profilePic || "");
 
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const { user } = useSelector((state) => state.user);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -96,7 +106,10 @@ const UserProfile = () => {
 
   const handleSaveCroppedImage = useCallback(async () => {
     try {
-      const croppedImage = await getCroppedImg(selectedImage, croppedAreaPixels);
+      const croppedImage = await getCroppedImg(
+        selectedImage,
+        croppedAreaPixels,
+      );
       setProfilePic(croppedImage);
       setIsCropModalOpen(false);
     } catch (e) {
@@ -112,7 +125,7 @@ const UserProfile = () => {
 
   return (
     <ContainerStyled>
-      <Typography variant="h4" gutterBottom color={'whitesmoke'}>
+      <Typography variant="h4" gutterBottom color={"whitesmoke"}>
         User Profile
       </Typography>
       <PaperStyled elevation={3}>
@@ -142,7 +155,7 @@ const UserProfile = () => {
             <FormFieldStyled
               label="Full Name"
               name="fullName"
-              value={userData.fullName}
+              value={user.name}
               variant="outlined"
               fullWidth
               onChange={handleInputChange}
@@ -158,7 +171,7 @@ const UserProfile = () => {
             <FormFieldStyled
               label="Email"
               name="email"
-              value={userData.email}
+              value={user.email}
               variant="outlined"
               fullWidth
               onChange={handleInputChange}
@@ -174,7 +187,7 @@ const UserProfile = () => {
             <FormFieldStyled
               label="Role"
               name="role"
-              value={userData.role}
+              value={user.role}
               variant="outlined"
               fullWidth
               onChange={handleInputChange}
@@ -183,14 +196,14 @@ const UserProfile = () => {
               }}
             />
           </Box>
-          <Box display="flex" alignItems="center" mb={2}>
+          {/* <Box display="flex" alignItems="center" mb={2}>
             <IconStyled>
               <PhoneIcon />
             </IconStyled>
             <FormFieldStyled
               label="Phone Number"
               name="phoneNumber"
-              value={userData.phoneNumber || ''}
+              value={userData.phoneNumber || ""}
               variant="outlined"
               fullWidth
               onChange={handleInputChange}
@@ -198,7 +211,7 @@ const UserProfile = () => {
                 readOnly: !isEditing,
               }}
             />
-          </Box>
+          </Box>*/}
         </Box>
         <Box mt={3} display="flex" justifyContent="center">
           {isEditing ? (
@@ -244,7 +257,11 @@ const UserProfile = () => {
             />
           </Box>
           <Box mt={2}>
-            <Button variant="contained" color="primary" onClick={handleSaveCroppedImage}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSaveCroppedImage}
+            >
               Save
             </Button>
           </Box>
