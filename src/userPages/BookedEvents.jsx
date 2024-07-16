@@ -103,7 +103,9 @@ const BookedEvents = () => {
     const eventsToDisplay = selectedTab === 0 ? upcomingEvents : pastEvents;
 
     useEffect(() => {
+        console.log("use Effect called");
         const getData = async () => {
+            console.log("get data called");
             try {
                 const data = await axios.get(BASE_URL + "/events");
                 console.log(data.data.events[0]);
@@ -157,11 +159,7 @@ const BookedEvents = () => {
                 </StyledTabs>
             </Box>
 
-            <Grid
-                container
-                spacing={2}
-                sx={{ py: 3, mt: 6, justifyContent: "center" }}
-            >
+            <Grid container spacing={2} sx={{ py: 3, mt: 6 }}>
                 {eventsToDisplay.length > 0 ? (
                     eventsToDisplay.map((event, index) => (
                         <Grid
