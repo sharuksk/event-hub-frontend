@@ -48,11 +48,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Signin />} />
-          <Route path="signup" element={<Signup />} />
 
-          <Route path="/user/" element={<Layout />}>
-            <Route element={<UserPrivateRoute />}>
-              <Route path="" element={<OpenDashboard />} />
+          <Route path="signup" element={<Signup />} />
+          <Route element={<UserPrivateRoute />}>
+            <Route path="dashboard" element={<OpenDashboard />} />
+            <Route path="/user/" element={<Layout />}>
               <Route path="events" element={<BookedEvents />} />
               <Route path="settings" element={<Settings />} />
               <Route
