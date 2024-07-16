@@ -50,7 +50,7 @@ const StyledTab = styled((props) => <Tab {...props} />)(
     "&.Mui-focusVisible": {
       backgroundColor: "rgba(100, 95, 228, 0.32)",
     },
-  })
+  }),
 );
 
 const BookedEvents = () => {
@@ -94,10 +94,10 @@ const BookedEvents = () => {
   ];
 
   const upcomingEvents = bookedEvents.filter(
-    (event) => new Date(event.bookings[0].date[0]) >= new Date()
+    (event) => new Date(event.bookings[0].date[0]) >= new Date(),
   );
   const pastEvents = bookedEvents.filter(
-    (event) => new Date(event.bookings[0].date[0]) < new Date()
+    (event) => new Date(event.bookings[0].date[0]) < new Date(),
   );
 
   const eventsToDisplay = selectedTab === 0 ? upcomingEvents : pastEvents;
@@ -109,6 +109,7 @@ const BookedEvents = () => {
       try {
         const data = await axios.get(BASE_URL + "/events");
         console.log(data.data.events[0]);
+        console.log(data.data);
         setBookedEvents(data.data.events);
       } catch (error) {
         console.log(error);

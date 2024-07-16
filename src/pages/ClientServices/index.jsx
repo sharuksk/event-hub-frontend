@@ -41,24 +41,28 @@ const ClientServices = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    console.log("*************7777777777777777777**********");
+    console.log(portfolio);
+
     const data = new FormData();
-    console.log(client?.role);
+
     data.append("images", image[0]);
 
-    data.append("typeId", client?.role?._id);
+    data.append("typeId", role?._id);
     data.append("clientId", user.id);
     data.append("name", name);
     data.append("description", description);
     data.append("contactInfo", contactInfo);
     data.append("price", price);
-    if (role === "Catring") {
+
+    if (role?.type === "Catering") {
       data.append("menuOptions", menuOptions);
-    } else if (role === "Venue") {
+    } else if (role?.type === "Venue") {
       data.append("location", location);
       data.append("capacity", capacity);
-    } else if (role === "Photograph") {
+    } else if (role?.type === "Photography") {
       data.append("portfolio", portfolio);
-    } else if (role === "Decoration") {
+    } else if (role?.type === "Decoration") {
       decorationImages.forEach((image) =>
         data.append("decorationImages", image),
       );
@@ -84,7 +88,7 @@ const ClientServices = () => {
 
   useEffect(() => {
     console.log(client?.role?.type);
-    setRole(client?.role?.type);
+    setRole(client?.role);
     // const getTypes = async () => {
     //   try {
     //     const res = await axios.get(BASE_URL + "/types");
@@ -146,11 +150,11 @@ const ClientServices = () => {
           <ClientInputImage title={"Image"} value={image} setValue={setImage} />
         </div>
         <div className="space-y-5 flex-1 ">
-          {role == "Catering" && (
+          {role.type == "Catering" && (
             <CatringService options={menuOptions} setOptions={setMenuOptions} />
           )}
 
-          {role == "Venue" && (
+          {role.type == "Venue" && (
             <VenueService
               location={location}
               setLocation={setLocation}
@@ -159,11 +163,11 @@ const ClientServices = () => {
             />
           )}
 
-          {role == "Photography" && (
+          {role.type == "Photography" && (
             <PhotographyService options={portfolio} setOptions={setPortfolio} />
           )}
 
-          {role == "Decoration" && (
+          {role.type == "Decoration" && (
             <DecorationService
               images={decorationImages}
               setImages={setDecorationImages}

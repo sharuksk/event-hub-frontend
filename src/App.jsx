@@ -70,9 +70,9 @@ function App() {
           </Route>
 
           <Route path="/client" element={<ClientAppLayout />}>
+            <Route path="" element={<ClientPage />} />
+            <Route path="register" element={<ClientRegisterPage />} />
             <Route element={<PrivateRoute />}>
-              <Route path="" element={<ClientPage />} />
-              <Route path="register" element={<ClientRegisterPage />} />
               <Route path="create" element={<ClientServices />} />
               <Route path="events" element={<EventPage />} />
               <Route path="dashboard" element={<ClientDashboardPage />} />

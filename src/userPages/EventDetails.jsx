@@ -97,6 +97,12 @@ const EventDetails = () => {
 						Catering
 					</button>
 					<button
+						onClick={() => setDetails("photography")}
+						className={`bg-input p-1 rounded hover:bg-primary hover:text-white text-center ${itemName == "photography" && " bg-primary text-white "}`}
+					>
+						Photography
+					</button>
+					<button
 						onClick={() => setDetails("organizer")}
 						className={`bg-input p-1 rounded hover:bg-primary hover:text-white text-center ${itemName == "organizer" && " bg-primary text-white "}`}
 					>
@@ -114,7 +120,7 @@ const EventDetails = () => {
 						<div className="bg-input rounded-[25px] p-3">
 							{event[0]?.itemId?.contactInfo}
 						</div>
-						<div className="bg-input rounded-[25px] overflow-hidden p-3 ">
+						<div className="bg-input rounded-[25px] h-[300px] overflow-hidden p-3 ">
 							<img
 								src={`data:image/jpeg;base64,${event[0]?.item.images[0].data}`}
 								className="object-fit w-full h-full rounded-[15px]"
@@ -133,32 +139,41 @@ const EventDetails = () => {
 						)}
 						{itemName == "catering" && (
 							<ol className="bg-input rounded-[25px] p-3">
-								{console.log(event[0]?.itemId)}
-								{event[0]?.itemId.menuOptions[0] &&
-									JSON.parse(
-										event[0]?.itemId.menuOptions,
-									).map((val, index) => (
+								{event[0]?.itemId.menuOptions.map(
+									(val, index) => (
 										<li key={val}>
 											{index + 1 + " " + val}
 										</li>
-									))}
+									),
+								)}
+							</ol>
+						)}
+						{itemName == "photography" && (
+							<ol className="bg-input rounded-[25px] p-3">
+								{event[0]?.itemId.portfolio.map(
+									(val, index) => (
+										<li key={val}>
+											{index + 1 + " " + val}
+										</li>
+									),
+								)}
 							</ol>
 						)}
 						{itemName == "decoration" && (
 							<div className="space-y-5">
-								<div className="bg-input rounded-[25px] p-3 ">
+								<div className="bg-input rounded-[25px] p-3 h-[300px]">
 									<img
 										src={`data:image/jpeg;base64,${event[0]?.item.images[1]?.data}`}
 										className="object-fit w-full h-full rounded-[15px]"
 									/>
 								</div>
-								<div className="bg-input rounded-[25px] p-3 ">
+								<div className="bg-input rounded-[25px] p-3 h-[300px]">
 									<img
 										src={`data:image/jpeg;base64,${event[0]?.item.images[2]?.data}`}
 										className="object-fit w-full h-full rounded-[15px]"
 									/>
 								</div>
-								<div className="bg-input rounded-[25px] p-3 ">
+								<div className="bg-input rounded-[25px] p-3 h-[300px]">
 									<img
 										src={`data:image/jpeg;base64,${event[0]?.item.images[3]?.data}`}
 										className="object-fit w-full h-full rounded-[15px]"
