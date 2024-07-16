@@ -7,7 +7,7 @@ function ClientAppLayout() {
   return (
     <>
       <div className="flex flex-col h-screen">
-        <div className="flex flex-1 ">
+        <div className="flex flex-1">
           <ClientSidebar />
           <main className="flex-1 bg-[#F5F5F5 ]  overflow-auto">
             <CLientHeader />

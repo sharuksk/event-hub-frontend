@@ -43,13 +43,13 @@ const ClientRegisterPage = () => {
   const [email, setEmail] = useState(client?.email || "");
   const [role, setRole] = useState(client?.role?._id || "");
   const [workExperience, setWorkExperience] = useState(
-    client?.workExperience || "",
+    client?.workExperience || ""
   );
   const [location, setLocation] = useState(client?.location || "");
   const [contact, setContact] = useState(client?.contact || "");
   const [bestWork, setBestWork] = useState(client?.bestWork || null);
   const [description, setDescription] = useState(client?.description || "");
-  const [slot, setSlot] = useState(dayjs());
+  const [slot, setSlot] = useState();
   // const [selectedSession, setSelectedSession] = useState(
   //   client?.selectedSession || ""
   // );
@@ -106,7 +106,7 @@ const ClientRegisterPage = () => {
       contact: contact,
       bestWork: bestWorkBase64,
       description: description,
-      availability: [{ date: slot.format("YYYY-MM-DD"), isAvailable: true }],
+      availability: slot,
       // selectedSession: selectedSession,
     };
 

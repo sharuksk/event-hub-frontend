@@ -3,6 +3,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { StaticDatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const BookSlots = ({
   close,
@@ -11,10 +13,28 @@ const BookSlots = ({
   //   selectedSession,
   //   setSelectedSession,
 }) => {
+  const [selectedDates, setSelectedDates] = useState([]);
+
+  const handleDateChange = (date) => {
+    const formattedDate = dayjs(date).format("YYYY-MM-DD");
+    if (selectedDates.includes(formattedDate)) {
+      setSelectedDates(selectedDates.filter((d) => d !== formattedDate));
+    } else {
+      setSelectedDates([...selectedDates, formattedDate]);
+    }
+  };
+
+  const isDateDisabled = (date) => {
+    return dayjs(date).isBefore(dayjs().startOf("day"));
+  };
+
   const handleButton = () => {
     // const formattedDate = slot.format("YYYY-MM-DD");
     // const dayOfWeek = slot.format("dddd");
     // console.log(formattedDate, dayOfWeek, selectedSession);
+    // console.log(selectedDates);
+    setSlot(selectedDates);
+    console.log(slot);
     close();
   };
 
@@ -32,7 +52,27 @@ const BookSlots = ({
         <div className="p-6">
           <div className="bg-white p-4 rounded-lg shadow-md mb-6">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateCalendar value={slot} onChange={(date) => setSlot(date)} />
+              <StaticDatePicker
+                displayStaticWrapperAs="desktop"
+                value={null}
+                onChange={handleDateChange}
+                renderDay={(day, _value, DayComponentProps) => {
+                  const formattedDate = dayjs(day).format("YYYY-MM-DD");
+                  const isSelected = selectedDates.includes(formattedDate);
+                  const isDisabled = isDateDisabled(day);
+                  return (
+                    <PickersDay
+                      {...DayComponentProps}
+                      day={day}
+                      selected={isSelected}
+                      disabled={isDisabled}
+                      onDaySelect={handleDateChange}
+                      className={isSelected ? "bg-primary text-white" : ""}
+                    />
+                  );
+                }}
+                shouldDisableDate={isDateDisabled}
+              />
             </LocalizationProvider>
           </div>
           {/* <div className="bg-white p-4 rounded-lg shadow-md mb-6">

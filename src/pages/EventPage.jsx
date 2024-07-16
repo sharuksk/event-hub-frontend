@@ -12,6 +12,7 @@ const EventPage = () => {
   const [upcomingEventData, setUpcomingEventData] = useState([]);
   const [confirmationStatus, setConfirmationStatus] = useState({});
   const { client } = useSelector((state) => state.client);
+  const { user } = useSelector((state) => state.user);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -22,11 +23,13 @@ const EventPage = () => {
   useEffect(() => {
     const getBookings = async () => {
       try {
+        console.log(user);
         // Get bookings
         const bookingsResponse = await axios.get(
-          BASE_URL + "/bookings/" + client._id
+          BASE_URL + "/bookings/" + user.id
         );
         const bookings = bookingsResponse.data.bookings;
+        console.log(bookings);
 
         const eventData = await Promise.all(
           bookings.map(async (booking) => {
@@ -34,11 +37,13 @@ const EventPage = () => {
               BASE_URL + "/user/" + booking.user
             );
             const userData = userResponse.data.users;
+            console.log(userData);
 
             const dates = booking.date.map((d) => formatDate(d));
 
             return {
               id: booking._id,
+              title: booking.title,
               image: EventImage,
               date: dates,
               location: "Doha, Qatar",
@@ -137,6 +142,7 @@ const EventPage = () => {
           </p>
         </div>
         <div className="flex flex-col gap-1 pl-4">
+          <p>Title: {data.title}</p>
           <p>Booked By: {data.booked}</p>
           <p>Contact: {data.contact}</p>
           <p>Mail: {data.mail}</p>
