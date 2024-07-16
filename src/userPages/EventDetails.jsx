@@ -98,7 +98,7 @@ const EventDetails = () => {
 					</button>
 					<button
 						onClick={() => setDetails("photography")}
-						className={`bg-input p-1 rounded hover:bg-primary hover:text-white text-center ${itemName == "catering" && " bg-primary text-white "}`}
+						className={`bg-input p-1 rounded hover:bg-primary hover:text-white text-center ${itemName == "photography" && " bg-primary text-white "}`}
 					>
 						Photography
 					</button>
