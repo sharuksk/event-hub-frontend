@@ -50,6 +50,7 @@ const ClientDashboardPage = () => {
   useEffect(() => {
     const getTypes = async () => {
       const res = await axios.get(BASE_URL + "/types");
+      console.log(res);
       const roleArray = res.data.types.filter(
         (type) => type._id === client.role,
       );

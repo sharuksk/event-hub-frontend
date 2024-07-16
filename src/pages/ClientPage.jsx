@@ -23,8 +23,8 @@ const ClientPage = () => {
                 console.log(user);
                 const res = await axios.get(BASE_URL + "/client/" + user.id);
                 console.log(res.data);
-                if ((res.data.message = "success")) {
-                    dispatch(setClient(res.data.data.client));
+                if (res.data.message == "success") {
+                    dispatch(setClient(res?.data.data.client));
                     navigate("/client/dashboard");
                 }
             } catch (error) {
