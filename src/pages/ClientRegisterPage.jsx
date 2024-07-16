@@ -47,6 +47,8 @@ const ClientRegisterPage = () => {
   );
   const [location, setLocation] = useState(client?.location || "");
   const [contact, setContact] = useState(client?.contact || "");
+  const [qId, setQId] = useState(client?.qId || "");
+  const [crNo, setCrNo] = useState(client?.crNo || "");
   const [bestWork, setBestWork] = useState(client?.bestWork || null);
   const [description, setDescription] = useState(client?.description || "");
   const [slot, setSlot] = useState(client?.availability || []);
@@ -105,6 +107,8 @@ const ClientRegisterPage = () => {
       workExperience: Number(workExperience),
       location: location,
       contact: contact,
+      qId: qId,
+      crNo: crNo,
       bestWork: bestWorkBase64,
       description: description,
       availability: slot.map((date) => ({
@@ -155,7 +159,7 @@ const ClientRegisterPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-card p-5 text-foreground">
+    <div className="min-h-screen flex items-center justify-center bg-card p-24 text-foreground">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-[300px] relative bottom-16 left-8">
         <div className="space-y-6">
           <div>
@@ -219,8 +223,6 @@ const ClientRegisterPage = () => {
               <option>Chennai, India</option>
             </select>
           </div>
-        </div>
-        <div className="space-y-6">
           <div>
             <label className="block ">Contact :</label>
             <input
@@ -228,6 +230,26 @@ const ClientRegisterPage = () => {
               className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="space-y-6">
+          <div>
+            <label className="block ">QID :</label>
+            <input
+              type="text"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={qId}
+              onChange={(e) => setQId(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="block ">CR NO :</label>
+            <input
+              type="text"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              value={crNo}
+              onChange={(e) => setCrNo(e.target.value)}
             />
           </div>
           <div>

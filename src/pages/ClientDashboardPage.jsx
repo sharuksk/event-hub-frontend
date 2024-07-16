@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Button from "../components/Button";
-import { deleteItem } from "../features/itemSlice";
+import { addItem, clearItems, deleteItem } from "../features/itemSlice";
 
 const ClientDashboardPage = () => {
   const navigate = useNavigate();
@@ -14,6 +14,23 @@ const ClientDashboardPage = () => {
 
   const { client } = useSelector((state) => state.client);
   const { items } = useSelector((state) => state.item);
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const getItems = async () => {
+      await axios
+        .get(BASE_URL + "/items/user/" + user.id)
+        .then((res) => {
+          const data = res.data.Items;
+          dispatch(clearItems());
+          data.map((d) => {
+            dispatch(addItem(d));
+          });
+        })
+        .catch((err) => console.log(err));
+    };
+    getItems();
+  }, []);
 
   const EventData = [
     {
@@ -51,7 +68,7 @@ const ClientDashboardPage = () => {
     const getTypes = async () => {
       const res = await axios.get(BASE_URL + "/types");
       const roleArray = res.data.types.filter(
-        (type) => type._id === client.role,
+        (type) => type._id === client.role
       );
       setRole(roleArray[0]?.type);
     };

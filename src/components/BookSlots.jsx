@@ -82,6 +82,28 @@ const BookSlots = ({ close, slot, setSlot }) => {
               </p>
             ))}
           </div>
+          {/* <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+                        <h2 className="text-lg font-semibold mb-2">Session</h2>
+                        <div className="flex justify-around">
+                            {["Day", "Noon", "Evening", "Night"].map(
+                                (session) => (
+                                    <button
+                                        key={session}
+                                        className={`p-2 rounded-md border ${
+                                            selectedSession === session
+                                                ? "bg-black text-white"
+                                                : "bg-white"
+                                        }`}
+                                        onClick={() =>
+                                            setSelectedSession(session)
+                                        }
+                                    >
+                                        {session}
+                                    </button>
+                                )
+                            )}
+                        </div>
+                    </div> */}
           <div className="flex justify-center">
             <button
               onClick={handleButton}
