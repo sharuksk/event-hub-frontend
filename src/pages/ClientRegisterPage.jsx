@@ -43,13 +43,13 @@ const ClientRegisterPage = () => {
   const [email, setEmail] = useState(client?.email || "");
   const [role, setRole] = useState(client?.role?._id || "");
   const [workExperience, setWorkExperience] = useState(
-    client?.workExperience || "",
+    client?.workExperience || ""
   );
   const [location, setLocation] = useState(client?.location || "");
   const [contact, setContact] = useState(client?.contact || "");
   const [bestWork, setBestWork] = useState(client?.bestWork || null);
   const [description, setDescription] = useState(client?.description || "");
-  const [slot, setSlot] = useState(dayjs());
+  const [slot, setSlot] = useState(client?.availability || []);
   // const [selectedSession, setSelectedSession] = useState(
   //   client?.selectedSession || ""
   // );
@@ -83,9 +83,10 @@ const ClientRegisterPage = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log(slot);
     e.preventDefault();
-    console.log(role);
-    console.log(user);
+    // console.log(role);
+    // console.log(user);
 
     console.log(bestWork);
     let bestWorkBase64 = "";
@@ -106,7 +107,10 @@ const ClientRegisterPage = () => {
       contact: contact,
       bestWork: bestWorkBase64,
       description: description,
-      availability: [{ date: slot.format("YYYY-MM-DD"), isAvailable: true }],
+      availability: slot.map((date) => ({
+        date: dayjs(date.date).toISOString(),
+        isAvailable: true,
+      })),
       // selectedSession: selectedSession,
     };
 
@@ -144,7 +148,7 @@ const ClientRegisterPage = () => {
   useEffect(() => {
     const getTypes = async () => {
       const res = await axios.get(BASE_URL + "/types");
-      console.log(res.data.types);
+      // console.log(res.data.types);
       setOptions(res.data.types);
     };
     getTypes();

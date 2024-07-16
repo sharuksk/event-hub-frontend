@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/userSlice";
 import { clearItems } from "../features/itemSlice";
+import { setClient } from "../features/clientSlice";
 
 const ClientSidebar = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const ClientSidebar = () => {
 
   const handlesignOut = () => {
     dispatch(setUser({}));
+    dispatch(setClient({}));
     dispatch(clearItems());
     navigate("/auth/signin");
   };
