@@ -27,7 +27,7 @@ const ClientSidebar = () => {
   };
 
   return (
-    <aside className="px-2 pr-[50px] py-4 border-r border-muted-foreground grid-row-span-full flex flex-col gap-8 font-semibold bg-background  h-min-screen">
+    <aside className="px-2 pr-[50px] py-4 border-r border-muted-foreground grid-row-span-full flex flex-col gap-8 font-semibold bg-background  h-min-screen min-w-[19rem]">
       <div className="bg-background p-4 border-muted-foreground">
         <h1 className="text-2xl font-bold text-foreground ">Qatar Event Hub</h1>
       </div>
