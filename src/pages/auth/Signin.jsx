@@ -123,7 +123,7 @@ const Signin = () => {
             />
             <p>
               Don't have an account{" "}
-              <Link to="/auth/signup" className="text-blue-500">
+              <Link to="/signup" className="text-blue-500">
                 Sign up
               </Link>
             </p>

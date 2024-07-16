@@ -23,7 +23,7 @@ const ClientSidebar = () => {
   const handlesignOut = () => {
     dispatch(setUser({}));
     dispatch(clearItems());
-    navigate("/auth/signin");
+    navigate("/");
   };
 
   return (

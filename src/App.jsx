@@ -47,10 +47,9 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path="/auth">
-            <Route path="signin" element={<Signin />} />
-            <Route path="signup" element={<Signup />} />
-          </Route>
+          <Route path="/" element={<Signin />} />
+          <Route path="signup" element={<Signup />} />
+
           <Route path="/user/" element={<Layout />}>
             <Route element={<UserPrivateRoute />}>
               <Route path="" element={<OpenDashboard />} />

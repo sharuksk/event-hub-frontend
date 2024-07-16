@@ -23,7 +23,7 @@ const ClientSidebar = () => {
     dispatch(setUser({}));
     dispatch(setClient({}));
     dispatch(clearItems());
-    navigate("/auth/signin");
+    navigate("/");
   };
 
   return (
