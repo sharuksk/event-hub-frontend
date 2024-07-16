@@ -52,12 +52,12 @@ const ClientServices = () => {
     data.append("contactInfo", contactInfo);
     data.append("price", price);
     if (role === "Catring") {
-      data.append("menuOptions", JSON.stringify(menuOptions));
+      data.append("menuOptions", menuOptions);
     } else if (role === "Venue") {
       data.append("location", location);
       data.append("capacity", capacity);
     } else if (role === "Photograph") {
-      data.append("portfolio", JSON.stringify(portfolio));
+      data.append("portfolio", portfolio);
     } else if (role === "Decoration") {
       decorationImages.forEach((image) =>
         data.append("decorationImages", image),

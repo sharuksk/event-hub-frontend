@@ -46,16 +46,15 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path="/auth">
-            <Route path="signin" element={<Signin />} />
-            <Route path="signup" element={<Signup />} />
-          </Route>
+          <Route path="/" element={<Signin />} />
+          <Route path="signup" element={<Signup />} />
+
           <Route path="/user/" element={<Layout />}>
             <Route path="" element={<OpenDashboard />} />
             <Route path="events" element={<BookedEvents />} />
             <Route path="settings" element={<Settings />} />
             <Route path="event-details/:bookedId" element={<EventDetails />} />
-            <Route path="profile" element={<UserProfile/>} />
+            <Route path="profile" element={<UserProfile />} />
           </Route>
           <Route path="/service/" element={<ServiceLayout />}>
             <Route path="venueSelection" element={<VenueSelection />} />

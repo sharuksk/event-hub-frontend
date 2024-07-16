@@ -9,7 +9,7 @@ import {
 	Tab,
 	Modal,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { styled } from "@mui/system";
 import ServiceBookSlots from "../userComponents/ServiceBookSlots";
 import axios from "axios";
@@ -18,6 +18,7 @@ const EventDetails = () => {
 	const [bookedEvents, setBookedEvents] = useState([]);
 	const [itemName, setItemName] = useState("venue");
 	const [event, setEvent] = useState([]);
+	const { bookedId } = useParams();
 
 	const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -32,9 +33,7 @@ const EventDetails = () => {
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				const data = await axios.get(
-					BASE_URL + "/events/4b3294f7-e097-4244-9a71-dbbd198041c0",
-				);
+				const data = await axios.get(BASE_URL + "/events/" + bookedId);
 
 				setBookedEvents(data.data.bookings);
 				const dataa = data.data.bookings.filter(
@@ -134,13 +133,15 @@ const EventDetails = () => {
 						)}
 						{itemName == "catering" && (
 							<ol className="bg-input rounded-[25px] p-3">
-								{JSON.parse(event[0]?.itemId.menuOptions).map(
-									(val, index) => (
+								{console.log(event[0]?.itemId)}
+								{event[0]?.itemId.menuOptions[0] &&
+									JSON.parse(
+										event[0]?.itemId.menuOptions,
+									).map((val, index) => (
 										<li key={val}>
 											{index + 1 + " " + val}
 										</li>
-									),
-								)}
+									))}
 							</ol>
 						)}
 						{itemName == "decoration" && (
