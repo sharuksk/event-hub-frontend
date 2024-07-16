@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export const UserPrivateRoute = () => {
   const { user } = useSelector((state) => state.user);
-
+  console.log(user);
   if (!user?.id) return <Navigate to="/" />;
-  return user.role === "User" ? <Outlet /> : <Navigate to="/" />;
+  return user.role.toLowerCase() === "user" ? <Outlet /> : <Navigate to="/" />;
 };
