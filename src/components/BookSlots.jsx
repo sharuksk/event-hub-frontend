@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { StaticDatePicker } from "@mui/x-date-pickers";
+import { StaticDatePicker, PickersDay } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
-const BookSlots = ({
-  close,
-  slot,
-  setSlot,
-  //   selectedSession,
-  //   setSelectedSession,
-}) => {
-  const [selectedDates, setSelectedDates] = useState([]);
+const BookSlots = ({ close, slot, setSlot }) => {
+  const [selectedDates, setSelectedDates] = useState(
+    slot.map((s) => dayjs(s.date).format("YYYY-MM-DD"))
+  );
+
+  useEffect(() => {
+    setSelectedDates(slot.map((s) => dayjs(s.date).format("YYYY-MM-DD")));
+  }, [slot]);
 
   const handleDateChange = (date) => {
     const formattedDate = dayjs(date).format("YYYY-MM-DD");
@@ -29,12 +28,13 @@ const BookSlots = ({
   };
 
   const handleButton = () => {
-    // const formattedDate = slot.format("YYYY-MM-DD");
-    // const dayOfWeek = slot.format("dddd");
-    // console.log(formattedDate, dayOfWeek, selectedSession);
-    // console.log(selectedDates);
-    setSlot(selectedDates);
-    console.log(slot);
+    const availability = selectedDates.map((date) => ({
+      date: dayjs(date).toISOString(),
+      isAvailable: true,
+    }));
+
+    setSlot(availability);
+    console.log(availability);
     close();
   };
 
@@ -75,28 +75,13 @@ const BookSlots = ({
               />
             </LocalizationProvider>
           </div>
-          {/* <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                        <h2 className="text-lg font-semibold mb-2">Session</h2>
-                        <div className="flex justify-around">
-                            {["Day", "Noon", "Evening", "Night"].map(
-                                (session) => (
-                                    <button
-                                        key={session}
-                                        className={`p-2 rounded-md border ${
-                                            selectedSession === session
-                                                ? "bg-black text-white"
-                                                : "bg-white"
-                                        }`}
-                                        onClick={() =>
-                                            setSelectedSession(session)
-                                        }
-                                    >
-                                        {session}
-                                    </button>
-                                )
-                            )}
-                        </div>
-                    </div> */}
+          <div className="grid grid-cols-3 gap-2 mb-3">
+            {selectedDates.map((s) => (
+              <p className="text-red-700" key={s}>
+                {s}
+              </p>
+            ))}
+          </div>
           <div className="flex justify-center">
             <button
               onClick={handleButton}
