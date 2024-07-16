@@ -150,17 +150,13 @@ const EventDetails = () => {
 						)}
 						{itemName == "photography" && (
 							<ol className="bg-input rounded-[25px] p-3">
-								{
-									console.log(event[0])
-
-									// {event[0]?.itemId.menuOptions.map(
-									// 	(val, index) => (
-									// 		<li key={val}>
-									// 			{index + 1 + " " + val}
-									// 		</li>
-									// 	),
-									// )}
-								}
+								{event[0]?.itemId.portfolio.map(
+									(val, index) => (
+										<li key={val}>
+											{index + 1 + " " + val}
+										</li>
+									),
+								)}
 							</ol>
 						)}
 						{itemName == "decoration" && (
