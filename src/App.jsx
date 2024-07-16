@@ -21,6 +21,7 @@ import EventDetails from "./userPages/EventDetails";
 import UserProfile from "./userPages/UserProfile";
 
 import { PrivateRoute } from "./components/PrivateRoute";
+import { UserPrivateRoute } from "./userComponents/UserPrivateRoute";
 
 const theme = createTheme({
   palette: {
@@ -50,21 +51,28 @@ function App() {
           <Route path="signup" element={<Signup />} />
 
           <Route path="/user/" element={<Layout />}>
-            <Route path="" element={<OpenDashboard />} />
-            <Route path="events" element={<BookedEvents />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="event-details/:bookedId" element={<EventDetails />} />
-            <Route path="profile" element={<UserProfile />} />
+            <Route element={<UserPrivateRoute />}>
+              <Route path="" element={<OpenDashboard />} />
+              <Route path="events" element={<BookedEvents />} />
+              <Route path="settings" element={<Settings />} />
+              <Route
+                path="event-details/:bookedId"
+                element={<EventDetails />}
+              />
+              <Route path="profile" element={<UserProfile />} />
+            </Route>
           </Route>
           <Route path="/service/" element={<ServiceLayout />}>
-            <Route path="venueSelection" element={<VenueSelection />} />
-            <Route path="cateringSelection" element={<CateringSelection />} />
+            <Route element={<UserPrivateRoute />}>
+              <Route path="venueSelection" element={<VenueSelection />} />
+              <Route path="cateringSelection" element={<CateringSelection />} />
+            </Route>
           </Route>
 
           <Route path="/client" element={<ClientAppLayout />}>
-            <Route path="/client" element={<ClientPage />} />
-            <Route path="register" element={<ClientRegisterPage />} />
             <Route element={<PrivateRoute />}>
+              <Route path="" element={<ClientPage />} />
+              <Route path="register" element={<ClientRegisterPage />} />
               <Route path="create" element={<ClientServices />} />
               <Route path="events" element={<EventPage />} />
               <Route path="dashboard" element={<ClientDashboardPage />} />
