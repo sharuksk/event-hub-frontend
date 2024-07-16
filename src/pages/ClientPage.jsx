@@ -3,11 +3,13 @@ import image from "../assets/image1.jpeg";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { setClient } from "../features/clientSlice";
 
 const ClientPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleRegister = () => {
         navigate("/client/register");
@@ -21,7 +23,10 @@ const ClientPage = () => {
                 console.log(user);
                 const res = await axios.get(BASE_URL + "/client/" + user.id);
                 console.log(res.data);
-                dispatch(setClient(res.data.data.client));
+                if ((res.data.message = "success")) {
+                    dispatch(setClient(res.data.data.client));
+                    navigate("/client/dashboard");
+                }
             } catch (error) {
                 console.log(error);
             }
