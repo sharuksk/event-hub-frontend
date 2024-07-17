@@ -33,6 +33,7 @@ const EventPage = () => {
 
         const eventData = await Promise.all(
           bookings.map(async (booking) => {
+            //userData
             const userResponse = await axios.get(
               BASE_URL + "/user/" + booking.user
             );
@@ -41,14 +42,24 @@ const EventPage = () => {
 
             const dates = booking.date.map((d) => formatDate(d));
 
+            //clientData
+            const clientData = await axios.get(
+              BASE_URL + "/client/" + booking.clientId
+            );
+
+            //itemData
+            const itemData = await axios.get(
+              BASE_URL + "/items/" + booking.itemId
+            );
+
             return {
               id: booking._id,
               title: booking.title,
-              image: EventImage,
+              image: itemData.data.images[0].data,
               date: dates,
               location: "Doha, Qatar",
               booked: userData.name,
-              contact: userData.phoneNumber,
+              contact: clientData.data.data.client.contact,
               mail: userData.email,
               status: booking.status,
               isConfirmed: booking.isConfirmed,
@@ -72,6 +83,22 @@ const EventPage = () => {
   }, [client._id]);
 
   const pastEventData = [
+    {
+      image: EventImage,
+      date: ["27 June, 24"],
+      location: "Dubai, UAE",
+      booked: "John",
+      contact: "+ 987 654 321",
+      mail: "xyz@gmail.com",
+    },
+    {
+      image: EventImage,
+      date: ["27 June, 24"],
+      location: "Dubai, UAE",
+      booked: "John",
+      contact: "+ 987 654 321",
+      mail: "xyz@gmail.com",
+    },
     {
       image: EventImage,
       date: ["27 June, 24"],
@@ -119,7 +146,7 @@ const EventPage = () => {
         className="bg-secondary text-foreground h-auto w-[300px] rounded-3xl flex flex-col gap-2 drop-shadow-2xl p-4 my-4 font-bold text-xs"
       >
         <img
-          src={data.image}
+          src={`data:image/jpeg;base64,${data.image}`}
           alt="Event"
           className="rounded-3xl h-[150px] w-full object-cover"
         />
@@ -211,7 +238,7 @@ const EventPage = () => {
         <p className="font-extrabold text-foreground">
           {showPastEvents ? "Past Events" : "Upcoming Events"}:
         </p>
-        <div className="pl-8 gap-[300px] grid grid-cols-4">
+        <div className="pl-8 gap-[20px] grid grid-cols-3 overflow-hidden">
           {showPastEvents
             ? renderEventCards(pastEventData)
             : renderEventCards(upcomingEventData)}
