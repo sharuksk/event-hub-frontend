@@ -41,6 +41,10 @@ const Signin = () => {
         role,
       });
 
+      if (res.data.data.role.toLowerCase() !== role.toLowerCase()) {
+        alert("There is no user found in " + role);
+        return;
+      }
       dispatch(setUser(res.data.data));
       if (role.toLowerCase() == "user") {
         navigate("/user/events");
@@ -49,6 +53,7 @@ const Signin = () => {
       }
     } catch (error) {
       console.log("Error occured");
+      alert("Something wrong please try again later");
       console.log(error);
     }
   };
