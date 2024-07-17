@@ -175,7 +175,7 @@ const DecorationCard = ({
     handleCardClick,
 }) => {
     const isSelected = selectedDecorations.some(
-        (d) => d._id === decoration._id
+        (d) => d._id === decoration._id,
     );
 
     return (
@@ -205,7 +205,7 @@ const DecorationCard = ({
                             {decoration.location}
                         </Typography>
                         <Typography variant="body2">
-                            Price: {decoration.rent}
+                            Price: {decoration.price}
                         </Typography>
                         <Typography variant="body2">
                             Available on:{" "}
@@ -265,12 +265,12 @@ const DecorationSelection = ({
     };
 
     const decorations = items.filter(
-        (service) => service?.typeId?.type?.toLowerCase() === "decoration"
+        (service) => service?.typeId?.type?.toLowerCase() === "decoration",
     );
 
     const availableDecorations = decorations.filter(
         (decoration) =>
-            !selectedDates.some((date) => decoration.dates.includes(date))
+            !selectedDates.some((date) => decoration.dates.includes(date)),
     );
     useEffect(() => {
         const getData = async () => {

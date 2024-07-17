@@ -69,7 +69,7 @@ const ClientDashboardPage = () => {
       const res = await axios.get(BASE_URL + "/types");
       console.log(res);
       const roleArray = res.data.types.filter(
-        (type) => type._id === client.role
+        (type) => type._id === client.role,
       );
       setRole(roleArray[0]?.type);
     };

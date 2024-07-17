@@ -139,24 +139,24 @@ const EventDetails = () => {
 						)}
 						{itemName == "catering" && (
 							<ol className="bg-input rounded-[25px] p-3">
-								{event[0]?.itemId.menuOptions.map(
-									(val, index) => (
+								{event[0]?.itemId.menuOptions[0]
+									.split(",")
+									.map((val, index) => (
 										<li key={val}>
 											{index + 1 + " " + val}
 										</li>
-									),
-								)}
+									))}
 							</ol>
 						)}
 						{itemName == "photography" && (
 							<ol className="bg-input rounded-[25px] p-3">
-								{event[0]?.itemId.portfolio.map(
-									(val, index) => (
+								{event[0]?.itemId.portfolio[0]
+									.split(",")
+									.map((val, index) => (
 										<li key={val}>
 											{index + 1 + " " + val}
 										</li>
-									),
-								)}
+									))}
 							</ol>
 						)}
 						{itemName == "decoration" && (

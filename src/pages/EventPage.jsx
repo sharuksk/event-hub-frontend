@@ -26,15 +26,14 @@ const EventPage = () => {
         console.log(user);
         // Get bookings
         const bookingsResponse = await axios.get(
-          BASE_URL + "/bookings/" + user.id
+          BASE_URL + "/bookings/" + client._id,
         );
         const bookings = bookingsResponse.data.bookings;
         console.log(bookings);
-
         const eventData = await Promise.all(
           bookings.map(async (booking) => {
             const userResponse = await axios.get(
-              BASE_URL + "/user/" + booking.user
+              BASE_URL + "/user/" + booking.user,
             );
             const userData = userResponse.data.users;
             console.log(userData);
@@ -53,7 +52,7 @@ const EventPage = () => {
               status: booking.status,
               isConfirmed: booking.isConfirmed,
             };
-          })
+          }),
         );
 
         setUpcomingEventData(eventData);
@@ -69,7 +68,7 @@ const EventPage = () => {
     };
 
     getBookings();
-  }, [client._id]);
+  }, []);
 
   const pastEventData = [
     {
@@ -95,6 +94,7 @@ const EventPage = () => {
   };
 
   const handleSave = async (id) => {
+    console.log(id);
     // console.log(
     //   `Event ID: ${id}, Confirmation Status: ${confirmationStatus[id]}`
     // );
@@ -104,7 +104,7 @@ const EventPage = () => {
     };
 
     await axios
-      .put(BASE_URL + "/bookings/" + id, data)
+      .put(BASE_URL + "/bookings/confirm/" + id, data)
       .then((res) => {
         // console.log(res);
         alert(`event accepted for ${id}`);

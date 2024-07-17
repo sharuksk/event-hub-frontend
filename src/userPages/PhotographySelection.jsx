@@ -175,7 +175,7 @@ const PhotographyCard = ({
     handleCardClick,
 }) => {
     const isSelected = selectedPhotographies.some(
-        (p) => p._id === photography._id
+        (p) => p._id === photography._id,
     );
 
     return (
@@ -205,7 +205,7 @@ const PhotographyCard = ({
                             {photography.location}
                         </Typography>
                         <Typography variant="body2">
-                            Price: {photography.rent}
+                            Price: {photography.price}
                         </Typography>
                         <Typography variant="body2">
                             Available on:{" "}
@@ -265,12 +265,12 @@ const PhotographySelection = ({
     };
 
     const photographies = items.filter(
-        (service) => service?.typeId?.type?.toLowerCase() === "photography"
+        (service) => service?.typeId?.type?.toLowerCase() === "photography",
     );
 
     const availablePhotographies = photographies.filter(
         (photography) =>
-            !selectedDates.some((date) => photography.dates.includes(date))
+            !selectedDates.some((date) => photography.dates.includes(date)),
     );
 
     console.log(availablePhotographies);

@@ -11,11 +11,16 @@ const ClientPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const client = useSelector((state) => state.client.client);
+
     const handleRegister = () => {
         navigate("/client/register");
     };
     const { user } = useSelector((state) => state.user);
     const BASE_URL = import.meta.env.VITE_BASE_URL;
+    useEffect(() => {
+        console.log(client);
+    }, [client]);
 
     useEffect(() => {
         const getClientData = async () => {
@@ -23,7 +28,7 @@ const ClientPage = () => {
                 console.log(user);
                 const res = await axios.get(BASE_URL + "/client/" + user.id);
                 console.log(res.data);
-                if (res.data.message == "success") {
+                if (res.data.status == "success") {
                     dispatch(setClient(res?.data.data.client));
                     navigate("/client/dashboard");
                 }

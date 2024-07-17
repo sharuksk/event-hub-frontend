@@ -49,7 +49,7 @@ const ClientServices = () => {
     data.append("images", image[0]);
 
     data.append("typeId", role?._id);
-    data.append("clientId", user.id);
+    data.append("clientId", client._id);
     data.append("name", name);
     data.append("description", description);
     data.append("contactInfo", contactInfo);

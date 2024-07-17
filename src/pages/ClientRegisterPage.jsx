@@ -43,7 +43,7 @@ const ClientRegisterPage = () => {
   const [email, setEmail] = useState(client?.email || "");
   const [role, setRole] = useState(client?.role?._id || "");
   const [workExperience, setWorkExperience] = useState(
-    client?.workExperience || ""
+    client?.workExperience || "",
   );
   const [location, setLocation] = useState(client?.location || "");
   const [contact, setContact] = useState(client?.contact || "");
@@ -111,10 +111,7 @@ const ClientRegisterPage = () => {
       crNo: crNo,
       bestWork: bestWorkBase64,
       description: description,
-      availability: slot.map((date) => ({
-        date: dayjs(date.date).toISOString(),
-        isAvailable: true,
-      })),
+      availability: slot.map((date) => dayjs(date.date).toISOString()),
       // selectedSession: selectedSession,
     };
 
@@ -140,6 +137,7 @@ const ClientRegisterPage = () => {
             "Content-Type": "application/json",
           },
         });
+        console.log(res);
         console.log(res.data.data.newClient);
         dispatch(setClient(res.data.data.newClient));
         navigate("/client/dashboard");
@@ -152,7 +150,7 @@ const ClientRegisterPage = () => {
   useEffect(() => {
     const getTypes = async () => {
       const res = await axios.get(BASE_URL + "/types");
-      // console.log(res.data.types);
+      console.log(res.data.types);
       setOptions(res.data.types);
     };
     getTypes();
