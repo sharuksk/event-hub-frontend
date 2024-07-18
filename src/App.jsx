@@ -15,13 +15,12 @@ import CateringSelection from "./userPages/CateringSelection";
 import OpenDashboard from "./userPages/OpenDashboard";
 import ServiceLayout from "./userComponents/ServiceLayout";
 import VenueSelection from "./userPages/VenueSelection";
-import Layout from "./userComponents/Layout";
 import { useEffect } from "react";
 import EventDetails from "./userPages/EventDetails";
 import UserProfile from "./userPages/UserProfile";
-
 import { PrivateRoute } from "./components/PrivateRoute";
 import { UserPrivateRoute } from "./userComponents/UserPrivateRoute";
+import Layout from "./commonLayout/Layout";
 
 const theme = createTheme({
   palette: {
@@ -70,7 +69,7 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="/client" element={<ClientAppLayout />}>
+          <Route path="/client" element={<Layout />}>
             <Route path="" element={<ClientPage />} />
             <Route path="register" element={<ClientRegisterPage />} />
             <Route element={<PrivateRoute />}>

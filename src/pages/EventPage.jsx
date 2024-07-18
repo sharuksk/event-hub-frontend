@@ -26,7 +26,7 @@ const EventPage = () => {
         console.log(user);
         // Get bookings
         const bookingsResponse = await axios.get(
-          BASE_URL + "/bookings/" + client._id,
+          BASE_URL + "/bookings/" + client._id
         );
         const bookings = bookingsResponse.data.bookings;
         console.log(bookings);
@@ -34,22 +34,19 @@ const EventPage = () => {
           bookings.map(async (booking) => {
             //userData
             const userResponse = await axios.get(
-              BASE_URL + "/user/" + booking.user,
+              BASE_URL + "/user/" + booking.user
             );
             const userData = userResponse.data.users;
-            console.log(userData);
 
             const dates = booking.date.map((d) => formatDate(d));
-
             //clientData
             const clientData = await axios.get(
-              BASE_URL + "/client/" + booking.clientId,
+              BASE_URL + "/clientId/" + booking.clientId
             );
-            console.log(clientId);
 
             //itemData
             const itemData = await axios.get(
-              BASE_URL + "/items/" + booking.itemId,
+              BASE_URL + "/items/" + booking.itemId
             );
 
             return {
@@ -64,7 +61,7 @@ const EventPage = () => {
               status: booking.status,
               isConfirmed: booking.isConfirmed,
             };
-          }),
+          })
         );
 
         setUpcomingEventData(eventData);
