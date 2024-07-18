@@ -4,7 +4,6 @@ import Modal from "@mui/material/Modal";
 import BookSlots from "../components/BookSlots";
 import { FileInput, Label } from "flowbite-react";
 import { CiImageOn } from "react-icons/ci";
-import dayjs from "dayjs";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -26,7 +25,7 @@ const style = {
 const ClientRegisterPage = () => {
   const { user } = useSelector((state) => state.user);
   const { client } = useSelector((state) => state.client);
-  console.log(client?.role);
+  // console.log(client?.role);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -43,7 +42,7 @@ const ClientRegisterPage = () => {
   const [email, setEmail] = useState(client?.email || "");
   const [role, setRole] = useState(client?.role?._id || "");
   const [workExperience, setWorkExperience] = useState(
-    client?.workExperience || "",
+    client?.workExperience || ""
   );
   const [location, setLocation] = useState(client?.location || "");
   const [contact, setContact] = useState(client?.contact || "");
@@ -85,12 +84,8 @@ const ClientRegisterPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(slot);
     e.preventDefault();
-    // console.log(role);
-    // console.log(user);
 
-    console.log(bestWork);
     let bestWorkBase64 = "";
     if (bestWork.name) {
       bestWorkBase64 = await fileToBase64(bestWork);
@@ -111,7 +106,7 @@ const ClientRegisterPage = () => {
       crNo: crNo,
       bestWork: bestWorkBase64,
       description: description,
-      availability: slot.map((date) => dayjs(date.date).toISOString()),
+      availability: slot.map((date) => new Date(date).toISOString()),
       // selectedSession: selectedSession,
     };
 
@@ -120,11 +115,13 @@ const ClientRegisterPage = () => {
     try {
       if (client && Object.keys(client).length > 0) {
         console.log("attempt to update");
-        const res = await axios.put(`${BASE_URL}/client/${id}`, clientDetails, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await axios
+          .put(`${BASE_URL}/client/${id}`, clientDetails, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .catch((err) => console.log(err));
 
         dispatch(setClient(res.data.data.client));
         navigate("/client/dashboard");
