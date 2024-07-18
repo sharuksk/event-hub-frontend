@@ -11,7 +11,7 @@ const Header = () => {
     <header className="border-gray-200 flex flex-row bg-primary">
       <div className="flex p-6 gap-[640px] text-white">
         <p className="text-2xl font-bold">
-          Welcome to {user.role === "User" ? "User" : "Ventar"} Dashboard
+          Welcome to {user.role === "User" ? "User" : "Ventor"} Dashboard
         </p>
         <NavLink to="#" className="flex items-center">
           <div className="flex gap-2 ">

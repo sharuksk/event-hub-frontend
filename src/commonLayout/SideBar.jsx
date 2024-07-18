@@ -40,7 +40,7 @@ const SideBar = () => {
         <h1 className="text-2xl font-bold text-foreground ">Qatar Event Hub</h1>
       </div>
       <div className="flex gap-3">
-        {client && client.bestWork ? (
+        {user && user.role.toLowerCase() === "ventor" ? (
           <img
             onClick={handleUpdate}
             className="h-14 w-14 rounded-full border-[3px] border-blue-900 cursor-pointer"
