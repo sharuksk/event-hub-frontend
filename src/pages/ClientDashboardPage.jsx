@@ -22,6 +22,7 @@ const ClientDashboardPage = () => {
       await axios
         .get(BASE_URL + "/items/user/" + client._id)
         .then((res) => {
+          console.log(res.data);
           const data = res.data.Items;
           // console.log(data);
           dispatch(clearItems());
