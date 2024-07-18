@@ -22,6 +22,7 @@ const ClientDashboardPage = () => {
         .get(BASE_URL + "/items/user/" + user.id)
         .then((res) => {
           const data = res.data.Items;
+          // console.log(data);
           dispatch(clearItems());
           data.map((d) => {
             dispatch(addItem(d));
@@ -69,7 +70,7 @@ const ClientDashboardPage = () => {
       const res = await axios.get(BASE_URL + "/types");
       console.log(res);
       const roleArray = res.data.types.filter(
-        (type) => type._id === client.role,
+        (type) => type._id === client.role
       );
       setRole(roleArray[0]?.type);
     };

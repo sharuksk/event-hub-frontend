@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { StaticDatePicker, PickersDay } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import { format, parseISO, isBefore, startOfDay } from "date-fns";
 
 const BookSlots = ({ close, slot, setSlot }) => {
   const [selectedDates, setSelectedDates] = useState(
-    slot.map((s) => dayjs(s.date).format("YYYY-MM-DD"))
+    slot.map((s) => format(parseISO(s), "yyyy-MM-dd"))
   );
 
   useEffect(() => {
-    setSelectedDates(slot.map((s) => dayjs(s.date).format("YYYY-MM-DD")));
+    setSelectedDates(slot.map((s) => format(parseISO(s), "yyyy-MM-dd")));
   }, [slot]);
 
   const handleDateChange = (date) => {
-    const formattedDate = dayjs(date).format("YYYY-MM-DD");
-    if (selectedDates.includes(formattedDate)) {
-      setSelectedDates(selectedDates.filter((d) => d !== formattedDate));
-    } else {
-      setSelectedDates([...selectedDates, formattedDate]);
+    try {
+      const formattedDate = format(date, "yyyy-MM-dd");
+      if (selectedDates.includes(formattedDate)) {
+        setSelectedDates(selectedDates.filter((d) => d !== formattedDate));
+      } else {
+        setSelectedDates([...selectedDates, formattedDate]);
+      }
+    } catch (error) {
+      console.error("Error formatting date:", error);
     }
   };
 
   const isDateDisabled = (date) => {
-    return dayjs(date).isBefore(dayjs().startOf("day"));
+    return isBefore(date, startOfDay(new Date()));
   };
 
   const handleButton = () => {
-    const availability = selectedDates.map((date) => ({
-      date: dayjs(date).toISOString(),
-      isAvailable: true,
-    }));
-
+    const availability = selectedDates.map((date) =>
+      new Date(date).toISOString()
+    );
     setSlot(availability);
-    console.log(availability);
     close();
   };
 
@@ -51,13 +52,13 @@ const BookSlots = ({ close, slot, setSlot }) => {
         </div>
         <div className="p-6">
           <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
               <StaticDatePicker
                 displayStaticWrapperAs="desktop"
                 value={null}
                 onChange={handleDateChange}
                 renderDay={(day, _value, DayComponentProps) => {
-                  const formattedDate = dayjs(day).format("YYYY-MM-DD");
+                  const formattedDate = format(day, "yyyy-MM-dd");
                   const isSelected = selectedDates.includes(formattedDate);
                   const isDisabled = isDateDisabled(day);
                   return (
@@ -83,27 +84,23 @@ const BookSlots = ({ close, slot, setSlot }) => {
             ))}
           </div>
           {/* <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                        <h2 className="text-lg font-semibold mb-2">Session</h2>
-                        <div className="flex justify-around">
-                            {["Day", "Noon", "Evening", "Night"].map(
-                                (session) => (
-                                    <button
-                                        key={session}
-                                        className={`p-2 rounded-md border ${
-                                            selectedSession === session
-                                                ? "bg-black text-white"
-                                                : "bg-white"
-                                        }`}
-                                        onClick={() =>
-                                            setSelectedSession(session)
-                                        }
-                                    >
-                                        {session}
-                                    </button>
-                                )
-                            )}
-                        </div>
-                    </div> */}
+            <h2 className="text-lg font-semibold mb-2">Session</h2>
+            <div className="flex justify-around">
+              {["Day", "Noon", "Evening", "Night"].map((session) => (
+                <button
+                  key={session}
+                  className={`p-2 rounded-md border ${
+                    selectedSession === session
+                      ? "bg-black text-white"
+                      : "bg-white"
+                  }`}
+                  onClick={() => setSelectedSession(session)}
+                >
+                  {session}
+                </button>
+              ))}
+            </div>
+          </div> */}
           <div className="flex justify-center">
             <button
               onClick={handleButton}
