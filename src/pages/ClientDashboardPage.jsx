@@ -18,9 +18,11 @@ const ClientDashboardPage = () => {
 
   useEffect(() => {
     const getItems = async () => {
+      console.log(BASE_URL + "/items/user/" + user.id);
       await axios
-        .get(BASE_URL + "/items/user/" + user.id)
+        .get(BASE_URL + "/items/user/" + client._id)
         .then((res) => {
+          console.log(res.data);
           const data = res.data.Items;
           dispatch(clearItems());
           data.map((d) => {
