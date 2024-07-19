@@ -91,7 +91,7 @@ const PasswordInputBox = ({ placeholder, value, setValue }) => {
               </div>
             </div>
             <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-400">
-              Ventor
+              Vendor
             </p>
           </label>
         </div>
