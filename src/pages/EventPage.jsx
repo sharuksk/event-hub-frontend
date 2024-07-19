@@ -23,7 +23,7 @@ const EventPage = () => {
   useEffect(() => {
     const getBookings = async () => {
       try {
-        console.log(user);
+        console.log(BASE_URL + "/bookings/" + client._id);
         // Get bookings
         const bookingsResponse = await axios.get(
           BASE_URL + "/bookings/" + client._id,
