@@ -275,7 +275,7 @@ const PhotographySelection = ({
   };
 
   const photographies = items.filter(
-    (service) => service?.typeId?.type?.toLowerCase() === "photography"
+    (service) => service?.typeId?.type?.toLowerCase() === "photograph"
   );
   console.log(photographies);
   const availablePhotographies = photographies.filter(
