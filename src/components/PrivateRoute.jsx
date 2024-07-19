@@ -12,7 +12,7 @@ export const PrivateRoute = () => {
   const { user } = useSelector((state) => state.user);
   console.log(user);
   if (!user?.id) return <Navigate to="/" />;
-  return user.role.toLowerCase() === "ventor" ? (
+  return user.role.toLowerCase() === "client" ? (
     <Outlet />
   ) : (
     <Navigate to="/" />

@@ -108,7 +108,7 @@ const ClientDashboardPage = () => {
       <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold  text-foreground">
-            Ventor Details
+            Vendor Details
           </h2>
           <Link to="/client/create">
             <button className="bg-primary text-white px-4 py-2 rounded-[25px]">

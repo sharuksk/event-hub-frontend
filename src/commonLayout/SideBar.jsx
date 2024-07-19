@@ -40,7 +40,7 @@ const SideBar = () => {
         <h1 className="text-2xl font-bold text-foreground ">Qatar Event Hub</h1>
       </div>
       <div className="flex gap-3">
-        {user && user.role.toLowerCase() === "ventor" ? (
+        {user && user.role.toLowerCase() === "client" ? (
           <img
             onClick={handleUpdate}
             className="h-14 w-14 rounded-full border-[3px] border-blue-900 cursor-pointer"
@@ -62,7 +62,7 @@ const SideBar = () => {
               {user ? user.email : "isabellasingh@gmail.com"}
             </li>
             <li className="font-normal text-muted-foreground">
-              Role - {user ? user.role : ""}
+              Role - {user && user.role === "client" ? "Vendor" : "User"}
             </li>
           </ul>
         </nav>
