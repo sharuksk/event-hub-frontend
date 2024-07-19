@@ -256,11 +256,10 @@ const DecorationSelection = ({
   const decorations = items.filter(
     (service) => service?.typeId?.type?.toLowerCase() === "decoration"
   );
-
-  const availableDecorations = decorations.filter(
-    (decoration) =>
-      !selectedDates.some((date) => decoration.dates.includes(date))
-  );
+  const availableDecorations = decorations.filter((decoration) => { 
+    const unavailableDates = decoration.dates.map(date => dayjs(date).format("YYYY-MM-DD"));
+    return selectedDates.every(date => !unavailableDates.includes(date));
+  });
   useEffect(() => {
     const getData = async () => {
       try {

@@ -278,10 +278,10 @@ const PhotographySelection = ({
     (service) => service?.typeId?.type?.toLowerCase() === "photograph"
   );
   console.log(photographies);
-  const availablePhotographies = photographies.filter(
-    (photography) =>
-      !selectedDates.some((date) => photography.dates.includes(date))
-  );
+  const availablePhotographies = photographies.filter((photography) => { 
+    const unavailableDates = photography.dates.map(date => dayjs(date).format("YYYY-MM-DD"));
+    return selectedDates.every(date => !unavailableDates.includes(date));
+  });
 
   console.log(availablePhotographies);
 
