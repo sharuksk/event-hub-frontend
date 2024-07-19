@@ -23,14 +23,23 @@ const VenueDetailsModal = ({ open, handleClose, venue, handleVenueSelect }) => {
   console.log(venue);
 
   return (
-    <Modal open={open} onClose={handleClose} sx={{ ml: 38 }}>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        mb: 20,
+      }}
+    >
       <Box
         sx={{
           position: "absolute",
           top: "60%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 1550,
+          width: 1400,
           height: 700,
           bgcolor: "whitesmoke",
           boxShadow: 24,
@@ -259,6 +268,7 @@ const VenueSelection = ({
       try {
         const data = await axios.get(BASE_URL + "/items");
         setItems(data.data.items);
+        console.log(data.data.items);
       } catch (error) {
         console.log(error);
       }

@@ -50,7 +50,7 @@ const StyledTab = styled((props) => <Tab {...props} />)(
     "&.Mui-focusVisible": {
       backgroundColor: "rgba(100, 95, 228, 0.32)",
     },
-  }),
+  })
 );
 
 const BookedEvents = () => {
@@ -94,10 +94,10 @@ const BookedEvents = () => {
   ];
 
   const upcomingEvents = bookedEvents.filter(
-    (event) => new Date(event.bookings[0].date[0]) >= new Date(),
+    (event) => new Date(event.bookings[0].date[0]) >= new Date()
   );
   const pastEvents = bookedEvents.filter(
-    (event) => new Date(event.bookings[0].date[0]) < new Date(),
+    (event) => new Date(event.bookings[0].date[0]) < new Date()
   );
 
   const eventsToDisplay = selectedTab === 0 ? upcomingEvents : pastEvents;
@@ -135,7 +135,7 @@ const BookedEvents = () => {
           px: 10,
         }}
       >
-        <Typography variant="h4" gutterBottom color="whitesmoke" sx={{ mt: 0 }}>
+        <Typography variant="h4" gutterBottom sx={{ mt: 0 }}>
           Booked Events
         </Typography>
         <StyledTabs

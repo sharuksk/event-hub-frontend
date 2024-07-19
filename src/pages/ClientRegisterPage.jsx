@@ -44,7 +44,7 @@ const ClientRegisterPage = () => {
   const [workExperience, setWorkExperience] = useState(
     client?.workExperience || ""
   );
-  const [location, setLocation] = useState(client?.location || "");
+  const [location, setLocation] = useState(client?.location || "Doha, Qatar");
   const [contact, setContact] = useState(client?.contact || "");
   const [qId, setQId] = useState(client?.qId || "");
   const [crNo, setCrNo] = useState(client?.crNo || "");
@@ -161,7 +161,7 @@ const ClientRegisterPage = () => {
             <label className="block ">First Name :</label>
             <input
               type="text"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
@@ -170,7 +170,7 @@ const ClientRegisterPage = () => {
             <label className="block ">Last Name :</label>
             <input
               type="text"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -179,7 +179,7 @@ const ClientRegisterPage = () => {
             <label className="block ">Email :</label>
             <input
               type="email"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -187,7 +187,7 @@ const ClientRegisterPage = () => {
           <div>
             <label className="block ">Role :</label>
             <select
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
@@ -202,7 +202,7 @@ const ClientRegisterPage = () => {
             <label className="block ">Work Experience :</label>
             <input
               type="text"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={workExperience}
               onChange={(e) => setWorkExperience(e.target.value)}
             />
@@ -210,19 +210,19 @@ const ClientRegisterPage = () => {
           <div>
             <label className="block ">Location :</label>
             <select
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             >
-              <option>Doha, Qatar</option>
-              <option>Chennai, India</option>
+              <option value="Doha, Qatar">Doha, Qatar</option>
+              <option value="Chennai, India">Chennai, India</option>
             </select>
           </div>
           <div>
             <label className="block ">Contact :</label>
             <input
               type="text"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
             />
@@ -233,7 +233,7 @@ const ClientRegisterPage = () => {
             <label className="block ">QID :</label>
             <input
               type="text"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={qId}
               onChange={(e) => setQId(e.target.value)}
             />
@@ -242,7 +242,7 @@ const ClientRegisterPage = () => {
             <label className="block ">CR NO :</label>
             <input
               type="text"
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
               value={crNo}
               onChange={(e) => setCrNo(e.target.value)}
             />
@@ -294,7 +294,7 @@ const ClientRegisterPage = () => {
           <div>
             <label className="block ">Description :</label>
             <textarea
-              className="mt-1 p-3 w-full border border-r-2 shadow-lg rounded-2xl bg-input"
+              className="mt-1 p-3 w-full border border-r-2 shadow-custom rounded-2xl bg-input"
               rows="4"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -304,7 +304,7 @@ const ClientRegisterPage = () => {
             <label className="block ">Availability for Events :</label>
             <button
               onClick={handleOpen}
-              className="mt-1 p-3 w-[270px] border border-r-2 shadow-lg rounded-full bg-input"
+              className="mt-1 p-3 w-[270px] border border-r-2 shadow-custom rounded-full bg-input"
             >
               Update your visibility <span className="text-[#24c690]">→</span>
             </button>

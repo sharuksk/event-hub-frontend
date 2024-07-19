@@ -64,7 +64,7 @@ const ClientServices = () => {
       data.append("portfolio", portfolio);
     } else if (role?.type === "Decoration") {
       decorationImages.forEach((image) =>
-        data.append("decorationImages", image),
+        data.append("decorationImages", image)
       );
     }
     console.log(data);
@@ -163,7 +163,7 @@ const ClientServices = () => {
             />
           )}
 
-          {role.type == "Photography" && (
+          {role.type == "Photograph" && (
             <PhotographyService options={portfolio} setOptions={setPortfolio} />
           )}
 

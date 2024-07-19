@@ -18,7 +18,7 @@ const ClientDashboardPage = () => {
 
   useEffect(() => {
     const getItems = async () => {
-      console.log(BASE_URL + "/items/user/" + user.id);
+      // console.log(user.id);
       await axios
         .get(BASE_URL + "/items/user/" + client._id)
         .then((res) => {
@@ -108,67 +108,13 @@ const ClientDashboardPage = () => {
       <div className=" rounded-lg shadow-md mb-6 h-auto p-4 bg-accent ">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold  text-foreground">
-            Client Details
+            Ventor Details
           </h2>
           <Link to="/client/create">
             <button className="bg-primary text-white px-4 py-2 rounded-[25px]">
               Add Services
             </button>
           </Link>
-        </div>
-        <div className="bg-purple-100 p-4 rounded-lg mb-6 flex justify-between items-center">
-          <div>
-            <p className="text-xl font-semibold">
-              {client
-                ? client.firstName + " " + client.lastName
-                : "Isabella Singh"}
-            </p>
-            <p className="text-gray-700">Role: {client ? role : ""}</p>
-            <p className="text-gray-700">
-              Work Experience: {client ? client.workExperience : ""} years
-            </p>
-            <p className="text-gray-700">
-              Location: {client ? client.location : ""}
-            </p>
-          </div>
-          <button
-            onClick={handleUpdate}
-            className="bg-primary text-white px-4 py-2 rounded-lg"
-          >
-            Update Profile
-          </button>
-        </div>
-
-        {items.length > 0 && (
-          <h2 className="text-2xl font-semibold mb-4">Service Details</h2>
-        )}
-
-        <div className="space-y-4">
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white border-2 border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 flex justify-between"
-            >
-              <div>
-                <p className="text-lg font-semibold mb-2">Name: {item.name}</p>
-                <p className="text-gray-600 mb-2">
-                  Description: {item.description}
-                </p>
-                <p className="text-gray-600 mb-2">
-                  Contact: {item.contactInfo}
-                </p>
-                <p className="text-gray-600">Location: {item.location}</p>
-              </div>
-              <div>
-                <button
-                  onClick={() => handleDelete(item._id)}
-                  className="bg-primary text-white p-2 rounded-lg"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
         </div>
 
         <div className="p-8 flex flex-col gap-1">
@@ -223,6 +169,60 @@ const ClientDashboardPage = () => {
           <button className="bg-primary rounded-lg text-white p-4 pr-20 pl-20">
             View Tasks
           </button>
+        </div>
+        {/* <div className="bg-purple-100 p-4 rounded-lg mb-6 flex justify-between items-center">
+          <div>
+            <p className="text-xl font-semibold">
+              {client
+                ? client.firstName + " " + client.lastName
+                : "Isabella Singh"}
+            </p>
+            <p className="text-gray-700">Role: {client ? role : ""}</p>
+            <p className="text-gray-700">
+              Work Experience: {client ? client.workExperience : ""} years
+            </p>
+            <p className="text-gray-700">
+              Location: {client ? client.location : ""}
+            </p>
+          </div>
+          <button
+            onClick={handleUpdate}
+            className="bg-primary text-white px-4 py-2 rounded-lg"
+          >
+            Update Profile
+          </button>
+        </div> */}
+
+        {items.length > 0 && (
+          <h2 className="text-2xl font-semibold mb-4 mt-10">Service Details</h2>
+        )}
+
+        <div className="space-y-4">
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="bg-white border-2 border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 flex justify-between"
+            >
+              <div>
+                <p className="text-lg font-semibold mb-2">Name: {item.name}</p>
+                <p className="text-gray-600 mb-2">
+                  Description: {item.description}
+                </p>
+                <p className="text-gray-600 mb-2">
+                  Contact: {item.contactInfo}
+                </p>
+                <p className="text-gray-600">Location: {item.location}</p>
+              </div>
+              <div>
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="bg-primary text-white p-2 rounded-lg"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

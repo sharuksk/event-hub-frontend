@@ -108,7 +108,7 @@ const UserProfile = () => {
     try {
       const croppedImage = await getCroppedImg(
         selectedImage,
-        croppedAreaPixels,
+        croppedAreaPixels
       );
       setProfilePic(croppedImage);
       setIsCropModalOpen(false);
@@ -125,7 +125,7 @@ const UserProfile = () => {
 
   return (
     <ContainerStyled>
-      <Typography variant="h4" gutterBottom color={"whitesmoke"}>
+      <Typography variant="h4" gutterBottom>
         User Profile
       </Typography>
       <PaperStyled elevation={3}>
