@@ -254,7 +254,7 @@ const CateringSelection = ({
   };
 
   const caterings = items.filter(
-    (service) => service.typeId.type.toLowerCase() === "catring"
+    (service) => service.typeId.type.toLowerCase() === "catering"
   );
 
   const availableCaterings = caterings.filter(
