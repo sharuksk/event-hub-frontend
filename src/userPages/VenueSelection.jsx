@@ -259,9 +259,11 @@ const VenueSelection = ({
   // const availableVenues = venues.filter((venue) =>
   //     selectedDates.some((date) => venue?.dates?.includes(date)),
   // );
-  const availableVenues = venues.filter(
-    (venue) => !selectedDates.some((date) => venue?.dates?.includes(date))
-  );
+
+  const availableVenues = venues.filter((venue) => { 
+    const unavailableDates = venue.dates.map(date => dayjs(date).format("YYYY-MM-DD"));
+    return selectedDates.every(date => !unavailableDates.includes(date));
+  });
 
   useEffect(() => {
     const getData = async () => {

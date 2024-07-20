@@ -54,7 +54,7 @@ const SideBar = () => {
         )}
 
         <nav>
-          <ul className="text-sm ">
+          <ul className="text-sm">
             <li className="font-bold text-foreground">
               {user ? user.name : "Isabella Singh"}
             </li>

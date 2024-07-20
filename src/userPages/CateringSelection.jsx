@@ -257,9 +257,10 @@ const CateringSelection = ({
     (service) => service.typeId.type.toLowerCase() === "catering"
   );
 
-  const availableCaterings = caterings.filter(
-    (catering) => !selectedDates.some((date) => catering.dates.includes(date))
-  );
+  const availableCaterings = caterings.filter((catering) => { 
+    const unavailableDates = catering.dates.map(date => dayjs(date).format("YYYY-MM-DD"));
+    return selectedDates.every(date => !unavailableDates.includes(date));
+});
 
   useEffect(() => {
     const getData = async () => {

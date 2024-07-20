@@ -41,7 +41,11 @@ const EventPage = () => {
             const dates = booking.date.map((d) => formatDate(d));
             //clientData
             const clientData = await axios.get(
+<<<<<<< HEAD
               BASE_URL + "/client/" + booking.clientId,
+=======
+              BASE_URL + "/client/" + booking.clientId
+>>>>>>> 92e868c10055357b888a9cf3274ce7dce21ba2f5
             );
 
             //itemData
