@@ -171,7 +171,8 @@ const EventPage = () => {
           <p>Booked By: {data.booked}</p>
           <p>Contact: {data.contact}</p>
           <p>Mail: {data.mail}</p>
-          <p>status: {data.isConfirmed ? "Booked" : "Confirmed"}</p>
+          {console.log(data.isConfirmed)}
+          <p>status: {data.isConfirmed ? "Confirmed" : "Booked"}</p>
           <div className="flex gap-2 items-center text-[14px]">
             <input
               type="checkbox"

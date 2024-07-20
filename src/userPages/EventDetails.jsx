@@ -126,8 +126,11 @@ const EventDetails = () => {
 								className="object-fit w-full h-full rounded-[15px]"
 							/>
 						</div>
-						<div className="bg-green-300 rounded-[25px] p-3 capitalize text-black">
-							{event[0]?.status}
+						<div
+							className={` rounded-[25px] p-3 capitalize text-black ${event[0]?.isConfirmed ? "bg-green-300" : "bg-red-300"}`}
+						>
+							{console.log(event[0]?.isConfirmed)}
+							{event[0]?.isConfirmed ? "Confirmed" : "Booked"}
 						</div>
 					</div>
 					<div className="w-1/2">
