@@ -62,7 +62,8 @@ const SideBar = () => {
               {user ? user.email : "isabellasingh@gmail.com"}
             </li>
             <li className="font-normal text-muted-foreground">
-              Role - {user && user.role === "client" ? "Vendor" : "User"}
+              Role -{" "}
+              {user && user.role.toLowerCase() === "client" ? "Vendor" : "User"}
             </li>
           </ul>
         </nav>
@@ -71,7 +72,11 @@ const SideBar = () => {
         <ul className="flex flex-col gap-2 font-normal text-muted-foreground">
           <li>
             <NavLink
-              to={user.role === "User" ? "/user/profile" : "/client/dashboard"}
+              to={
+                user.role.toLowerCase() === "user"
+                  ? "/user/profile"
+                  : "/client/dashboard"
+              }
               className={`flex items-center gap-6    hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
                 location.pathname === "#"
               }`}
@@ -83,7 +88,11 @@ const SideBar = () => {
 
           <li>
             <NavLink
-              to={user.role === "User" ? "/user/events" : "/client/events"}
+              to={
+                user.role.toLowerCase() === "user"
+                  ? "/user/events"
+                  : "/client/events"
+              }
               className={`flex items-center gap-6   hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
                 location.pathname === "#"
               }`}
@@ -94,7 +103,7 @@ const SideBar = () => {
           </li>
           <li>
             <NavLink
-              to={user.role === "User" ? "/user/settings" : "#"}
+              to={user.role.toLowerCase() === "user" ? "/user/settings" : "#"}
               className={`flex items-center gap-6  hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
                 location.pathname === "#"
               }`}
@@ -105,7 +114,7 @@ const SideBar = () => {
           </li>
           <li>
             <NavLink
-              to={user.role === "User" ? "#" : "#"}
+              to={user.role.toLowerCase() === "user" ? "#" : "#"}
               className={`flex items-center gap-6 hover:bg-accent rounded-md py-3 px-4 transition duration-300 ${
                 location.pathname === "#"
               }`}

@@ -54,7 +54,7 @@ const ClientServices = () => {
     data.append("description", description);
     data.append("contactInfo", contactInfo);
     data.append("price", price);
-    data.append("dates", client.availability);
+    //data.append("dates", client.availability);
     if (role?.type === "Catering") {
       data.append("menuOptions", menuOptions);
     } else if (role?.type === "Venue") {
