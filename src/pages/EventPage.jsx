@@ -41,11 +41,7 @@ const EventPage = () => {
             const dates = booking.date.map((d) => formatDate(d));
             //clientData
             const clientData = await axios.get(
-<<<<<<< HEAD
               BASE_URL + "/client/" + booking.clientId,
-=======
-              BASE_URL + "/client/" + booking.clientId
->>>>>>> 92e868c10055357b888a9cf3274ce7dce21ba2f5
             );
 
             //itemData
@@ -175,7 +171,7 @@ const EventPage = () => {
           <p>Booked By: {data.booked}</p>
           <p>Contact: {data.contact}</p>
           <p>Mail: {data.mail}</p>
-          <p>status: {data.status}</p>
+          <p>status: {data.isConfirmed ? "Booked" : "Confirmed"}</p>
           <div className="flex gap-2 items-center text-[14px]">
             <input
               type="checkbox"
