@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import storageSession from "redux-persist/lib/storage/session";
 import userReducer from "../features/userSlice";
 import clientReducer from "../features/clientSlice";
+import userDetailReducer from "../features/userDetailSlice";
 import itemReducer from "../features/itemSlice";
 
 const persistConfig = {
@@ -14,6 +15,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
+  userDetail: userDetailReducer,
   client: clientReducer,
   item: itemReducer,
 });

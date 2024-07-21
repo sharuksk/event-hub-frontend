@@ -21,6 +21,7 @@ import UserProfile from "./userPages/UserProfile";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { UserPrivateRoute } from "./userComponents/UserPrivateRoute";
 import Layout from "./commonLayout/Layout";
+import UserRegisterPage from "./userPages/UserRegisterPage";
 
 const theme = createTheme({
   palette: {
@@ -52,7 +53,7 @@ function App() {
           <Route element={<UserPrivateRoute />}>
             <Route path="/user/" element={<Layout />}>
               <Route path="dashboard" element={<OpenDashboard />} />
-
+              <Route path="register" element={<UserRegisterPage />} />
               <Route path="events" element={<BookedEvents />} />
               <Route path="settings" element={<Settings />} />
               <Route

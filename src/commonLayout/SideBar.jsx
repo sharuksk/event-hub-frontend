@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../features/userSlice";
 import { clearItems } from "../features/itemSlice";
 import { setClient } from "../features/clientSlice";
+import { setUserDetail } from "../features/userDetailSlice";
 
 const SideBar = () => {
   const location = useLocation();
@@ -19,11 +20,11 @@ const SideBar = () => {
 
   const { user } = useSelector((state) => state.user);
   const { client } = useSelector((state) => state.client);
-
-  console.log(client);
+  const { userDetail } = useSelector((state) => state.userDetail);
 
   const handlesignOut = () => {
     dispatch(setUser({}));
+    dispatch(setUserDetail({}));
     dispatch(setClient({}));
     dispatch(clearItems());
     navigate("/");
@@ -32,6 +33,11 @@ const SideBar = () => {
   const handleUpdate = () => {
     const clientId = client._id;
     navigate("/client/register", { state: { clientId } });
+  };
+
+  const handleUserUpdate = () => {
+    const userId = userDetail._id;
+    navigate("/user/register", { state: { userId } });
   };
 
   return (
@@ -48,18 +54,35 @@ const SideBar = () => {
           />
         ) : (
           <img
-            className="h-14 w-14 rounded-full border-[3px] border-blue-900"
-            src={Image}
+            onClick={handleUserUpdate}
+            className="h-14 w-14 rounded-full border-[3px] border-blue-900 cursor-pointer"
+            src={
+              userDetail && userDetail.profile_photo
+                ? userDetail.profile_photo
+                : Image
+            }
           />
         )}
 
         <nav>
           <ul className="text-sm">
             <li className="font-bold text-foreground">
-              {user ? user.name : "Isabella Singh"}
+              {client && client.firstName
+                ? client.firstName + " " + client.lastName
+                : userDetail && userDetail.firstName
+                ? userDetail.firstName + " " + userDetail.lastName
+                : user
+                ? user.name
+                : "Isabella Singh"}
             </li>
             <li className="underline underline-offset-1 font-normal text-muted-foreground">
-              {user ? user.email : "isabellasingh@gmail.com"}
+              {client && client.email
+                ? client.email
+                : userDetail && userDetail.email
+                ? userDetail.email
+                : user
+                ? user.email
+                : "isabellasingh@gmail.com"}
             </li>
             <li className="font-normal text-muted-foreground">
               Role -{" "}

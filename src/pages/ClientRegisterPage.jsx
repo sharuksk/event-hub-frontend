@@ -248,7 +248,7 @@ const ClientRegisterPage = () => {
             />
           </div>
           <div>
-            <label className="block ">Show your best work :</label>
+            <label className="block ">Profile Picture :</label>
 
             <div className="flex w-full items-center justify-center">
               <Label

@@ -54,7 +54,7 @@ const Signup = () => {
       console.log(res.data);
       console.log(res.data.data);
       dispatch(setUser(res.data.data));
-      if (role.toLowerCase() === "user") navigate("/user/events");
+      if (role.toLowerCase() === "user") navigate("/user/register");
       else navigate("/client");
     } catch (error) {
       console.log("Error occured");
